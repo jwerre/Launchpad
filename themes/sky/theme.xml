@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<theme>
+    <title>Sky</title>
+    <description>
+    Nulla facilisi. Pellentesque quis eros non ipsum sodales sagittis id vel urna. Nullam vulputate scelerisque tincidunt. Proin sagittis fringilla erat, vitae ultricies ipsum feugiat sit amet. In hac habitasse platea dictumst. In a nisi nulla. Fusce et sem mauris. Nam quis porta risus. Donec ultricies condimentum erat a congue. Praesent euismod tristique lacinia. Sed ut risus enim. Suspendisse ligula magna, tempor eu lacinia ac, adipiscing a ligula.
+    </description>
+    <preview>http://localhost/001_LAUNCHPAD/site/themes/sky/preview.png</preview>
+    <category>
+        <name>blog</name>
+        <snippet>title</snippet>
+        <snippet>author</snippet>
+    </category>
+    <category>
+        <name>event</name>
+        <snippet>kind</snippet>
+        <snippet>date</snippet>
+    </category>
+    <template>
+        <name>Contact</name>
+        <snippet>phone</snippet>
+        <snippet>address</snippet>
+    </template>
+    <template>
+        <name>Home</name>
+        <snippet>twitter</snippet>
+        <snippet>facebook</snippet>
+        <snippet>peter</snippet>
+        <snippet>pan</snippet>
+    </template>
+</theme>

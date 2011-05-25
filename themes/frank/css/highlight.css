@@ -1,0 +1,44 @@
+/**
+ * This stylesheet gives every CSS element a particular
+ * color and border. This can be very usefull when
+ * creating the basic css structure 
+ * It will help you to spot problems in your CSS structure
+ * much faster
+ */
+
+div {
+	background-color: #FCF;
+}
+span {
+	background-color: #ffccdf;	
+}
+ul, ol {
+	background-color: #eeccff;	
+}
+li {
+	background-color: #ccd2ff;	
+}
+h1, h2, h3, h4, h5, h6 {
+	background-color: #cceaff;	
+}
+p {
+	background-color: #ccffec;	
+}
+table {
+	background-color: #ccffdc;	
+}
+td, th {
+	background-color: #eaffcc;	
+}
+blockquote {
+	background-color: #fcffcc;	
+}
+form {
+	background-color: #ccffec;	
+}
+textarea, input, select, button, label {
+	background-color: #ffeccc;	
+}
+a {
+	background-color: #ffcccc;	
+}

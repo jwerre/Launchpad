@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<theme>
+    <title>Frank</title>
+    <description>
+        This is the site template for Frank Yamamoto for Citiy Councel
+    </description>
+    <preview>http://localhost/001_LAUNCHPAD/site/themes/sky/preview.png</preview>
+    <category>
+        <name>Blog</name>
+        <snippet>title</snippet>
+        <snippet>author</snippet>
+    </category>
+    <template>
+        <name>Contact</name>
+        <snippet>phone</snippet>
+        <snippet>address</snippet>
+    </template>
+    <template>
+        <name>Home</name>
+    </template>
+    <template>
+        <name>Contact</name>
+    </template>
+    <template>
+        <name>Gallery</name>
+    </template>
+</theme>
