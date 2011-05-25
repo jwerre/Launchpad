@@ -9,5 +9,6 @@ themes/**/*
 !themes/sky/*
 !themes/sky/**
 !themes/sky/**/*
+themes/sky/.DS_Store
 themes/sky/**/.DS_Store
 themes/sky/**/*.swp
