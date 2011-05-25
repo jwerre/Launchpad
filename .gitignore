@@ -1,0 +1,10 @@
+# sepcific files
+
+site/admin/cache/*
+site/uploads/*
+site/themes/**
+site/themes/**/*
+!site/themes/sky
+!site/themes/sky/*
+!site/themes/sky/**
+!site/themes/sky/**/*
