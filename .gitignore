@@ -1,5 +1,5 @@
 # sepcific files
-
+.DS_Store
 site/admin/cache/*
 site/uploads/*
 site/themes/**
