@@ -6,7 +6,6 @@
 	global $post;
 	global $category;
 	global $snippets;
-    // global $theme = str_replace();
 	
 	if( isset($_GET['page']) ){
 		$page = Page::find_by_id($_GET['page']);
