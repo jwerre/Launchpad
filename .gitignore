@@ -1,10 +1,10 @@
 # sepcific files
 .DS_Store
-site/admin/cache/*
-site/uploads/*
-site/themes/**
-site/themes/**/*
-!site/themes/sky
-!site/themes/sky/*
-!site/themes/sky/**
-!site/themes/sky/**/*
+admin/cache/*
+uploads/*
+themes/**
+themes/**/*
+!themes/sky
+!themes/sky/*
+!themes/sky/**
+!themes/sky/**/*
