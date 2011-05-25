@@ -1,5 +1,6 @@
 # sepcific files
 .DS_Store
+*.swp
 admin/cache/*
 uploads/*
 themes/**
@@ -8,3 +9,5 @@ themes/**/*
 !themes/sky/*
 !themes/sky/**
 !themes/sky/**/*
+themes/sky/**/.DS_Store
+themes/sky/**/*.swp
