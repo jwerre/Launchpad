@@ -22,8 +22,8 @@
 		
 		public $seperator = "";
 		public $current_page;
-		public $excludes; //an array of page ids not to include
-		public $includes; //an array of page ids to include (excludes all others)
+		public $exclude = NULL; //an array of page ids not to include
+		public $include = NULL; //an array of page ids to include (excludes all others)
 		
 		function __construct()
 		{
@@ -38,13 +38,18 @@
 		function output_nav()
 		{
 			$pages = array();
-			if( isset($this->includes) ){
-				$pages = Page::find_all_by_type('weight', ContentStatus::PUBLISHED, NULL, $this->includes);
-			}elseif( isset($this->excludes) ) {
-				$pages = Page::find_all_by_type('weight', ContentStatus::PUBLISHED, $this->excludes, NULL );
+			if( isset($this->include) ){
+                $sql = "SELECT id, title, slug FROM content WHERE type='".ContentType::PAGE."' AND status ='".ContentStatus::PUBLISHED."'";
+				$sql .= " AND id IN (".implode("," , $this->include ).")";
+                $sql .= " ORDER BY weight ASC";
+			}elseif( isset($this->exclude) ) {
+                $sql = "SELECT id, title, slug FROM content WHERE type='".ContentType::PAGE."' AND status ='".ContentStatus::PUBLISHED."'";
+				$sql .= " AND id NOT IN (".implode("," , $this->exclude ).")";
+                $sql .= " ORDER BY weight ASC";
 			}else{
-				$pages = Page::find_all_by_type();
+                $sql = "SELECT id, title, slug FROM content WHERE type='".ContentType::PAGE."' AND status ='".ContentStatus::PUBLISHED."' ORDER BY weight ASC";
 			}
+            $pages = Page::find_by_sql($sql);
 			if($pages) {
                 $nav = '<'. $this->root_tag .' class="'. $this->root_class .'">';
                 foreach ($pages as $page) {
@@ -94,36 +99,37 @@
 		 **/
 		function get_sitemap($exclude=NULL)
 		{
-			$pages = Page::find_published_by_type();
-			
-			if(isset($exclude)){
-				$pages = $this->remove_excuded( $pages, $exclude);
-			}
-			
+            $sql = "SELECT id, title, slug FROM content WHERE type='".ContentType::PAGE."' AND status ='".ContentStatus::PUBLISHED."'";
+			if( isset($this->exclude)) {
+			    $sql .= " AND id NOT IN (".implode("," , $this->exclude ).")";
+            }
+            $sql .= " ORDER BY weight ASC";
+            $pages = Page::find_by_sql($sql);
 			if ($pages) {
-                $nav = '';
+                $nav = '<ul>';
                 foreach ($pages as $page) {
                     if($page->parent_id == 0){
                         $children = $page->children();
                         $href = static::get_page_link($page);
                         if(count($children) > 0){
                             
-                            $nav .= '<h3><a href="'.$href.'">'.$page->title.'</a></h3>';
+                            $nav .= '<li class="'.$page->slug.'" ><span><a href="'.$href.'">'.$page->title.'</a></span></li>';
                             $nav .= '<ul>';
                             
                             foreach ($children as $child) {
                                 $href = static::get_page_link($child1);
                                 
                                 $last = (end($children) === $child) ? "last" : "";
-                                $nav .= '<li class="'.$last.'"><a href="'.$href.'">'.$child->title.'</a></li>';
+                                $nav .= '<li class="'.$page->slug.' '.$last.'"><a href="'.$href.'">'.$child->title.'</a></li>';
                             }
                             
                             $nav .= '</ul>';
                         }else{
-                            $nav .= '<h3><a href="'.$href.'">'.$page->title.'</a></h3>';
+                            $nav .= '<li class="'.$page->slug.'" ><span><a href="'.$href.'">'.$page->title.'</a></span></li>';
                         }
                     }
                 }
+                $nav .= '</ul>';
                 echo $nav;
             }
 		}
@@ -214,14 +220,30 @@
 			}
 			return $pages;
 		}
-		
-		public static function get_page_link($page)
+
+        /**
+         * Returns the url for a page or post
+         * 
+         * @param $page - the id or Conent object for which you want the link
+         * @param $include_tag - boolean - if true, returns the link in an anchor tag
+         * @return string
+         **/
+		public static function get_page_link($page, $include_tag=false)
 		{
+            if ( gettype($page) == 'integer'){
+                $sql = 'SELECT id, title, slug FROM content WHERE id ='. $page;
+                $result = Content::find_by_sql($sql); 
+                $page = $result[0];
+            }
 			$link = BASE_URL.'/index.php?page='.$page->id;
 			
 			if(CLEAN_URLS){
 				$link = ( defined('REWRITE_MAP') ) ? BASE_URL.'/'.$page->slug : BASE_URL.'/page/'.$page->id;				
 			}
+
+            if($include_tag){
+                $link = '<a href="'.$link.'"class="'.$page->slug.'" alt="'.$page->title.'">'.$page->title.'</a>';
+            }
 			
 			return $link;
 		}
