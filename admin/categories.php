@@ -39,10 +39,11 @@
 	}
 
     $categories = Category::find_all();
+    //TODO: Give a wanring if categories don't correspond to theme
     // $current_theme = simplexml_load_file( theme_directory().'/theme.xml' , 'SimpleXMLElement', LIBXML_NOBLANKS );
-    $current_theme = xml2array(theme_directory().'/theme.xml');
-    $suggested_categories = array();
-    echo array_search('name', $categories);
+    // $current_theme = xml2array(theme_directory().'/theme.xml');
+    // $suggested_categories = array();
+    // echo array_search('name', $categories);
     include_layout('header.php', 'layouts');
 ?>
 
@@ -51,11 +52,6 @@
     <?php if (!empty($categories)) : ?>
 	<ul id="category_list" class="content_list" >
     <?php foreach ($categories as $cat) :?>
-        <?php foreach ($current_theme['category'] as $key) {
-            if( $cat->name == $key['name'][0] ){
-                $suggested_categories[] = $key['name'][0];
-            }
-        } ?>
 		<li class="category clearfix" id="<?php echo $cat->id; ?>">
 			<a href="?id=<?php echo $cat->id ?>" title="<?php echo $cat->description; ?>" class=""><?php echo $cat->title;?></a>
             <nav class="small_btn right">

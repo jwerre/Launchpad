@@ -544,6 +544,10 @@ aside {
 .recent_box ul {
 	list-style: none;
 }
+.recent_box ul li{
+	list-style: none;
+    margin-bottom:10px;
+}
 
 /* SETTINGS */
 input#primary_color {
