@@ -2,6 +2,13 @@
 
 include_once '../../lib/initialize.php';
 $snippet_id = $_POST['id'];
+$is_option = (boolean) $_POST['isOption'];
 
-echo Snippet::delete_by_id($snippet_id) ? 'true': 'false';
+if($is_option){
+    $snippet = Options::find_by_id($snippet_id);
+}else{
+    $snippet = Snippet::find_by_id($snippet_id);
+}
+
+echo $snippet->delete() ? 'true' : 'false';
 ?>

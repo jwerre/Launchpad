@@ -3,8 +3,7 @@ window.log = function(){
   log.history = log.history || [];   // store logs to an array for reference
   log.history.push(arguments);
   if(this.console) console.log( Array.prototype.slice.call(arguments) );
-};
-
+}; 
 
 $(function() {
 	// HANDLE COOKIES
@@ -425,17 +424,16 @@ $(function() {
 		var snippetId = parent.find('input[type="hidden"]').val();
 		var snippetName = parent.find('input#snippet_name').val();
 		var snippetValue = parent.find('textarea#snippet_value').val();
+		var isOption = ($('#snippet_content_id').val() == 0) ? true : false ;
 
 		$.ajax({
 		  url: 'ajax/snippet_update.php',
 		  type: 'POST',
 		  dataType: 'json',
-		  data: {id: snippetId, name:snippetName, value:snippetValue},
+		  data: {id: snippetId, name:snippetName, value:snippetValue, isOption: isOption},
 		  complete: function(xhr, textStatus) {
-              log("complete");
 		  },
 		  success: function(data, textStatus, xhr) {
-                log(data);
 		  },
 		  error: function(xhr, textStatus, errorThrown) {
 		    //called when there is an error
@@ -449,11 +447,13 @@ $(function() {
 		var item = $(this);
         var parent = item.parents('.name_value');
 		var snippetId = parent.find('input[type="hidden"]').val();
+		var isOption = ($('#snippet_content_id').val() == 0) ? true : false ;
+
 		$.ajax({
 		  url: 'ajax/snippet_delete.php',
 		  type: 'POST',
 		  dataType: 'text',
-		  data: {id: snippetId},
+		  data: {id: snippetId, isOption: isOption},
 		  complete: function(xhr, textStatus) { },
 		  success: function(data, textStatus, xhr) {
 				if(data == 'true'){
