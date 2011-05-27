@@ -24,6 +24,14 @@
             <p class="center preview" style="float:none">
             <a href="themes.php"> <img src="<?php echo (isset($current_theme->preview) && !empty($current_theme->preview)) ? $current_theme->preview : theme_directory().'/preview.png'; ?>" alt="" /> </a>
             </p>
+            <?php if(isset($current_theme->options)): ?>
+            <h4>Suggested Custom Options</h4>
+            <ul style="margin-bottom:20px;">
+                <?php foreach($current_theme->options->name as $option): ?>
+                    <li><?php echo $option;  ?></li>
+                <?php endforeach; ?>
+            </ul>
+            <?php endif; ?>
 			<p><a href="themes.php" class="big_btn">Change Theme</a></p>
 		</div>
 	</fieldset>

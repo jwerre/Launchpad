@@ -40,7 +40,7 @@
 
     $categories = Category::find_all();
     //TODO: Give a wanring if categories don't correspond to theme
-    // $current_theme = simplexml_load_file( theme_directory().'/theme.xml' , 'SimpleXMLElement', LIBXML_NOBLANKS );
+    $current_theme = simplexml_load_file( theme_directory().'/theme.xml' , 'SimpleXMLElement', LIBXML_NOBLANKS );
     // $current_theme = xml2array(theme_directory().'/theme.xml');
     // $suggested_categories = array();
     // echo array_search('name', $categories);
@@ -81,6 +81,14 @@
 	</fieldset>
 </form>
 
+<?php if( isset($current_theme->category) && !empty($current_theme->category) ): ?>
+        <h4>Suggested Categories for this theme</h4>
+        <ul>
+            <?php foreach ($current_theme->category as $cat) : ?>
+            <li><?php echo ucwords($cat->name); ?></li>
+            <?php endforeach; ?>
+        </ul>
+<?php endif; ?>
 <div id="delete_category_dialog" class="ui-helper-hidden" title="Are you sure you want to delete this Category">
     <p><strong>This cannot be undone</strong> and will remove the Category from your site.</p>
 </div>

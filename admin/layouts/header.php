@@ -68,7 +68,7 @@
                             </ul>
                         </div>
                     </li>
-					<li><a href="<?php echo BASE_URL ?>">Visit Site</a></li>
+					<li><a href="<?php echo BASE_URL ?>" target="_blank">Visit Site</a></li>
 					<li><a href="logout.php">Logout</a></li>
 				</ul>
 			</nav>
