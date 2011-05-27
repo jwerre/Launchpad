@@ -70,8 +70,8 @@ class DatabasePDO {
 	public function execute($sql, $values=NULL)
 	{
 		$this->last_result = $this->connection->prepare($sql);
-		// print $sql."<br>";
-		// print implode(" , ", $values)."<br>";
+		// echo $sql."<br>";
+		// echo implode(" , ", $values)."<br>";
 		// try {
 			$this->last_result->execute($values);			
 		// } catch (PDOException $e) {
