@@ -417,21 +417,26 @@ $(function() {
 	});
 
 	// UPDATE SNIPPET
-	$('#snippet button.snippet_update').click( function(){
+	$('#snippet button.snippet_update').click( function(event){
 		
+        event.preventDefault();
 		var item = $(this);
         var parent = item.parents('.name_value');
 		var snippetId = parent.find('input[type="hidden"]').val();
 		var snippetName = parent.find('input#snippet_name').val();
 		var snippetValue = parent.find('textarea#snippet_value').val();
 		var isOption = ($('#snippet_content_id').val() == 0) ? true : false ;
-
 		$.ajax({
 		  url: 'ajax/snippet_update.php',
 		  type: 'POST',
 		  dataType: 'json',
 		  data: {id: snippetId, name:snippetName, value:snippetValue, isOption: isOption},
 		  complete: function(xhr, textStatus) {
+				if(data == 'false'){
+					parent.find('.warning_msg').remove();					
+					parent.prepend('<p class="warning_msg">Sorry, there was a problem deleting this snippet data</p>')
+					.find('.warning_msg').delay(3000).fadeOut( function(){ $(this).remove() } );
+				}
 		  },
 		  success: function(data, textStatus, xhr) {
 		  },
@@ -443,7 +448,9 @@ $(function() {
 	});
 	
 	// DELETE SNIPPET
-	$('#snippet button.snippet_delete').click( function(){
+	$('#snippet button.snippet_delete').click( function(event){
+
+        event.preventDefault();
 		var item = $(this);
         var parent = item.parents('.name_value');
 		var snippetId = parent.find('input[type="hidden"]').val();
