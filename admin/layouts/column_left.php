@@ -1,7 +1,10 @@
 <?php
-    $pages = Page::find_last_created(5);
-    $posts = Post::find_last_created(5);
-    $media_files = Media::find_last_created(6);
+    $limit = 5;
+    $page_sql = "SELECT id, title FROM content WHERE type='".ContentType::PAGE."' ORDER BY updated DESC LIMIT ".$limit;
+    $pages = Page::find_by_sql($page_sql);
+    $post_sql = "SELECT id, title FROM content WHERE type='".ContentType::POST."' ORDER BY updated DESC LIMIT ".$limit;
+    $posts = Page::find_by_sql($post_sql);
+    // $media_files = Media::find_last_created(6);
 ?>
 <aside>
     <?php if (!empty($pages)) : ?>
