@@ -429,16 +429,16 @@ $(function() {
 		$.ajax({
 		  url: 'ajax/snippet_update.php',
 		  type: 'POST',
-		  dataType: 'json',
+		  dataType: '',
 		  data: {id: snippetId, name:snippetName, value:snippetValue, isOption: isOption},
-		  complete: function(xhr, textStatus) {
-				if(data == 'false'){
+		  success: function(data, textStatus, xhr) {
+				if(data == 'true'){
+                    parent.effect( 'highlight', {}, 500);
+                }else{
 					parent.find('.warning_msg').remove();					
 					parent.prepend('<p class="warning_msg">Sorry, there was a problem deleting this snippet data</p>')
 					.find('.warning_msg').delay(3000).fadeOut( function(){ $(this).remove() } );
 				}
-		  },
-		  success: function(data, textStatus, xhr) {
 		  },
 		  error: function(xhr, textStatus, errorThrown) {
 		    //called when there is an error
@@ -461,7 +461,6 @@ $(function() {
 		  type: 'POST',
 		  dataType: 'text',
 		  data: {id: snippetId, isOption: isOption},
-		  complete: function(xhr, textStatus) { },
 		  success: function(data, textStatus, xhr) {
 				if(data == 'true'){
 					parent.hide('slow', function(){
