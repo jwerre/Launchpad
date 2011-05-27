@@ -235,13 +235,15 @@
 				foreach ($snippets as $data_obj => $value) {
                     if (array_key_exists($value->name, $simple)) {
                         if( gettype($simple[$value->name]) == 'string'){
-                            $simple[$value->name] = array();
+                            $old_val = $simple[$value->name];
+                            $simple[$value->name] = array( 0 => $old_val);
                         }
                         $simple[$value->name][] = $value->value;
                     }else{
                         $simple[$value->name] = $value->value;
                     }
                 }
+                return $simple;
 			}else{
 				return false;
 			}
