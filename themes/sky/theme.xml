@@ -2,10 +2,13 @@
 <theme>
     <title>Sky</title>
     <description>
-        The Default theme for Launchpad. It is a clean white site with a blue
-        nav bar and soft clouds in the backgound.
+        The Default theme for Launchpad. It is a clean white site with a blue nav bar and soft clouds in the backgound.
     </description>
     <preview>../themes/sky/preview.png</preview>
+    <options>
+        <name>facebook</name>
+        <name>twitter</name>
+    </options>
     <category>
         <name>blog</name>
         <snippet>title</snippet>
