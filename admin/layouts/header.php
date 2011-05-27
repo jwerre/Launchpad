@@ -90,7 +90,7 @@
 				<a href="media.php">Media</a>
 				<ul>
 					<li><a href="media_edit.php" class="upload_icn">Upload New Media</a></li>
-					<li><a href="media.php?type=images" class="image_icn">Images</a></li>
+					<li><a href="media.php?type=image" class="image_icn">Images</a></li>
 					<li><a href="media.php?type=pdf" class="pdf_icn">PDF</a></li>
 					<li><a href="media.php?type=audio" class="audio_icn">Audio</a></li>
 					<li><a href="media.php?type=video" class="video_icn">Video</a></li>
