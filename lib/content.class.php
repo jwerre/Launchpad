@@ -229,13 +229,19 @@
 		**/
 		public function snippets()
 		{
-			$data = $this->snippets_complex();
+			$snippets = $this->snippets_complex();
 			$simple = array();
-			if(!empty($data)){
-				foreach ($data as $data_obj => $value) {
-					$simple[$value->name] = $value->value;
-				}
-				return $simple;
+			if(!empty($snippets)){
+				foreach ($snippets as $data_obj => $value) {
+                    if (array_key_exists($value->name, $simple)) {
+                        if( gettype($simple[$value->name]) == 'string'){
+                            $simple[$value->name] = array();
+                        }
+                        $simple[$value->name][] = $value->value;
+                    }else{
+                        $simple[$value->name] = $value->value;
+                    }
+                }
 			}else{
 				return false;
 			}
