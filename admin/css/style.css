@@ -244,13 +244,6 @@ input:invalid,textarea:invalid {
 .no-boxshadow input:invalid,.no-boxshadow textarea:invalid {
 	background-color: #f0dddd;
 }
-select {
-}
-/*input[type="submit"] {
-background-color: #ccc;
-color: #333;
-}
-*/
 input[type="checkbox"] {
 	color: #000;
 }
@@ -258,9 +251,13 @@ input[type="radio"] {
 	background-color: #fff;
 	color: #000;
 }
+select{
+}
 option {
 	background-color: #fff;
 	color: #000;
+}
+.right_side select, .right_side option {
     max-width: 190px;
 }
 optgroup {
