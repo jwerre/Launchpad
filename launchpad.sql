@@ -208,12 +208,10 @@ DROP TABLE IF EXISTS `snippets`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `snippets` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `content_id` int(11) DEFAULT NULL,
+  `content_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `value` longtext NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `content_id_2` (`content_id`,`name`),
-  UNIQUE KEY `content_id` (`content_id`,`name`),
   CONSTRAINT `snippets_ibfk_1` FOREIGN KEY (`content_id`) REFERENCES `content` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
