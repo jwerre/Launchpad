@@ -242,6 +242,7 @@
                         $simple[$value->name] = $value->value;
                     }
                 }
+                return $simple;
 			}else{
 				return false;
 			}
