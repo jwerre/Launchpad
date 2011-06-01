@@ -20,14 +20,19 @@
 		public $root_class = "nav";
 		public $child_class = "subnav";
 		
-		public $seperator = "";
+        /**
+         * $current_page - typically the global page object
+         **/
 		public $current_page;
+        /**
+         * an array of page ids not to include
+         **/
 		public $exclude = NULL; //an array of page ids not to include
 		public $include = NULL; //an array of page ids to include (excludes all others)
-		
+        public $additional = NULL; // an array of additional links to include in the nav
+
 		function __construct()
 		{
-			
 		}
 		
 		/**
@@ -40,15 +45,17 @@
 			$pages = array();
 			if( isset($this->include) ){
                 $sql = "SELECT id, title, slug FROM content WHERE type='".ContentType::PAGE."' AND status ='".ContentStatus::PUBLISHED."'";
-				$sql .= " AND id IN (".implode("," , $this->include ).")";
+				$sql .= " AND id IN (".$this->sanitize_search( $this->include).")";
+				$sql .= " OR slug IN (".$this->sanitize_search( $this->include).")";
                 $sql .= " ORDER BY weight ASC";
 			}elseif( isset($this->exclude) ) {
                 $sql = "SELECT id, title, slug FROM content WHERE type='".ContentType::PAGE."' AND status ='".ContentStatus::PUBLISHED."'";
-				$sql .= " AND id NOT IN (".implode("," , $this->exclude ).")";
+				$sql .= " AND id NOT IN (".$this->sanitize_search($this->exclude ).")";
+				$sql .= " AND slug NOT IN (".$this->sanitize_search($this->exclude ).")";
                 $sql .= " ORDER BY weight ASC";
 			}else{
                 $sql = "SELECT id, title, slug FROM content WHERE type='".ContentType::PAGE."' AND status ='".ContentStatus::PUBLISHED."' ORDER BY weight ASC";
-			}
+            }
             $pages = Page::find_by_sql($sql);
 			if($pages) {
                 $nav = '<'. $this->root_tag .' class="'. $this->root_class .'">';
@@ -56,10 +63,10 @@
                     if($page->parent_id == 0){
                         
                         $children1 = $page->children();
-                        $on = $this->is_on($page->id, $children1);
+                        $on = $this->is_on($page->id, $children1)." ";
                         $href = static::get_page_link($page);
                         
-                        $nav .= '<'.$this->child_tag.' class="'.$on.' '.$page->slug;
+                        $nav .= '<'.$this->child_tag.' class="'.$on.$page->slug;
                         $nav .= (end($pages) === $page) ? " last" : "";
                         $nav .= '">';
                         $nav .= (isset($this->root_tag_wrapper)) ? "<".$this->root_tag_wrapper.">" : "";
@@ -69,14 +76,14 @@
                         if(count($children1) > 0){
                             $nav .= (isset($this->child_child_tag)) ? '<'. $this->child_child_tag .' class="'.$this->child_class.'">' : "";
                             foreach ($children1 as $child1) {
-                                $sub_on = $this->is_on($child1->id, NULL);
+                                $sub_on = $this->is_on($child1->id, NULL)." ";
                                 $href = static::get_page_link($child1);
                                 
                                 $nav .= (isset($this->child_child_child_tag)) ? '<'.$this->child_child_child_tag.' class="' : "";
                                 $nav .= (isset($this->child_child_child_tag)) ? (end($children1) === $child1) ? "last" : "" : "";
                                 $nav .= (isset($this->child_child_child_tag)) ? '">' : "" ;
                                 $nav .= (isset($this->child_tag_wrapper)) ? "<".$this->child_tag_wrapper.">" : "";
-                                $nav .= '<a class="'.$child1->slug.' '.$sub_on.'" href="'.$href.'" >' . $child1->title . '</a>';
+                                $nav .= '<a class="'.$sub_on.$child1->slug.'" href="'.$href.'" >' . $child1->title . '</a>';
                                 $nav .= (isset($this->child_tag_wrapper)) ? "</".$this->child_tag_wrapper.">" : "";
                                 $nav .= (isset($this->child_child_child_tag)) ? '</'.$this->child_child_child_tag.'>' : "";
                             }
@@ -220,29 +227,50 @@
 			}
 			return $pages;
 		}
+        /**
+         * checks to see if the there are strings in array then slug and quotes them 
+         *
+         * @param $arr
+         * @return string
+         **/
+        private function sanitize_search($arr)
+        {
+            $new_array = array();
+            foreach ($arr as $value) {
+                if (gettype($value) == 'string') {
+                    $new_array[] = "'".slug($value)."'";    
+                }else{
+                    $new_array[] = $value;
+                }
+            }    
+
+            return implode( ',', $new_array);
+        }
 
         /**
          * Returns the url for a page or post
          * 
-         * @param $page - the id or Conent object for which you want the link
+         * @param $content - the id or Conent object for which you want the link
          * @param $include_tag - boolean - if true, returns the link in an anchor tag
          * @return string
          **/
-		public static function get_page_link($page, $include_tag=false)
+		public static function get_page_link($content, $include_tag=false)
 		{
-            if ( gettype($page) == 'integer'){
-                $sql = 'SELECT id, title, slug FROM content WHERE id ='. $page;
+            if ( gettype($content) == 'integer'){
+                $sql = 'SELECT id, title, slug FROM content WHERE id ='. $content;
                 $result = Content::find_by_sql($sql); 
-                $page = $result[0];
+                $content = $result[0];
             }
-			$link = BASE_URL.'/index.php?page='.$page->id;
+			$link = BASE_URL.'/index.php?page='.$content->id;
 			
 			if(CLEAN_URLS){
-				$link = ( defined('REWRITE_MAP') ) ? BASE_URL.'/'.$page->slug : BASE_URL.'/page/'.$page->id;				
+				$link = ( defined('REWRITE_MAP') ) ? BASE_URL.'/'.$content->slug : BASE_URL.'/page/'.$content->id;				
 			}
 
             if($include_tag){
-                $link = '<a href="'.$link.'"class="'.$page->slug.'" alt="'.$page->title.'">'.$page->title.'</a>';
+                global $page;
+                $on = (!empty($page) && $page->id == $content->id) ? 'on ' :'';
+                $link = '<a href="'.$link.'"class="'.$on.$content->slug.'" alt="'.$content->title.'">'.$content->title.'</a>';
             }
 			
 			return $link;
