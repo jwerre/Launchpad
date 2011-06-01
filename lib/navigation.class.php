@@ -250,14 +250,15 @@
         /**
          * Returns the url for a page or post
          * 
-         * @param $content - the id or Conent object for which you want the link
+         * @param $content - the id, title, slug, or Content object for which you want the link
          * @param $include_tag - boolean - if true, returns the link in an anchor tag
          * @return string
          **/
 		public static function get_page_link($content, $include_tag=false)
 		{
-            if ( gettype($content) == 'integer'){
-                $sql = 'SELECT id, title, slug FROM content WHERE id ='. $content;
+            if ( gettype($content) != 'object'){
+                $sql = "SELECT id, title, slug FROM content WHERE ";
+                $sql .= ( gettype($content) == 'integer' ) ? "id=$content" : "slug='".slug($content)."'";
                 $result = Content::find_by_sql($sql); 
                 $content = $result[0];
             }
