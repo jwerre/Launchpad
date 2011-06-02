@@ -23,9 +23,10 @@
 		* @param limit int - limit the amount of content to retrieve
 		* @return array
 		**/
-		public static function post_by_category_id($id, $limit=NULL)
+		public static function post_by_category_id($id, $order="created DESC", $limit=NULL)
 		{
 			$sql = "SELECT * from content WHERE category_id={$id}";
+            $sql .= " ORDER BY $order";
 			if(isset($limit)){
 				$sql .= " LIMIT ".$limit;
 			}
