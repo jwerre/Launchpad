@@ -8,6 +8,7 @@ window.log = function(){
 $(function() {
 	// HANDLE COOKIES
 	$('body').addClass( $.cookie('aside') );
+
     if($.cookie('layout') == null){
         $.cookie('layout', 'layout_100');
     }

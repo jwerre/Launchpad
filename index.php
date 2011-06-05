@@ -7,6 +7,7 @@
 	global $category;
 	global $snippets;
     global $options;
+    global $search_term;
 	
 	if( isset($_GET['page']) ){
 		$page = Page::find_by_id($_GET['page']);
@@ -20,8 +21,11 @@
 	}
 	elseif( isset($_GET['cat']) ) {
 		$category = Category::find_by_id($_GET['cat']);
-	}
-	else{
+    }
+    elseif( isset($_GET['search']) ){
+        $search_term = $_GET['search'];       
+    }
+    else{
 		$page = Page::find_by_id(1);
 		if( !empty( $page ) )
 			$snippets = $page->snippets();
@@ -40,7 +44,11 @@
 	// CATEGORIES
 	elseif(!empty($category)){
 		include_layout('categories.php');
-	}
+    }
+    // SEARCH
+    elseif(!empty($search_term)){
+        include_layout('search.php');
+    }
 
 	// include footer
 	include_layout('footer.php');

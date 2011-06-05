@@ -106,6 +106,40 @@
 			$result_array = static::find_by_sql($sql);
 			return !empty($result_array) ? $result_array[0] : false ;
 		}
+
+        /**
+         * Searches content for related term
+         *
+         * @param string - search term 
+         * @return array
+         **/
+        public static function search($term)
+        {
+            $terms = array();
+            if(gettype($term) == 'string'){
+                $term = trim(stripslashes(strip_tags($term)));
+                $term = strtr($term, ',/\*&()$%^@~`?;', '               '); 
+                $term = trim($term); 
+                $term = str_replace('#180', '', $term); 
+                $term = html_entity_decode($term, ENT_QUOTES); 
+                $terms = explode(' ', $term);
+                $terms = array_merge(array_filter($terms));
+            }else{
+                $terms = $term;
+            }
+            if(is_array($terms) && count($terms) > 0 ){
+                $sql = "SELECT * FROM " . self::$table_name; 
+                $sql .= " WHERE status='". ContentStatus::PUBLISHED."'"; 
+                for ($i = 0; $i < count($terms); $i++) {
+                    $term = $terms[$i];
+                    $sql .= ($i == 0) ? " AND " : " OR "; 
+                    $sql .= "body LIKE '%$term%'";
+                    $sql .= " OR title LIKE '%$term%'";
+                }
+            }
+			$result_array = static::find_by_sql($sql);
+			return !empty($result_array) ? $result_array : false ;
+        }
 		
 		/**
 		* Returns an excerpt from post
@@ -248,7 +282,35 @@
 				return false;
 			}
 		}
-		
+
+        /**
+         * Returns a link for the content
+         *
+         * @param boolean - $wrap_in_tag - if true the link is wapped in an anchor tag 
+         * @return string
+         **/
+
+        public function get_link($wrap_in_tag=false){
+                         
+			$link = BASE_URL.'/index.php?'.$this->type.'='.$this->id;
+			
+			if(CLEAN_URLS){
+				$link = ( defined('REWRITE_MAP') ) ? BASE_URL.'/'.$this->slug : BASE_URL.'/'.$this->type.'/'.$content->id;				
+			}
+
+            if($wrap_in_tag){
+                $content_id;
+                if( isset($GLOBALS['page']) ){
+                    $content_id = $GLOBALS['page'];
+                }elseif( isset($GLOBALS['post']) ){
+                    $content_id = $GLOBALS['post'];
+                }
+                $on = (!empty($content_id) && $content_id->id == $this->id) ? 'on ' :'';
+                $link = '<a href="'.$link.'"class="'.$on.$this->slug.'" alt="'.$this->title.'">'.$this->title.'</a>';
+            }
+			
+			return $link;
+        }
 	}
 	
 	

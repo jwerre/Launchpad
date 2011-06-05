@@ -126,8 +126,7 @@
 	function nice_name($string)
 	{
 		$string = preg_replace( "/\.([^\.]+)$/", '', $string);
-		$string = preg_replace('/[.]/', ' ', $string);
-		$string = str_replace("-"," ",$string);
+		$string = preg_replace('/[.|-|_]/', ' ', $string);
 		return ucwords($string);
 	}
 	/**
