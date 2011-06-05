@@ -49,7 +49,10 @@
     elseif(!empty($search_term)){
         include_layout('search.php');
     }
-
+    // 440
+    else{
+        include_layout('404.php');
+    }
 	// include footer
 	include_layout('footer.php');
 ?>

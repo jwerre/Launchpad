@@ -71,11 +71,6 @@ define('SMTP_PASSWORD', '');
 define('MAX_FILE_SIZE', 104857600); // 100MB
 
 /**
- * 404 page
- **/
-// define('ERROR_PAGE', SITE_ROOT.DS.'404.php');
-
-/**
  * Clean url settings (Apache only)
  **/
 define('CLEAN_URLS', false);
