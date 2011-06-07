@@ -7,13 +7,16 @@ window.log = function(){
 
 $(function() {
 	// HANDLE COOKIES
-	if( $.cookie('aside') )
-	$('body').addClass( $.cookie('aside') );
+	if( $.cookie('aside') != null ){
+		$('body').addClass( $.cookie('aside') );
+	}
 
     if($.cookie('layout') == null){
         $.cookie('layout', 'layout_100');
     }
+
 	$('body').attr( 'id', $.cookie('layout') );
+
 	$('#layout_settings a').each(function(index){
        if( $(this).data().layout == $.cookie('layout')){
            $(this).addClass('on');
@@ -722,24 +725,24 @@ $(function() {
 //WYSIWIG EDITOR (tiny editor)
 if( $('#content_body').length > 0 ){
 	
-	new TINY.editor.edit('editor',{
-		id:'content_body',
-		width:'100%',
-		height:200,
-		cssclass:'text_edit',
-		controlclass:'text_edit_control',
-		rowclass:'text_edit_header',
-		dividerclass:'text_edit_divider',
-		controls:['bold','italic','underline','strikethrough','|','subscript','superscript','|','orderedlist','unorderedlist','|','outdent','indent','|','leftalign','centeralign','rightalign','blockjustify','|','unformat','|','undo','redo','n',/*'font','size',*/'style','|','image','hr','link','unlink','|','cut','copy','paste','print'],
-		footer:true,
-		fonts:['Verdana','Arial','Georgia','Trebuchet MS'],
-		xhtml:true,
-		cssfile:'style.css',
-		bodyid:'editor',
-		footerclass:'text_edit_footer',
-		toggle:{text:'source',activetext:'wysiwyg',cssclass:'toggle'},
-		resize:{cssclass:'resize'}
-	});
+	// new TINY.editor.edit('editor',{
+	// 	id:'content_body',
+	// 	width:'100%',
+	// 	height:200,
+	// 	cssclass:'text_edit',
+	// 	controlclass:'text_edit_control',
+	// 	rowclass:'text_edit_header',
+	// 	dividerclass:'text_edit_divider',
+	// 	controls:['bold','italic','underline','strikethrough','|','subscript','superscript','|','orderedlist','unorderedlist','|','outdent','indent','|','leftalign','centeralign','rightalign','blockjustify','|','unformat','|','undo','redo','n',/*'font','size',*/'style','|','image','hr','link','unlink','|','cut','copy','paste','print'],
+	// 	footer:true,
+	// 	fonts:['Verdana','Arial','Georgia','Trebuchet MS'],
+	// 	xhtml:true,
+	// 	cssfile:'style.css',
+	// 	bodyid:'editor',
+	// 	footerclass:'text_edit_footer',
+	// 	toggle:{text:'source',activetext:'wysiwyg',cssclass:'toggle'},
+	// 	resize:{cssclass:'resize'}
+	// });
 	
 }
 // var $tab_items = $( 'ul:first li', $tabs ).droppable({
