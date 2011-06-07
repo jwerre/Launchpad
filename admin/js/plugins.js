@@ -7,6 +7,7 @@ window.log = function(){
 
 $(function() {
 	// HANDLE COOKIES
+	if( $.cookie('aside') )
 	$('body').addClass( $.cookie('aside') );
 
     if($.cookie('layout') == null){

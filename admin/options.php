@@ -1,10 +1,10 @@
 <?php
 	include '../lib/initialize.php';
 	if( isset($_POST['save_button']) ){
-		if( !empty($_POST['site_name']) ) $options->site_name = $_POST['site_name'];
-	    if( !empty($_POST['tagline']) ) $options->tagline = $_POST['tagline'];
-	    if( !empty($_POST['description']) ) $options->description = $_POST['description'];
- 	    if( !empty($_POST['analytics_id']) ) $options->analytics_id = $_POST['analytics_id'];
+		$options->site_name = $_POST['site_name'];
+	    $options->tagline = $_POST['tagline'];
+	    $options->description = $_POST['description'];
+ 	    $options->analytics_id = $_POST['analytics_id'];
 		
 		$session->msg_type = 'success_msg';
 		$session->message('Your options have been saved.');
