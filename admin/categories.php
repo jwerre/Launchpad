@@ -40,7 +40,9 @@
 
     $categories = Category::find_all();
     //TODO: Give a wanring if categories don't correspond to theme
-    $current_theme = simplexml_load_file( theme_directory().'/theme.xml' , 'SimpleXMLElement', LIBXML_NOBLANKS );
+	// if(file_exists(theme_directory().'/theme.xml')){
+		$current_theme = simplexml_load_file( theme_directory().'/theme.xml' , 'SimpleXMLElement', LIBXML_NOBLANKS );
+	//}
     // $current_theme = xml2array(theme_directory().'/theme.xml');
     // $suggested_categories = array();
     // echo array_search('name', $categories);

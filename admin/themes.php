@@ -14,10 +14,9 @@
         $theme_dir = THEMES_PATH.'/'.$_GET['remove'];
         // $owner = fileperms(fileowner($theme_dir)); echo '<pre>'; print_r($owner); echo '</pre>';exit;
         try{
-            deleteDirectory($theme_dir);
-            
+            delete_directory($theme_dir);
         } catch (Exception $error) {
-            var_dump($error->getMessage());
+            // var_dump($error->getMessage());
         }
         
     }
@@ -26,7 +25,8 @@
     $current_theme_xml;
     $theme_paths = glob(THEMES_PATH.'/*', GLOB_ONLYDIR);
     
-    $theme_paths = array_filter($theme_paths, function($value) {
+	$theme_paths = array_filter($theme_paths,
+	   function($value) {
         global $current_theme_name;
         global $current_theme_xml;
         if(strstr($value, $current_theme_name)){
@@ -35,7 +35,10 @@
         }
         return true;
     });
-    $current_theme = simplexml_load_file( $current_theme_xml.'/theme.xml' , 'SimpleXMLElement', LIBXML_NOBLANKS );
+
+	// if(is_readable(theme_directory().'/theme.xml')){
+		$current_theme = simplexml_load_file( theme_directory().'/theme.xml' , 'SimpleXMLElement', LIBXML_NOBLANKS );
+	//}
 	include_layout("header.php" ,"layouts");
 ?>
 <h1>Themes</h1>
@@ -48,7 +51,7 @@
             <img src="<?php echo (isset($current_theme->preview) && !empty($current_theme->preview)) ? $current_theme->preview : theme_directory().'/preview.png'; ?>" alt="" />
             </div>
             <div class="theme_desciption">
-                <h4><?php echo (isset($current_theme->title) && !empty($current_theme->title)) ? $current_theme->title : 'Untitled'; ?></h4>
+                <h4><?php echo (isset($current_theme->title) && !empty($current_theme->title)) ? ucwords($current_theme->title) : ucwords(substr(strrchr(theme_directory(), "/"), 1)); ?></h4>
                 <p><?php echo (isset($current_theme->description) && !empty($current_theme->description)) ? $current_theme->description : 'No description'; ?></p>
             </div>
             <?php if( isset($current_theme->category) && !empty($current_theme->category) ): ?>
@@ -68,8 +71,10 @@
     <?php if(!empty($theme_paths)) : ?>
 	<ul class="themes">
         <?php foreach ($theme_paths as $path):
-            $theme = simplexml_load_file( $path.'/theme.xml', 'SimpleXMLElement', LIBXML_NOBLANKS );
-            $filename = substr(strrchr($path, "/"), 1);
+			$filename = substr(strrchr($path, "/"), 1);
+			if(file_exists($path.'/theme.xml')){
+				$theme = simplexml_load_file( $path.'/theme.xml', 'SimpleXMLElement', LIBXML_NOBLANKS );
+			}
             $preview = (isset($theme->preview) && !empty($theme->preview)) ? $theme->preview : BASE_URL.'/themes/'.$filename.'/preview.png';
             $title = (isset($theme->title) && !empty($theme->title)) ? $theme->title : $filename;
             $descrption = (isset($theme->description) && !empty($theme->description)) ? $theme->description : 'No description';
@@ -79,13 +84,13 @@
             <img src="<?php echo $preview;  ?>" alt="" />
             </div>
             <div class="theme_desciption">
-                <h4><?php echo $title; ?></h4>
+                <h4><?php echo ucwords($title); ?></h4>
                 <p><?php echo $descrption; ?></p>
             </div>
             <nav class="small_btn">
                 <ul>
                     <!-- <li><a href="">preview</a></li> -->
-                    <li><a href="?remove=<?php echo $filename ?>">remove</a></li>
+                    <!-- <li><a href="?remove=<?php echo $filename ?>">remove</a></li> -->
                     <li><a href="?theme=<?php echo $filename ?>">use</a></li>
                 </ul>				
             </nav>

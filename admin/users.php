@@ -4,12 +4,36 @@
 	if( $session->role >= UserRole::CONTRIBUTOR ){
 		// redirect_to('user_edit.php?id='$session->user_id);
 	}
-	
-	$role = isset($_GET['role']) ? $_GET['role'] : UserRole::GUEST;
-	$start = isset($_GET['start']) ? $_GET['start'] : 0;
-	$limit = isset($_GET['limit']) ? $_GET['limit'] : ITEMS_PER_PAGE;
-	$group = isset($_GET['group']) ? $_GET['group'] : 1;
-	
+
+	$role = UserRole::GUEST;
+	if( isset( $_GET['role']) ){
+		$role = $_GET['role'];
+		$cookie->users_role = $role;
+	}
+	elseif( isset($cookie->users_role) ){
+		$role = $cookie->users_role;
+	}
+
+    $limit = ITEMS_PER_PAGE;
+	$cookie_name = 'user'.$role.'_limit';
+	if( isset( $_GET['limit']) ){
+		$limit = $_GET['limit'];
+		$cookie->$cookie_name = $limit;
+	}
+	elseif( isset($cookie->$cookie_name) ){
+		$limit = $cookie->$cookie_name;
+	}
+
+	$group = 1;
+	$cookie_name = 'user'.$role.'_group';
+	if( isset( $_GET['group']) ){
+		$group = $_GET['group'];
+		$cookie->$cookie_name = $group;
+	}
+	elseif( isset($cookie->$cookie_name) ){
+		$group = $cookie->$cookie_name;
+	}
+
 	$total = Content::count_all($role);
 	$pagination = new Pagination($group, $limit, $total);
 	$offset = $pagination->offset();

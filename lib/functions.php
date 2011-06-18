@@ -251,14 +251,19 @@
 	 *
 	 * @param $dir string
 	 **/
-    function deleteDirectory($dir) { 
-        if (!file_exists($dir)) return true; 
-        if (!is_dir($dir) || is_link($dir)) return unlink($dir); 
+    function delete_directory($dir) { 
+		if (!file_exists($dir)){
+			return true;
+	   } 
+		if (!is_dir($dir) || is_link($dir)){
+			return unlink($dir);
+		} 
+		
         foreach (scandir($dir) as $item) { 
             if ($item == '.' || $item == '..') continue; 
-            if (!deleteDirectory($dir . "/" . $item)) { 
+            if (!delete_directory($dir . "/" . $item)) { 
                 chmod($dir . "/" . $item, 0777); 
-                if (!deleteDirectory($dir . "/" . $item)) return false; 
+                if (!delete_directory($dir . "/" . $item)) return false; 
             }; 
         } 
         return rmdir($dir); 

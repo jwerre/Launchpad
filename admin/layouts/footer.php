@@ -20,7 +20,7 @@
 	<script>!window.jQuery && document.write(unescape('%3Cscript src="js/libs/jquery-1.5.0.js"%3E%3C/script%3E'))</script>
 	<script src="js/libs/jqueryUI/jqueryui-1.8.9.min.js"></script>
 	<script src="js/libs/jquery_cookie.js"></script>
-	<script src="js/libs/tinyeditor/tinyeditor.js"></script>
+	<script src="js/libs/ckeditor/ckeditor.js"></script>
 	<script src="js/libs/jquery.prettyPhoto.js"></script>
 	<script src="js/libs/jquery.hoverIntent.js"></script>
 	<script src="js/libs/uploadify/swfobject.js"></script>

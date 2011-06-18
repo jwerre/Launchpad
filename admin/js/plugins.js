@@ -725,24 +725,23 @@ $(function() {
 //WYSIWIG EDITOR (tiny editor)
 if( $('#content_body').length > 0 ){
 	
-	new TINY.editor.edit('editor',{
-		id:'content_body',
-		width:'100%',
-		height:200,
-		cssclass:'text_edit',
-		controlclass:'text_edit_control',
-		rowclass:'text_edit_header',
-		dividerclass:'text_edit_divider',
-		controls:['bold','italic','underline','strikethrough','|','subscript','superscript','|','orderedlist','unorderedlist','|','outdent','indent','|','leftalign','centeralign','rightalign','blockjustify','|','unformat','|','undo','redo','n',/*'font','size',*/'style','|','image','hr','link','unlink','|','cut','copy','paste','print'],
-		footer:true,
-		fonts:['Verdana','Arial','Georgia','Trebuchet MS'],
-		xhtml:true,
-		cssfile:'style.css',
-		bodyid:'editor',
-		footerclass:'text_edit_footer',
-		toggle:{text:'source',activetext:'wysiwyg',cssclass:'toggle'},
-		resize:{cssclass:'resize'}
+	CKEDITOR.replace( 'content_body', {
+		skin: 'launchpad',
+		toolbar :
+		[
+			{ name: 'source', items : [ 'Source'] },
+			{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','-','Undo','Redo','-','Find', 'SelectAll' ] },
+			{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','-','Subscript','Superscript',] },
+			{ name: 'paragraph', items : [ 'NumberedList','BulletedList','Blockquote','-','Outdent','Indent','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ] },
+			{ name: 'links', items : [ 'Link','Unlink','Anchor' ] },
+			{ name: 'insert', items : [ 'Image','Flash','Table','HorizontalRule','SpecialChar','Iframe' ] },
+			{ name: 'colors', items : [ 'TextColor','BGColor' ] },
+			{ name: 'tools', items : [ 'RemoveFormat', 'ShowBlocks', 'Maximize' ] },
+			{ name: 'styles', items : [ 'Styles','Format','Font','FontSize' ] },
+		]
+		
 	});
+
 	
 }
 // var $tab_items = $( 'ul:first li', $tabs ).droppable({

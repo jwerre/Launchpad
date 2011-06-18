@@ -1,10 +1,34 @@
 <?php
 	include '../lib/initialize.php';
 	
-	$type = !isset( $_GET['type'] ) ? ContentType::PAGE : $_GET['type'];
-	$start = isset( $_GET['start'] ) ? $_GET['start'] : 0;
-    $limit = isset( $_GET['limit'] ) ? $_GET['limit'] : ITEMS_PER_PAGE;
-	$group = isset( $_GET['group'] ) ? $_GET['group'] : 1;
+	$type = ContentType::PAGE;
+	if( isset( $_GET['type']) ){
+		$type = $_GET['type'];
+		$cookie->content_type = $type;
+	}
+	elseif( isset($cookie->content_type) ){
+		$type = $cookie->content_type;
+	}
+
+    $limit = ITEMS_PER_PAGE;
+	$cookie_name = $type.'_limit';
+	if( isset( $_GET['limit']) ){
+		$limit = $_GET['limit'];
+		$cookie->$cookie_name = $limit;
+	}
+	elseif( isset($cookie->$cookie_name) ){
+		$limit = $cookie->$cookie_name;
+	}
+
+	$group = 1;
+	$cookie_name = $type.'_group';
+	if( isset( $_GET['group']) ){
+		$group = $_GET['group'];
+		$cookie->$cookie_name = $group;
+	}
+	elseif( isset($cookie->$cookie_name) ){
+		$group = $cookie->$cookie_name;
+	}
 	
 	$total = Content::count_all($type);
 	$pagination = new Pagination($group, $limit, $total);

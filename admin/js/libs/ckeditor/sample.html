@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.html or http://ckeditor.com/license
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>AutoGrow Plugin &mdash; CKEditor Sample</title>
+	<meta content="text/html; charset=utf-8" http-equiv="content-type" />
+	<script type="text/javascript" src="ckeditor.js"></script>
+</head>
+<body>
+	<form action="sample_posteddata.php" method="post">
+		<p>
+        <textarea cols="80" id="content_body" name="content_body" rows="10"> 
+        
+<p>
+Vestibulum et quam neque, sit amet dapibus mi. Nam vehicula nunc at dolor dapibus ac ornare nibh posuere. Cras tincidunt sodales laoreet. Morbi non massa turpis, eu molestie dui. Vivamus ut dapibus lectus. Pellentesque fermentum, nisi sed volutpat lobortis, arcu ligula porttitor sem, sit amet placerat mauris felis non magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin fermentum purus id mi blandit tempus. In quam justo, vehicula dapibus ornare id, mattis vel purus. Praesent at sem quis mauris mollis venenatis. Quisque rhoncus condimentum augue ac gravida. Mauris velit ipsum, hendrerit eu tincidunt id, congue nec metus.
+</p>
+<p>
+Mauris sit amet risus turpis. Etiam sagittis vehicula lacus, et varius felis dapibus id. Nulla dictum arcu nec turpis mollis posuere. Sed vehicula consequat quam eu pulvinar. Nullam non mauris id leo malesuada faucibus eu in massa. Nullam a orci ipsum. Proin condimentum sem id felis commodo nec scelerisque orci fringilla. Cras dui turpis, accumsan quis rhoncus vel, posuere sollicitudin diam. In libero diam, sollicitudin at elementum sit amet, ornare sagittis diam. Quisque suscipit nisi et purus lacinia vel elementum dui porttitor. Aenean non metus in eros porta fringilla a sed augue. Etiam tristique rhoncus semper. Integer non leo leo.
+</p>
+<p>
+Aliquam rutrum felis quis magna dictum vestibulum. Praesent volutpat ante vel velit convallis fringilla. Suspendisse eu sem id metus cursus convallis eu eget quam. Cras consequat placerat velit, sit amet lacinia nibh faucibus vitae. Proin aliquam nulla accumsan leo consequat et tincidunt felis tincidunt. Pellentesque adipiscing, ipsum at accumsan gravida, augue tellus posuere velit, ac molestie eros enim ac orci. Nullam nulla urna, ullamcorper ut feugiat in, accumsan ut erat. Suspendisse id facilisis enim. Cras eleifend, tortor ut consectetur euismod, leo neque facilisis felis, auctor vulputate dolor ligula sit amet ipsum. Quisque convallis, ipsum pharetra faucibus malesuada, leo nibh eleifend justo, at ullamcorper nisi felis at tellus. Nullam interdum viverra mi dignissim tincidunt. Aenean bibendum congue ipsum, id lobortis risus gravida ac. 
+</p>
+        
+        </textarea>
+
+		</p>
+	</form>
+    <script type="text/javascript">
+        CKEDITOR.replace( 'content_body', {
+            skin: 'launchpad',
+            toolbar :
+            [
+                { name: 'source', items : [ 'Source'] },
+                { name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','-','Undo','Redo','-','Find', 'SelectAll' ] },
+                { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','-','Subscript','Superscript',] },
+                { name: 'paragraph', items : [ 'NumberedList','BulletedList','Blockquote','-','Outdent','Indent','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ] },
+            	{ name: 'links', items : [ 'Link','Unlink','Anchor' ] },
+                { name: 'insert', items : [ 'Image','Flash','Table','HorizontalRule','SpecialChar','Iframe' ] },
+                { name: 'colors', items : [ 'TextColor','BGColor' ] },
+                { name: 'tools', items : [ 'RemoveFormat', 'ShowBlocks', 'Maximize' ] },
+                { name: 'styles', items : [ 'Styles','Format','Font','FontSize' ] },
+            ]
+            
+        });
+    </script>
+</body>
+</html>
