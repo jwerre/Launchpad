@@ -1,7 +1,6 @@
 <?php
 	include '../lib/initialize.php';
-	
-	if( $session->role > UserRole::ADMIN ){
+	if( isset($session->role) && $session->role > UserRole::CONTRIBUTOR ){
 		$session->msg_type = 'info_msg';
 		$session->message('You do not have sufficient privileges to access this page');
 		redirect_to("index.php");		
