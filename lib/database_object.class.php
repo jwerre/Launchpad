@@ -28,9 +28,12 @@ class DatabaseObject
 	{
 		$result_array = array();
 		foreach ($ids as $id) {
-			$result = static::find_by_id($id);
-			if($result)
-				$result_array[] = $result;
+			if( is_numeric($id) ){ 
+				$result = static::find_by_id($id);
+				if($result) {
+					$result_array[] = $result;
+				}
+			}
 		}
 		return !empty($result_array) ? $result_array : false ;
 	}
@@ -55,8 +58,12 @@ class DatabaseObject
 	*/
 	public static function find_by_id($id=0)
 	{
-		$result_array = static::find_by_sql( "SELECT * FROM " . static::$table_name . " WHERE id={$id} LIMIT 1" );
-		return !empty($result_array) ? $result_array[0] : false ;
+		if(is_numeric($id)){
+			$result_array = static::find_by_sql( "SELECT * FROM " . static::$table_name . " WHERE id={$id} LIMIT 1" );
+			return !empty($result_array) ? $result_array[0] : false ;
+		}else{
+			return false;
+		}
 	}
 	
 	/**

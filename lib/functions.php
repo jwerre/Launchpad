@@ -107,27 +107,29 @@
 	/**
 	 * Converts string to slug
 	 *
-	 * @param $string string
+	 * @param $phrase string
 	 * @return string
 	 **/
-	function slug($string)
+	function slug($phrase, $max=2000)
 	{
-		$string = strtolower(trim($string));
-		$string = preg_replace('/[^a-z0-9-]/', '-', $string);
-		$string = preg_replace('/-+/', "-", $string);
-		return $string;
+		$result = strtolower($phrase);
+		$result = preg_replace("/[^a-z0-9\s-]/", "", $result);
+		$result = trim(preg_replace("/[\s-]+/", " ", $result));
+		$result = trim(substr($result, 0, $max));
+		$result = preg_replace("/\s/", "-", $result);
+		return $result;
 	}
 	/**
 	 * Converts slug to readable title 
 	 *
-	 * @param $string string
+	 * @param $phrase string
 	 * @return string
 	 **/
-	function nice_name($string)
+	function nice_name($phrase)
 	{
-		$string = preg_replace( "/\.([^\.]+)$/", '', $string);
-		$string = preg_replace('/[.|-|_]/', ' ', $string);
-		return ucwords($string);
+		$phrase = preg_replace( "/\.([^\.]+)$/", '', $phrase);
+		$phrase = preg_replace('/[.|-]/', ' ', $phrase);
+		return ucwords($phrase);
 	}
 	/**
 	 * Returns the url of the calling page

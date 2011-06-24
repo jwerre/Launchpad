@@ -1,7 +1,7 @@
 <?php
 	include '../lib/initialize.php';	
     include '../lib/helper/gapi.class.php';
-
+	
     define('VIMEO_ID', 'user7117833');
     define('VID_WIDTH', '450');
     define('VID_HEIGHT', '253');

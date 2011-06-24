@@ -1,6 +1,6 @@
 <?php
 
-// Define the core paths
+if (version_compare(PHP_VERSION, '5.3.0', '<') ) exit("Sorry, this version of Launchpad will only run on PHP version 5.3 or greater!\n");
 
 // DIRECTORY_SEPARATOR is a PHP pre-defined constant (\ for Windows, / for Unix)
 defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);

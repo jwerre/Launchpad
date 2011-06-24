@@ -8,27 +8,26 @@
     <options>
         <name>facebook</name>
         <name>twitter</name>
+        <name>phone</name>
+        <name>address</name>
+        <name>contact</name>
     </options>
     <category>
-        <name>blog</name>
+        <name>Blog</name>
         <snippet>title</snippet>
         <snippet>author</snippet>
     </category>
     <category>
-        <name>event</name>
+        <name>Slide</name>
         <snippet>kind</snippet>
         <snippet>date</snippet>
     </category>
     <template>
+        <name>None</name>
+    </template>
+    <template>
         <name>Contact</name>
         <snippet>phone</snippet>
         <snippet>address</snippet>
-    </template>
-    <template>
-        <name>Home</name>
-        <snippet>twitter</snippet>
-        <snippet>facebook</snippet>
-        <snippet>peter</snippet>
-        <snippet>pan</snippet>
     </template>
 </theme>

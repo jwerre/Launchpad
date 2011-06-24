@@ -144,7 +144,7 @@
 		/**
 		* Returns an excerpt from post
 		*
-		** @param $allow sting = '<a><em><strong><span><br><sup><sub><small><i><strike>' - a list of html tags to allow in excerpt
+		* @param $allow sting = '<a><em><i><strong><b><span><br><sup><sub><small><strike><abbr><cite><code>' - a list of html tags to allow in excerpt. inline elements allowed by default
 		* @return string
 		**/
 		public function excerpt($allow = '<a><em><i><strong><b><span><br><sup><sub><small><strike><abbr><cite><code>')
@@ -162,7 +162,6 @@
 			if(isset($allow)){
 				$excerpt = strip_tags($excerpt, $allow);
 			}
-			
 			return $excerpt;
 		}
 		

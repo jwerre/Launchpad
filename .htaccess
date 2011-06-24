@@ -1,0 +1,12 @@
+RewriteEngine on
+
+
+RewriteRule ^admin/?$ admin/index.php
+RewriteRule ^([^/\.]+)/?$ index.php?page=${rewrite_map:$1} [L]
+RewriteRule ^page/([^/\.]+)/?$ index.php?page=$1 [L]
+RewriteRule ^post/([^/\.]+)/?$ index.php?post=$1 [L]
+RewriteRule ^cat/([^/\.]+)/?$ index.php?cat=$1 [L]
+
+# this needs to go in httpd.conf
+#RewriteMap rewrite_map prg:/Work/001_LAUNCHPAD/rewrite_map.php 
+#RewriteRule ^(.*)$ index.php?page=${rewrite_map:$1|0} [R] 
