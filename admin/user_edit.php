@@ -15,14 +15,14 @@
 	$user = new User();
     
     if (isset($_POST['save_button']) && isset($_POST['password'])){
-		
+
 		$user->id = ( !empty($_POST['user_profile_id']) ) ? $_POST['user_profile_id'] : NULL;
 		$user->first_name = trim($_POST['first_name']);
 		$user->last_name = trim($_POST['last_name']);
 		$user->username = trim($_POST['username']);
 		$user->email = $_POST['email'];
 		$user->password = ( !empty($_POST['password']) ) ? md5($_POST['password']) : $user->password;
-		$user->role = ( !empty($_POST['role']) ) ? $_POST['role'] : $default_role;
+		$user->role = ( isset($_POST['role']) ) ? $_POST['role'] : UserRole::GUEST;
 		
 		try{
 			$user->save();
@@ -44,8 +44,8 @@
 	$user_roles = array_reverse( UserRole::get_roles() );
 	include_layout("header.php", "layouts");
 ?>
-<h1 id="add_contnet"><?php echo (isset($id) && !empty($id) ) ? 'Edit' : 'Create New' ; ?> User</h1>
-<form id="add_content" action="" id="settings" method="post" accept-charset="utf-8">
+<h1><?php echo (isset($id) && !empty($id) ) ? 'Edit' : 'Create New' ; ?> User</h1>
+<form id="user_edit" action="" id="settings" method="post" accept-charset="utf-8">
 	<fieldset class="right_side clearfix">
 		<section class="button_area clearfix">
 		<p><button name="save_button" type="submit" id="save_button">Save</button></p>
@@ -59,7 +59,9 @@
 		</section>
 		<div id="profile_img" class="section_box">
 			<h3>Profile Image</h3>
+			<?php if( !empty($user_image) ) : ?>
 			<p id="image_placholder" class="center" style="width:auto;"><img src="<?php echo $user_image; ?>" /></p>
+            <?php endif; ?>
 			<p class="center"><input type="file" name="file_upload" id="file_upload" class="hidden"/></p>
 		</div>
 		<?php endif; ?>
@@ -69,13 +71,13 @@
 		<p><label for="last_name">Last Name</label><input type="text" id="last_name" name="last_name" value="<?php echo $user->last_name ?>"/></p>
 		<p><label for="username">Username</label><input type="text" id="username" name="username" class="required" value="<?php echo $user->username ?>"/></p>
 		<p><label for="email">Email</label><input type="text" id="email" name="email" class="email" value="<?php echo $user->email ?>"/></p>
-		<p><label for="password">Password</label><input type="password" name="password" id="password" <?php if ( empty($id) ){ echo 'class="required"';} ?>/></p>
+		<p><label for="password">Password</label><input type="password" name="password" id="password" class="<?php if(empty($id)) echo 'required' ?>" /></p>
 		<p><label for="password_confirm">Confirm Password</label><input type="password" id="password_confirm" name="password_confirm" /></p>
 		<p>
 			<label for="role">Role</label>
 			<select name="role" id="role">
 				<?php foreach($user_roles as $key => $value): ?>
-				<option value="<?php echo $value ?>" <?php if($value == $user->role) echo "selected"; ?>><?php echo ucwords( strtolower( $key ) ) ?></option>
+				<option value="<?php echo $value ?>" <?php if($value == $user->role || $value == UserRole::GUEST) echo "selected"; ?>><?php echo ucwords( strtolower( $key ) ) ?></option>
 				<?php endforeach; ?>
 			</select>
 		</p>

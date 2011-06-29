@@ -4,20 +4,25 @@
 	require_once("helper/phpmailer/class.smtp.php");
 	
 	/**
-	* Class for sending mail
-	*/
+	 * A class for sending email
+	 *
+	 * @author Jonah Werre <jonahwerre@gmail.com>
+	 * @version 1.0
+	 * @copyright Jonah Werre <jonahwerre@gmail.com>, 28 June, 2011
+	 * @package phpmailer
+	 **/
 	class Mail extends phpmailer
 	{
 		
         /**
          * Sends an email
          *
-         * @param $subject string - email subject;
-         * @param $message string - email message;
-         * @param $from_name string - from names;
-         * @param $from_email string - from email;
-         * @param $to_name ( array | string ) - an array or string recipeint name(s);
-         * @param $to_email ( array | string ) -an array or string recipeint email address(es);
+         * @param string $subject - email subject;
+         * @param string $message - email message;
+         * @param string $from_name - from names;
+         * @param string $from_email- from email;
+         * @param string | array $to_name - an array or string recipeint name(s);
+         * @param string | array $to_email - an array or string recipeint email address(es);
          * @return boolean
          **/
 		public function email( $subject, $message, $from_name = NULL, $from_email = NULL, $to_name=NULL, $to_email=NULL  )

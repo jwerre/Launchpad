@@ -7,6 +7,7 @@ class DatabaseObject
 
 	/**
 	* Find all entires from 
+	* @param array $exclude - An array of integers to exculde
 	* @return array
 	*/
 	public static function find_all($exclude=NULL)
@@ -21,7 +22,7 @@ class DatabaseObject
 
 	/**
 	* Find all entires from a list of ids
-	* @param array
+	* @param array - An array of integers to find
 	* @return array
 	*/
 	public static function find_all_by_ids($ids)
@@ -39,7 +40,8 @@ class DatabaseObject
 	}
 	
 	/**
-	 *	Count number of items in table
+	 * Count number of items in table
+	 * @param string where_clause = '' - A MySQL "WHERE" clause to append. eg: 'WHERE id > 5'
 	 * @return int
 	 */
 	public static function count_all($where_clause = '')
@@ -52,9 +54,9 @@ class DatabaseObject
 	}
 	
 	/**
-	* 
-	* @param int $id
-	* @return User
+	* Returns a single object by its unique id
+	* @param int $id - The id of the object to find
+	* @return DatabaseObject
 	*/
 	public static function find_by_id($id=0)
 	{
@@ -67,8 +69,8 @@ class DatabaseObject
 	}
 	
 	/**
-	* returns an array of the current class
-	* @param string $sql
+	* Returns an array of the current class
+	* @param string $sql - A valid MySQL statement
 	* @return array
 	*/
 	public static function find_by_sql($sql)
@@ -82,7 +84,12 @@ class DatabaseObject
 		}
 		return $object_array;
 	}
-	
+
+	/**
+	 * Check if the current object had specified attribute
+	 * @param string $attribute - The attribute to check
+	 * @return boolean
+	 **/
 	protected function has_attribute($attribute){
 		// include private vars
 		$object_vars = $this->attributes();
@@ -91,7 +98,6 @@ class DatabaseObject
 	
 	/**
 	* Gets the properties of class
-	*
 	* @return array 
 	*/
 	protected function attributes()
@@ -105,8 +111,7 @@ class DatabaseObject
 		return $attributes;
 	}
 	/**
-	* Gets the properties of class and preps them for DB entry -- DEPRECATED
-	*
+	* Gets the properties of class and preps them for DB entry -- DEPRECATED --
 	* @return array 
 	*/
 	protected function sanitize_attributes()
@@ -121,7 +126,6 @@ class DatabaseObject
 	
 	/**
 	* Check to see if record exists and creates it if not or updates if it does.
-	*
 	* @return boolean 
 	*/
 	public function save()
@@ -131,7 +135,6 @@ class DatabaseObject
 	
 	/**
 	* Create a new entry
-	*
 	* @return boolean 
 	*/
 	protected function create()
@@ -159,7 +162,6 @@ class DatabaseObject
 	}
 	/**
 	* Update an entry
-	*
 	* @return boolean 
 	*/
 	protected function update()
@@ -181,7 +183,6 @@ class DatabaseObject
 	}
 	/**
 	* Delete an entry
-	*
 	* @return boolean 
 	*/
 	public function delete()
@@ -193,7 +194,7 @@ class DatabaseObject
     
     /**
     * Delete by row id
-    *
+    * @param intiger - The unique id of the entry to delete
     * @return boolean
     */
     public static function delete_by_id($id)

@@ -26,10 +26,19 @@
 		public $current_page;
         /**
          * an array of page ids not to include
+		 * @var array
          **/
 		public $exclude = NULL; //an array of page ids not to include
-		public $include = NULL; //an array of page ids to include (excludes all others)
-        public $additional = NULL; // an array of additional links to include in the nav
+        /**
+         * An array of page ids to include (excludes all others)
+         * @var array
+         **/
+		public $include = NULL;
+		/**
+		 * An array of additional links to include in the nav
+		 * @var string
+		 **/
+        public $additional = NULL;
 
 		function __construct()
 		{
@@ -37,7 +46,6 @@
 		
 		/**
 		 * Outputs a complex navigational menu with sub-naviation
-		 *
 		 * @return void
 		 **/
 		function output_nav()
@@ -101,10 +109,9 @@
 		
 		/**
 		 * Outputs a simple site map
-		 * @param $exclude array
 		 * @return void
 		 **/
-		function get_sitemap($exclude=NULL)
+		function output_sitemap()
 		{
             $sql = "SELECT id, title, slug FROM content WHERE type='".ContentType::PAGE."' AND status ='".ContentStatus::PUBLISHED."'";
 			if( isset($this->exclude)) {
@@ -143,10 +150,9 @@
 		
 		/**
 		 * Outputs a list of categories
-		 *
 		 * @return void
 		 **/
-		public static function categories($exclude = NULL)
+		public static function output_categories($exclude = NULL)
 		{
 			$cat_list = Category::find_all($exclude);
 			$nav="";
@@ -166,7 +172,7 @@
 		/**
 		 * outputs sub-pages in a list
 		 *
-		 * @param $parent Page
+		 * @param $parent Page - The parent page of the subpages to output
 		 * @return void
 		 **/
 		public static function subnav($parent)
@@ -194,7 +200,11 @@
 			}
 		}
 		
-		
+		/**
+		 * Finds out if the passed page or any of it's children is the current page
+		 * @param integer $id - The unique id of the Page to check
+		 * @param array $children - An array of child pages to check 
+		 **/
 		private function is_on($id, $children)
 		{
 			if( !empty( $this->current_page ) ){
@@ -214,7 +224,10 @@
 				return "";
 			}
 		}
-		
+
+		/**
+		 * Depricated
+		 **/		
 		private function remove_excuded($pages, $excludes)
 		{
 			foreach ($pages as $key => $value){
@@ -248,10 +261,10 @@
         }
 
         /**
-         * Returns the url for a page or post
+         * Returns the url for a Page or Post
          * 
-         * @param $content - the id, title, slug, or Content object for which you want the link
-         * @param $include_tag - boolean - if true, returns the link in an anchor tag
+         * @param integer | string $content - the id, title, slug, or Content object for which you want the link
+         * @param boolean $include_tag - if true, returns the link in an anchor tag
          * @return string
          **/
 		public static function get_page_link($content, $include_tag=false)

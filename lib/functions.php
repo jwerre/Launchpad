@@ -14,13 +14,14 @@
 		} elseif( file_exists($alt_path) ) {
 			require_once($alt_path);
 		} else {
-			die("The file {$class_name}.php could not be found.");
+			die("The file $class_name could not be found at:<br>$path <em>or</em> $alt_path.");
 		}
 	}
 	/**
 	 * Converts Unix timestamp to readable date
-	 *
-	 * @param $timestamp string
+	 * @param $timestamp string -  A unix timestamp
+	 * @param $use_time boolean -  Append the time or only use the date
+	 * @param $long boolean - Use a longer format (l, F jS) else a shoter one (d/m/y)  
 	 * @return string
 	 **/
 	function simple_date($timestamp, $use_time = true, $long=false)
@@ -33,7 +34,7 @@
 	/**
 	 * Remove all 0 in data string
 	 *
-	 * @param $marked_string string
+	 * @param $marked_string string - The string to remove the "0" from; 
 	 * @return string
 	 **/	
 	function strip_zeros_from_date( $marked_string="" ) {
@@ -57,7 +58,7 @@
     /**
      * Converts SimpleXmlIterator to array
      * 
-     * @param $sxi:SimpleXmlIterator 
+     * @param $sxi:SimpleXmlIterator - A SimpleXmlIterator to conver to array
      * @return array
      **/
     function sxiToArray($sxi){
@@ -79,7 +80,7 @@
 	/**
 	 * Redirects browser to a new url
 	 *
-	 * @param $location string
+	 * @param string $location - A location to redirect to. Must be called before any output
 	 * @return void
 	 **/
 	function redirect_to( $location = NULL ) {
@@ -91,11 +92,10 @@
 	/**
 	 * Returns an error message
 	 *
-	 * @param $message string
-	 * @param $type string
+	 * @param $message string - A message to output
+	 * @param $type string - A class name for wrapper
 	 * @return string
 	 **/
-	
 	function output_message($message="", $type="success") {
 		if (!empty($message)) { 
 			return "<div class=\"message {$type}\">{$message}</div>";
@@ -105,9 +105,10 @@
 	}
 
 	/**
-	 * Converts string to slug
+	 * Makes a srting a url friendly slug
 	 *
-	 * @param $phrase string
+	 * @param string $phrase - The phrase to convert to a url friendly string
+	 * @param number $max=2000 - Max length of the slug
 	 * @return string
 	 **/
 	function slug($phrase, $max=2000)
@@ -122,18 +123,17 @@
 	/**
 	 * Converts slug to readable title 
 	 *
-	 * @param $phrase string
+	 * @param $slug string - Slug to create spaces in
 	 * @return string
 	 **/
-	function nice_name($phrase)
+	function nice_name($slug)
 	{
-		$phrase = preg_replace( "/\.([^\.]+)$/", '', $phrase);
-		$phrase = preg_replace('/[.|-]/', ' ', $phrase);
-		return ucwords($phrase);
+		$slug = preg_replace( "/\.([^\.]+)$/", '', $slug);
+		$slug = preg_replace('/[.|-]/', ' ', $slug);
+		return ucwords($slug);
 	}
 	/**
-	 * Returns the url of the calling page
-	 *
+	 * Returns the url of the current page
 	 * @return string
 	 **/	
 	function current_page_url()
@@ -150,8 +150,8 @@
 	
 	/**
 	* Appends a query string
-	*
 	* @param $query_strings array - a group of key values to append;
+	* @return string
 	*/	
 	function append_query_string($query)
 	{
@@ -170,22 +170,22 @@
 	}
 	
 	/**
-	 * Sorts array by sub-key
+	 * Sorts the elements in an array based on a field in the array
 	 *
-	 * @param $a array
-	 * @param $subkey string
-	 * @return void
+	 * @param $array array - The array to sort
+	 * @param $subkey string - A string that identifies a field in an element of the Array to be used as the sort value.
+	 * @return array
 	 **/
 	
-	function sort_on($a,$subkey) {
-		foreach($a as $k=>$v) {
-			$b[$k] = strtolower($v[$subkey]);
+	function sort_on($array,$subkey) {
+		foreach($array as $key=>$value) {
+			$new[$key] = strtolower($value[$subkey]);
 		}
-		asort($b);
-		foreach($b as $key=>$val) {
-			$c[] = $a[$key];
+		asort($new);
+		foreach($new as $key=>$value) {
+			$result[] = $array[$key];
 		}
-		return $c;
+		return $result;
 	}
 	
 	/**
@@ -204,8 +204,8 @@
 	* Translates a camel case string into a string with underscores (e.g. firstName -&gt; first_name)
 	* Thanks to: http://www.paulferrett.com/
 	*
-	* @param	string	$str 	String in camel case format
-	* @return	string	$str 	Translated into underscore format
+	* @param string $str -  String in camel case format
+	* @return string - Translated into underscore format
 	*/
 	function from_camel_case($str) {
 		$str[0] = strtolower($str[0]);
@@ -217,9 +217,9 @@
 	* Translates a string with underscores into camel case (e.g. first_name -&gt; firstName)
 	* Thanks to: http://www.paulferrett.com/
 	*
-	* @param 	string	$str 						String in underscore format
-	* @param 	bool	$capitalise_first_char		If true, capitalize the first char in $str
-	* @return 	string	$str 						translated into camel caps
+	* @param string $str - String in underscore format
+	* @param  bool $capitalise_first_char = false - If true, capitalize the first char in $str
+	* @return string
 	*/
 	function to_camel_case($str, $capitalise_first_char = false) {
 		if($capitalise_first_char) {
@@ -232,7 +232,7 @@
 	/**
 	 * converts file size to text
 	 *
-	 * @param number
+	 * @param number $size = The size of file
 	 * @return string
 	 **/
 	
@@ -250,8 +250,8 @@
 	
 	/**
 	 * recursivly deletes a direcory
-	 *
-	 * @param $dir string
+	 * @param $dir string - The directoy to delete
+	 * @return boolean
 	 **/
     function delete_directory($dir) { 
 		if (!file_exists($dir)){
@@ -273,9 +273,8 @@
     
 	/**
 	 * Includes a page layouts
-	 *
-	 * @param $template string
-	 * @param $directory string
+	 * @param string $layout - Name of the php file to include
+	 * @param string $directory = NULL - An alternate directory (default is current theme directory)
 	 **/
 	function include_layout($layout, $directory = NULL) {
         if (!isset($directory) ) {
@@ -285,9 +284,8 @@
 	}
 	/**
 	 * Includes a template
-	 *
-	 * @param $template string
-	 * @param $directory string
+	 * @param string $template - Name of the template.php file to include
+	 * @param string $directory = NULL - An alternate directory (default is current template directory)
 	 **/
 	function include_template($template, $directory = NULL) {
         if (!isset($directory) ) {
@@ -297,8 +295,7 @@
 	}
     /**
      * Get the directory for selected theme
-     *
-     * @param $filepath boolean - return the filepath or url
+     * @param boolean $filepath = false - return the filepath or url
      * @return string
      **/
     function theme_directory($filepath=false)
@@ -308,7 +305,6 @@
     }
     /**
      * Gets the url to the stylesheet for the selected theme
-     *
      * @return string
      **/
     function css($filepath=false)
@@ -317,7 +313,6 @@
     }
     /**
      * Get the stylesheet directory for selected theme
-     *
      * @return string
      **/
     function css_directory($filepath=false)
@@ -326,7 +321,6 @@
     }
     /**
      * Get the stylesheet directory for selected theme
-     *
      * @return string
      **/
     function image_directory($filepath=false)
@@ -335,7 +329,6 @@
     }
     /**
      * Get the javascript directory for selected theme
-     *
      * @return string
      **/
     function js_directory($filepath=false)
@@ -344,7 +337,6 @@
     }
     /**
      * Get the template directory for selected theme
-     *
      * @return string
      **/
     function template_directory($filepath=false)

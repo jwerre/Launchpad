@@ -247,7 +247,7 @@ $(function() {
                 var message = '<div id="message" class="info_msg"><p>It is suggested that you use the following snippets for this template:<a href="#" class="close">close</a></p>';
                 message += '<ul>';
                 for (var i = 0; i < data.length; i++) {
-                    message += '<li><strong>'+data[i]+'</srong></li>';
+                    message += '<li><strong>'+data[i]+'</strong></li>';
                 };
                 message += '</ul></div>';
                 $('#snippet').before(message);
@@ -266,7 +266,7 @@ $(function() {
                 var message = '<div id="message" class="info_msg"><p>It is suggested that you use the following snippets for this category:<a href="#" class="close">close</a></p>';
                 message += '<ul>';
                 for (var i = 0; i < data.length; i++) {
-                    message += '<li><strong>'+data[i]+'</srong></li>';
+                    message += '<li><strong>'+data[i]+'</strong></li>';
                 };
                 message += '</ul></div>';
                 $('#snippet').before(message);
@@ -701,16 +701,40 @@ $(function() {
 	$('#message').hide().delay(1000).slideDown();
    	
     // FORM VALIDATION
-	$('form').validate({
-		username: {
-			required: true,
-			minLength: 2
-		},
-		confirm_password: {
-			required: $('#password').attr('class') == 'required' ,
-			equalTo: "#password"
-		},
-	});
+	
+    $(document).ready(function(){
+	
+		$('form').validate({
+			rules: { 	
+				password_confirm: {
+					required: $("input[id$='password']").length > 0,
+					equalTo: "#password"
+				}
+			}
+		});
+
+		// $('#user_edit').validate({
+		// 	rules: {
+		// 		username: {
+		// 			required: true,
+		// 			minLength: 2
+		// 		},
+		// 		 email: {
+		// 		 	required: true,
+		// 		 	email: true
+		// 		 },
+		// 		 password: {
+		// 		 	required: true,//$('#password').attr('class') == 'required',
+		// 		 	minLength: 2
+		// 		 },
+		// 		 password_confirm: {
+		// 		 	required: $("input[id$='password']").length > 0,
+		// 		 	equalTo: "#password"
+		// 		 }
+		// 	}
+		// });
+
+	} )
     // prevent form submission on enter
     $(window).keydown(function(event){
         if(event.keyCode == 13) {

@@ -1,24 +1,51 @@
 <?php
 
 /**
-* A class connecting and executing queries using PDO extention
-* 
-* @author     Jonah Werre <jonahwerre@gmail.com>
-* @version    1.0 6/10/2010
-*/
-// include_once("config.php");
-
+ * A class connecting and executing queries using PDO extention
+ *
+ * @author Jonah Werre <jonahwerre@gmail.com>
+ * @version 1.0
+ * @copyright Jonah Werre <jonahwerre@gmail.com>, 28 June, 2011
+ * @package DatabasePDO
+ **/
 class DatabasePDO {
 	
 		
+	/**
+	 * The name of the database server. Most likely "localhost"
+	 * @var string
+	 **/
 	public $db_server;
+	/**
+	 * The username with read and write privileges for the database
+	 * @var string
+	 **/
 	public $db_user;
+	/**
+	 * The name of the database
+	 * @var string
+	 **/
 	public $db_name;
+	/**
+	 * The password to the database
+	 * @var string
+	 **/
 	public $db_password;
 	
+	/**
+	 * The last query preformed
+	 * @var PDOStatement | false
+	 **/
 	public $last_query;
+	/**
+	 * The result from the last query preformed
+	 * @var PDOStatement | false
+	 **/
 	public $last_result;
-	
+	/**
+	 * The current PDO instance
+	 * @var PDO
+	 **/
 	private $connection;
 	
 	function __construct(){
@@ -47,8 +74,8 @@ class DatabasePDO {
 	/**
 	* Preform a query on Database.
 	*
-	* @param $sql
-	* @return 
+	* @param string $sql - A valid MySQL statement
+	* @return PDOStatement 
 	*/
 	public function query($sql)
 	{
@@ -64,8 +91,9 @@ class DatabasePDO {
 	/**
 	* Executes a statement on Database
 	*
-	* @param $sql
-	* @return 
+	* @param string $sql - A valid MySQL statement
+	* @param array $values - An array of values with as many elements as there are bound parameters in the SQL statement being executed
+	* @return boolean 
 	*/
 	public function execute($sql, $values=NULL)
 	{
@@ -81,17 +109,19 @@ class DatabasePDO {
 	}
 	
 	/**
-	* Prepairs string for Database entry.
+	* Prepares a statement for execution and returns a statement object
 	*
-	* @return string - 
+	* @param string $sql - A valid MySQL statement
+	* @return PDOStatement | false
 	*/
-	public function escape_value($value)
+	public function escape_value($sql)
 	{
-		return $this->connection->quote($value);
+		return $this->connection->quote($sql);
 	}
 	
 	/**
 	* Closees a connection to Database.
+	* @return null
 	*/
 	public function close_connection()
 	{
@@ -101,7 +131,8 @@ class DatabasePDO {
 	}
 	
 	/**
-	* Returns an array containing all of the result set rows
+	* returns an array indexed by column name as returned in your result set
+	* @return array
 	*/
 	public function fetch_array()
 	{
@@ -117,7 +148,8 @@ class DatabasePDO {
 	}
 	
 	/**
-	* Returns the last inserted id of the current database connection
+	 * Returns the last inserted id of the current database connection
+	 * @return string
 	*/	
 	public function last_insert_id()
 	{
@@ -125,7 +157,8 @@ class DatabasePDO {
 	}
 	
 	/**
-	* Returns the number of rows affected by the last SQL statement
+	 * Returns the number of rows affected by the last DELETE, INSERT, or UPDATE statement executed by the corresponding PDOStatement object
+	 * @return string 
 	*/	
 	public function affected_rows()
 	{

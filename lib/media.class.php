@@ -1,24 +1,74 @@
 <?php
 
 /**
-* 
-*/
+ * Base class for uploading and modifying of media files
+ *
+ * @author Jonah Werre <jonahwerre@gmail.com>
+ * @version 1.0
+ * @copyright Jonah Werre <jonahwerre@gmail.com>, 28 June, 2011
+ * @package DatabaseObject
+ **/
 class Media extends DatabaseObject
 {
+	/**
+	 * The name of the database table
+	 * @var string
+	 **/
 	protected static $table_name = "media";
+	/**
+	 * The name of the database fields in $table_name
+	 * @var array
+	 **/
 	protected static $db_fields = array( 'id', 'filename', 'type', 'size', 'caption', 'description', 'author_id');
-	
+	/**
+	 * temporary path the the file
+	 * @var string
+	 **/
 	private $temp_path;
-	
+	/**
+	 * The unique id of the image
+	 * @var string
+	 **/
 	public $id;
+	/**
+	 * The media full filename
+	 * @var string
+	 **/
 	public $filename;
+	/**
+	 * The mime type of media 
+	 * @var string
+	 **/
 	public $type;
+	/**
+	 * The size of the media file
+	 * @var string
+	 **/
 	public $size;
+	/**
+	 * A caption for the media file
+	 * @var string
+	 **/
 	public $caption;
+	/**
+	 * A description for the media file
+	 * @var string
+	 **/
 	public $description;
+    /**
+     * The uniqie id of the User who created the Media
+     * @var intiger
+     **/
 	public $author_id;
-	
+	/**
+	 * A collection of errors created durring Media uploading
+	 * @var string
+	 **/
 	public $errors = array();
+	/**
+	 * A collection of predefined errors
+	 * @var string
+	 **/
 	public $upload_errors = array(
 		UPLOAD_ERR_OK 			=> "No errors",
 		UPLOAD_ERR_INI_SIZE  	=> "Larger than upload_max_filesize",
@@ -31,11 +81,12 @@ class Media extends DatabaseObject
 	);
 		
 	/**
-	* Sets Image attributes.
-	*
-	* @param array $file - attach_file( $_FILE['uploaded_file'] );
-	* @return boolean
-	*/
+	 * Sets Image attributes.
+	 * Useage: attach_file( $_FILE['uploaded_file'] );
+	 *
+	 * @param array $file - An associative array of items uploaded to the current script via the HTTP POST method
+	 * @return boolean
+	 */
 	public function attach_file($file)
 	{
 		if( !$file || empty($file) || !is_array($file) ){
@@ -55,7 +106,6 @@ class Media extends DatabaseObject
 	
 	/**
 	* Saves image
-	*
 	* @return boolean
 	*/
 	public function save()
@@ -92,7 +142,6 @@ class Media extends DatabaseObject
 	
 	/**
 	* Removes DB entry and file on server.
-	*
 	* @return boolean
 	*/
 	public function destroy() {
@@ -124,10 +173,11 @@ class Media extends DatabaseObject
 	}
 	
 	/**
-	* Guesses the content type of a file by looking for certain magic byte sequences at specific positions within the file.
-	*
-	* @return string 
-	**/
+	 * Guesses the content type of a file by looking for certain magic byte sequences at specific positions within the file.
+	 * If Magic File isn't available mime is guessed based on the file extention
+	 *
+	 * @return string 
+	 **/
 	public function force_mimetype()
 	{
 		if(function_exists('finfo_open')){
@@ -163,7 +213,6 @@ class Media extends DatabaseObject
 	
 	/**
 	* Reurns author of media by author_id
-	*
 	* @return User
 	**/
 	public function author()
@@ -174,7 +223,6 @@ class Media extends DatabaseObject
 	
 	/**
 	* Returns the file path of the media file.
-	*
 	* @return string
 	*/
 	public function file_path()
@@ -185,7 +233,6 @@ class Media extends DatabaseObject
 	}	
 	/**
 	* Returns the base name of the file without directories.
-	*
 	* @return string
 	*/
 	public function name_of_file()
@@ -195,7 +242,6 @@ class Media extends DatabaseObject
 	}	
     /**
      * Returns the type of media
-     * 
      * @return string eg: image, video, audio, text
      **/
     public function simple_type()
@@ -205,7 +251,6 @@ class Media extends DatabaseObject
 	
 	/**
 	* Returns returns the extension type of media.
-	*
 	* @return string
 	*/
 	public static function extension($filename) {
@@ -215,7 +260,6 @@ class Media extends DatabaseObject
 	
 	/**
 	* Returns the size of the file as string.
-	*
 	* @return string
 	*/
 	public function size_as_text() {
@@ -232,7 +276,7 @@ class Media extends DatabaseObject
     
     /**
     * Returns last created media
-    *
+	* @param integer $limit = 1 - Specifies the amount of media files to return
     * @return Media
     **/
     public static function find_last_created($limit = 1)

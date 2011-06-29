@@ -1,8 +1,12 @@
 <?php
-
 /**
-* 
-*/
+ * A class for creating and modifying Content
+ *
+ * @author Jonah Werre <jonahwerre@gmail.com>
+ * @version 1.0
+ * @copyright Jonah Werre <jonahwerre@gmail.com>, 28 June, 2011
+ * @package Cookie
+ **/
 class Cookie
 {
 	
@@ -14,13 +18,23 @@ class Cookie
 	//	GETTERS AND SETTER
 	//--------------------------------------
 	
-	// $cookie->'foo' = 'bar';
+	/**
+	 * sets a cookie veriable. Use: $cookie->foo = bar;
+	 *
+	 * @param string $key - the variable name
+	 * @param string $value - the variable value
+	 * @return null
+	 **/
 	public function __set($key, $value)
 	{
         setcookie($key, $value, time()+COOKIE_EXPIRE );
     }
-
-	//echo $cookie->foo // 'bar';
+	/**
+	 * Gets a sessin variable. Use: $cookie->foo;
+	 *
+	 * @param string $key - the cookie to retrieve 
+	 * @return string
+	 **/
 	public function __get($key)
 	{
         if (array_key_exists($key, $_COOKIE)) {
@@ -29,22 +43,24 @@ class Cookie
 			return false;
 		}
     }
-
-	//isset($cookie->foo) // true;
+	/**
+	 * check whether a cookie variable is set. Use: isset($cookie->foo);
+	 *
+	 * @param string $key - The variable to check
+	 * @return boolean
+	 **/
     public function __isset($key) {
 		return isset($_COOKIE[$key]);
     }
-
-	//unset($cookie->foo);
+	/**
+	 * unsets a cookie variable is set. Use: unset($cookie->foo);
+	 *
+	 * @param string $key - The variable to unset
+	 * @return null
+	 **/
     public function __unset($key) {
         unset($_COOKIE[$key]);
     }
-	
-
-	//--------------------------------------
-	//  PUBLIC METHODS
-	//--------------------------------------
-	
 }
 $cookie = new Cookie();
 ?>

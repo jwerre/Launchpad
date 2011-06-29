@@ -1,29 +1,78 @@
 <?php
-
-/**
-* 
-*/
+ /**
+  * A class for storing and manipulating images
+  *
+  * @author Jonah Werre <jonahwerre@gmail.com>
+  * @version 1.0
+  * @copyright Jonah Werre <jonahwerre@gmail.com>, 28 June, 2011
+  * @package DatabaseObject
+  **/
 class Image extends Media
 {
 	
-	// whitelist for posible image types
+	/**
+	 * whitelist for possible image types
+	 * @var string = 'image/gif'
+	 **/
 	const IMG_GIF = 'image/gif';
+	/**
+	 * whitelist for possible image types
+	 * @var string = 'image/jpeg'
+	 **/
     const IMG_JPEG = 'image/jpeg';
+	/**
+	 * whitelist for possible image types
+	 * @var string = 'image/png'
+	 **/
     const IMG_PNG = 'image/png';
-    // const IMG_WBMP = 'WBMP'; don't support windows bitmap
 
+	/**
+	 * Reszie Image to exact dimensions. This will often result in destoted images
+	 * @var string
+	 **/
 	const EXACT = 'exact';
+	/**
+	 * Auto size Image
+	 * @var string
+	 **/
 	const AUTO = 'auto';
+	/**
+	 * Resizes the Image proportionally based on the new height
+	 * @var string
+	 **/
 	const LANDSCAPE = 'landscape';
+	/**
+	 * Resizes the Image proportionally based on the new width
+	 * @var string
+	 **/
 	const PORTRAIT = 'portrait';
+	/**
+	 * Crop the Image from center
+	 * @var string
+	 **/
 	const CROP = 'crop';
 	
+	/**
+	 * The source of the image to crop
+	 * TODO: remove this. Use $this->filename instead
+	 * @var string
+	 **/
 	private $source;
-	private $image;
-	private $image_resized;	
+	/**
+	 * The current width of the Image
+	 * @var integer
+	 **/
 	private $width;
+	/**
+	 * The current height of the Image
+	 * @var integer
+	 **/
 	private $height;
-		
+	/**
+	 * New resized images
+	 * @var integer
+	 **/
+	private $image_resized;
 
 	function __construct()
 	{
@@ -31,11 +80,12 @@ class Image extends Media
  	}
 
 	/**
-	* Sets Image attributes.
-	*
-	* @param array $file - attach_file( $_FILE['uploaded_file'] );
-	* @return boolean
-	*/
+	 * Sets Image attributes.
+	 * Useage: attach_file( $_FILE['uploaded_file'] );
+	 *
+	 * @param array $file - An associative array of items uploaded to the current script via the HTTP POST method
+	 * @return boolean
+	 */
 	public function attach_file($file)
 	{
 		if( !$file || empty($file) || !is_array($file) ){
@@ -61,7 +111,15 @@ class Image extends Media
 		}
 	}
 	
-	
+	/**
+	 * Resize and image
+	 *
+	 * @param integer $new_width - The new width of the image
+	 * @param integer $new_height - The new height of the image
+	 * @param string $option=self::EXACT - The options to use ( Image::EXACT | Image::PORTRAIT | Images::LANDSCAPE | Images::Crop | Images::AUTO )
+	 * @param array $offset = array('x'=>0, 'y'=>0) - An offset for the crop option
+	 * @return null
+	 **/
 	public function resize($new_width, $new_height, $option=self::EXACT, $offset=array('x'=>0,'y'=>0))
 	{
 		$this->source = $this->file_path();
@@ -210,10 +268,15 @@ class Image extends Media
 		$this->image_resized = imagecreatetruecolor($new_width , $new_height);
 		imagecopyresampled($this->image_resized, $crop , 0, 0, $crop_start_x, $crop_start_y, $new_width, $new_height , $new_width, $new_height);
 	}
-
+    /**
+     * Saves a new resized image
+     *
+     * @param string $imageQuality="100" - The quality of the image
+     * @param string $save_as=NULL - Use to save as a copy without overwriting the current Image
+     * @return string
+     **/
 	public function save_image($imageQuality="100", $save_as=NULL)
 	{
-		// *** Get extension
 		$save_path = ( isset($save_as) ) ? $save_as : $this->source;
 		$save_path =  str_replace( '\\' , '/', $save_path); 
 		$extension = strrchr($save_path, '.');
@@ -257,7 +320,7 @@ class Image extends Media
     /**
      * checks to see if file is a jpg, jpeg, gif, or png
      *
-     * @param $filename:string - the file to check
+     * @param string $filename - the file to check
      * @return boolean
      **/
 	public static function is_image($filename)
