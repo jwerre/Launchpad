@@ -30,7 +30,6 @@
 	}
 	
 	$where_clause;
-	$media_container;
 	
 	switch ($type) {
 		case 'image': 

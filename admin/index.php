@@ -109,7 +109,7 @@ $playlist = simplexml_load_file($playlist_xml);
     <div id="tutorials" class="section_box">
         <h3>Tutorials</h3>
 
-<?php if (!$playlist && count($playlist) < 1) { 
+<?php if (!$playlist || count($playlist) < 1) { 
     echo '<div id="message" class="error_msg"><p>Could not find the data for tutorials at: '.$playlist_xml.'</p></div>'; 
 }else {
     $output = '<ul>';

@@ -27,7 +27,6 @@
 	<title>Launchpad - A content management system</title>
 	<meta name="description" content="A content management system">
 	<meta name="author" content="Jonah Werre">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"><!--  Mobile viewport optimized: j.mp/bplateviewport -->
 
 	<!-- <link rel="shortcut icon" href="/favicon.ico"> -->
 

@@ -12,7 +12,6 @@
 	$content->id = isset( $_GET['id'] ) ? $_GET['id'] : NULL;
     $content->type = isset( $_GET['type'] ) ? $_GET['type'] : ContentType::PAGE;	
 
-
 	if (isset($_POST['save_button']) && !empty($_POST['content_title'])){
 
 		$content->id = ( !empty($_POST['content_id']) ) ? $_POST['content_id'] : $content_id;
@@ -59,7 +58,6 @@
 		$snippets = $content->snippets_complex();
 		$headline = 'Edit '.ucwords($content->type);
 	}else{
-		$content = ( $content->type == ContentType::PAGE ) ? new Page() : new Post();
         $headline = 'Create New '.ucwords($content->type); 
     } 
     
@@ -94,19 +92,18 @@
 				<?php endforeach?>
 				</select>
 			</p>
-			<?php if($content->type == ContentType::POST) : ?>
-			<?php elseif($content->type == ContentType::PAGE): ?>
+			<?php if($content->type == ContentType::PAGE): ?>
 			<p>
 				<label for="parent_id">Parent</label>
 				<select name="parent_id" size="1" id="parent_id" value="">
 					<option value="0"> none </option>
 					<?php 
 						foreach( $parent_pages as $parent){ 
-								$option = '<option value="' .$parent->id.'"';
-								if(isset($content->parent_id) && $content->parent_id == $parent->id){ 
-									$option.= 'selected="selected"';
-								}
-								$option .='>'. $parent->title . '</option>';
+							$option = '<option value="' .$parent->id.'"';
+							if(isset($content->parent_id) && $content->parent_id == $parent->id){ 
+								$option.= 'selected="selected"';
+							}
+							$option .='>'. $parent->title . '</option>';
 							echo $option;
 						}
 					?>

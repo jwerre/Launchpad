@@ -1229,6 +1229,30 @@ height: 5px;
 	width: 1px;
 }
 
+/* FILE BROWSER */
+
+table#image_browser {
+	width: 960px;
+	margin: 20px auto;
+	border: 1px solid #D9D9D9;
+	background-color: #FFF;
+	color: #808080;
+}
+	table#image_browser td{
+		padding: 10px;
+	}
+	table#image_browser .browser_img{
+		cursor: pointer;
+		border:1px solid #ccc;
+	}
+	table#image_browser .browser_img:hover {
+		border:1px solid #409AD4;
+	}
+	table#image_browser #pagination{
+		margin-left: 440px;
+		/* width: 100px; */
+	}
+
 /* USER */
 /*#profile_img .uploadifyQueueItem {
 width: 205px;

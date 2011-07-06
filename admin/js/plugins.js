@@ -751,6 +751,10 @@ if( $('#content_body').length > 0 ){
 	
 	CKEDITOR.replace( 'content_body', {
 		skin: 'launchpad',
+        filebrowserImageBrowseUrl : 'file_browser.php?type=Images',
+        filebrowserImageUploadUrl : 'ajax/media_editor_upload.php?type=Images',		
+        filebrowserWindowWidth : '1024',
+        filebrowserWindowHeight : '770',		
 		toolbar :
 		[
 			{ name: 'source', items : [ 'Source'] },

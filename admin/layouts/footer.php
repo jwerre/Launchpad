@@ -16,7 +16,7 @@
         <?php endif; ?>
 	</script>
 	<!-- JavaScript at the bottom for fast page loading -->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 	<script>!window.jQuery && document.write(unescape('%3Cscript src="js/libs/jquery-1.5.0.js"%3E%3C/script%3E'))</script>
 	<script src="js/libs/jqueryUI/jqueryui-1.8.9.min.js"></script>
 	<script src="js/libs/jquery_cookie.js"></script>

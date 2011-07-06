@@ -73,6 +73,7 @@
                 }
                 ?>
             </p>
+		<p> <a href="media_edit.php">Uploaded Another File</a> </p>
 		</div>
 		<div id="media_upload" class="section_box <?php if( !empty($media) ){ echo 'hidden'; } ?>">
 			<h3>Choose a file to upload <small>(max: <?php echo size_as_text(MAX_FILE_SIZE) ?>)</small></h3>
