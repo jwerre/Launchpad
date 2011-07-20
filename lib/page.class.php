@@ -37,7 +37,6 @@
 		 *
 		 * @return array
 		 **/
-		
 		public static function get_templates()
 		{	
 			$pattern = theme_directory(true)."/templates/*.template.php";

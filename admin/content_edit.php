@@ -13,13 +13,18 @@
     $content->type = isset( $_GET['type'] ) ? $_GET['type'] : ContentType::PAGE;	
 
 	if (isset($_POST['save_button']) && !empty($_POST['content_title'])){
+		// echo '<pre>' . print_r($_POST, true) . '</pre>';
 
-		$content->id = ( !empty($_POST['content_id']) ) ? $_POST['content_id'] : $content_id;
+		$hours = empty($_POST['created_hour']) ? date("H") : $_POST['created_hour'];
+		$minutes = empty($_POST['created_minutes']) ? date("i") : $_POST['created_minutes'];
+		$seconds = empty($_POST['created_seconds']) ? date("s") : $_POST['created_seconds'];
+
+		$content->id = ( !empty($_POST['content_id']) ) ? $_POST['content_id'] : NULL;
 		$content->author_id = ( !empty($_POST['author_id']) ) ? $_POST['author_id'] : $user->id;
 		$content->type = ( !empty($_POST['content_type']) ) ? $_POST['content_type'] : $content->type;
 		$content->status = ( !empty($_POST['status']) ) ? $_POST['status'] : ContentStatus::PUBLISHED;
-		$content->updated = strftime( "%Y-%m-%d %H:%M:%S", time() );
-		$content->created = ( !empty($_POST['created']) ) ? $_POST['created'] : strftime( "%Y-%m-%d %H:%M:%S", time() );
+		$content->updated = date( "Y-m-d H:i:s");
+		$content->created = (isset($_POST['created_date']) && !empty($_POST['created_date'])) ? date("Y-m-d", strtotime($_POST['created_date'])).' '.$hours.':'.$minutes.':'.$seconds : date( "Y-m-d H:i:s");
 		$content->title = ( !empty($_POST['content_title']) ) ? $_POST['content_title'] : "";
 		$content->body = ( !empty($_POST['content_body']) ) ? stripslashes($_POST['content_body']) : NULL;
 		$content->weight = ( !empty($_POST['weight']) ) ? $_POST['weight'] : 0;
@@ -28,6 +33,7 @@
 		$content->category_id = ( !empty($_POST['category_id']) ) ? $_POST['category_id'] : NULL;
 		$content->template = ( !empty($_POST['template']) ) ? $_POST['template'] : NULL;
 		
+		// echo '<pre>' . print_r($content, true) . '</pre>'; exit;
 		if($content->save()){
 			if( defined('REWRITE_MAP') ){
 				$rewriter = new URLRewrite($content);
@@ -128,7 +134,7 @@
             </p>
             <input type="hidden" id="content_id" name="content_id" value="<?php echo $content->id ?>">		
 			<input type="hidden" name="author_id" value="<?php echo $content->author_id ?>">		
-			<input type="hidden" name="created" value="<?php echo $content->created ?>">		
+			<!-- <input type="hidden" name="created" value="<?php echo $content->created ?>">		 -->
 			<input type="hidden" name="content_type" value="<?php echo $content->type ?>">
 		</div>
         <?php if($content->type == ContentType::POST) : ?>
@@ -159,15 +165,27 @@
 		</div>
 		<?php endif; ?>
 		<?php if ($content->id) : ?>
+		<div id="date_box" class="section_box clearfix">
+            <h3>Created On</h3>
+			<p><strong id="created_string"><?php echo date("M d, Y g:i A", strtotime($content->created)); ?></strong> <a href="#" id="toggle_date_input" class="right">change date</a></p>
+			<p id="change_date_inputs" class="hidden">
+				<input type="text" style="width:140px" name="created_date" id="created_date" value="<?php echo empty($content->created) ?  date("M d, Y") : date("M d, Y", strtotime($content->created) ); ?>">
+				<input type="text" style="width:25px" name="created_hour" id="created_hour" value="<?php echo empty($content->created) ?  "" : date("H", strtotime($content->created)); ?>"> :
+				<input type="text" style="width:25px" name="created_minutes" id="created_minutes" value="<?php echo empty($content->created) ?  "" : date("i", strtotime($content->created)); ?>">
+				<input type="hidden" name="created_seconds" id="created_seconds" value="<?php echo empty($content->created) ?  "" : date("s", strtotime($content->created)); ?>">
+			</p>
+		</div>
 		<div id="tag_box" class="section_box clearfix">
             <h3>Tags</h3>
 			<p><input type="text" id="tags_input" value="" /><small class="note" >separate multiple tags with commas<br>(orange, blue, red)</small></p>
-            <p class="half" ><a href="ajax/tags_create" class="big_btn create_tags">Create Tag</a></p>
+            <p class="half" ><a href="ajax/tags_create.php" class="big_btn create_tags">Create Tag</a></p>
             <ul id="tag_list" class="clearfix">
             <?php if( isset($tags) && !empty($tags)) :?>
             <?php foreach ($tags as $tag) : ?>
             	<li> <a href="" id="<?php echo $tag->id;?>" class="delete_tag_btn">delete</a> <span><?php echo $tag->tag; ?></span> </li>
             <?php endforeach; ?>
+			<?php else : ?>
+				<p class="warning_msg"><strong>You have no tags for this <?php echo $content->type; ?>.</strong> Tags offer your visitors another way to navigate content. Tags are also very effective for Search Engine Optimization (SEO). It is highly recommended that you enter a few descriptive words about this <?php echo $content->type; ?>.</p>
             <?php endif;?>
             </ul>
 		</div>

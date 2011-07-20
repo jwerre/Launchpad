@@ -10,7 +10,7 @@
 		$session->message('Your options have been saved.');
 	}
 	$custom_options = Options::get_options(true);
-    $current_theme = simplexml_load_file( theme_directory().'/theme.xml' , 'SimpleXMLElement', LIBXML_NOBLANKS );
+    $current_theme = simplexml_load_file( theme_directory().'/theme.xml' , 'SimpleXMLElement');
 	include_layout("header.php", "layouts");
 ?>
 <h1 id="add_contnet">Options</h1>

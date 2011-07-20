@@ -1,5 +1,18 @@
 /* Author: Jonah Werre */
 
+/*
+ *
+ *
+ */
+function monthIntToMonthName(month, long)
+{
+	if(typeof long == 'undefined'){
+		long = false;
+	}
+	var shortNames=new Array( "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" );
+	var longNames=new Array( "January", "February", "March", "April", "May", "June",	"July", "August", "September", "October", "November", "December");
+	return (long) ? longNames[month] : shortNames[month];
+}
 
 /*
 * Test whether or not file is an image

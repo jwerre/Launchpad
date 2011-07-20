@@ -2,12 +2,11 @@
 	include 'lib/initialize.php';
     include theme_directory(true).'/functions.php';
 
-	global $page;
-	global $post;
-	global $category;
-	global $snippets;
-    global $options;
-    global $search_term;
+	// global $post;
+	// global $category;
+	// global $snippets;
+    // global $options;
+    // global $search_term;
 	
 	if( isset($_GET['page']) ){
 		$page = Page::find_by_id($_GET['page']);
@@ -19,9 +18,6 @@
 		if( !empty( $post ) )
 			$snippets = $post->snippets();
 	}
-	elseif( isset($_GET['cat']) ) {
-		$category = Category::find_by_id($_GET['cat']);
-    }
     elseif( isset($_GET['search']) ){
         $search_term = $_GET['search'];       
     }
@@ -41,10 +37,6 @@
 	elseif(!empty($post)){
 		include_layout('post.php');
 	}
-	// CATEGORIES
-	elseif(!empty($category)){
-		include_layout('categories.php');
-    }
     // SEARCH
     elseif(!empty($search_term)){
         include_layout('search.php');

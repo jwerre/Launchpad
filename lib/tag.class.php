@@ -13,19 +13,56 @@ class Tag extends DatabaseObject
 	
 	public $id;
 	public $tag;
-		
+
+	/**
+	 * Returns an array of tags linked to a Content
+	 *
+	 * @param integer  $content_id - The id of the Content
+	 * @return array
+	 **/
 	public static function find_by_content_id($content_id = 0)
 	{
 		global $database;
 		
 		$columns = implode(", ".self::$table_name.".", self::$db_fields);
 		$columns = self::$table_name.".".$columns;
-				
+
 		$sql = "SELECT ".$columns." FROM " . self::$table_name;
 		$sql .= " JOIN ". self::$x_table_name;
 		$sql .= " ON tags.id = content_x_tags.tag_id";
 		$sql .= " JOIN content ON content.id = content_x_tags.content_id";
 		$sql .= " WHERE content.id = $content_id";
+		$sql .= " AND content.status ='".ContentStatus::PUBLISHED."'";
+
+		return self::find_by_sql($sql);
+	}
+	/**
+	 * Returns all the tags for Posts in a specific Category
+	 *
+	 * @param integer | string | array  $category - The category as an id, title or array of titles
+	 * @return array - 
+	 **/
+
+	public static function find_all_in_category($category) {
+		global $database;
+		
+		$columns = implode(", ".self::$table_name.".", self::$db_fields);
+		$columns = self::$table_name.".".$columns;
+
+		$sql = "SELECT ".$columns." FROM " . self::$table_name;
+		$sql .= " JOIN ". self::$x_table_name;
+		$sql .= " ON tags.id = content_x_tags.tag_id";
+		$sql .= " JOIN content ON content.id = content_x_tags.content_id";
+		$sql .= " JOIN categories ON categories.id = content.category_id";
+		$sql .= " WHERE content.status ='".ContentStatus::PUBLISHED."'";
+		if(is_numeric($category)) {
+			$sql .= " AND content.category_id = $category";
+		}elseif( is_string($category) ){
+			$sql .= " AND categories.title = '$category'";
+		} elseif( is_array($category) ) {
+			$sql .= " AND categories.title IN ('".implode( "','" , $category )."')";
+		}
+        $sql .= " GROUP BY id";
 
 		return self::find_by_sql($sql);
 	}
@@ -57,7 +94,6 @@ class Tag extends DatabaseObject
                     echo "there was an error". $e->getMessage();
                 }
             }
-			
 			// SET LINK TABELS
 			if ($this->id) {
 				$sql = "INSERT IGNORE INTO ".self::$x_table_name;
@@ -73,34 +109,6 @@ class Tag extends DatabaseObject
 		}
 	}
 	
-	/**
-	* Create a new entry
-	*
-	* @return boolean 
-	*/
-	// protected function create()
-	// {
-	// 	global $database;
-	// 
-	// 	$attributes =  $this->attributes();
-	// 	$keys = array_keys($attributes);
-	// 	$values = array_values($attributes);
-	// 
-	// 	$sql = "INSERT IGNORE INTO ". static::$table_name ."(";
-	// 	$sql .= implode(", ", $keys );
-	// 	$sql .= ") VALUES (";
-	// 	$sql .= implode( ", ", array_fill(0, count($attributes) ,'?' ) );
-	// 	$sql .= ")";
-	// 
-	// 	if($database->execute($sql, $values)){
-	// 		if( property_exists($this, 'id') ){
-	// 			$this->id = $database->last_insert_id();
-	// 		}
-	// 		return true;
-	// 	}else{
-	// 		return false;
-	// 	}
-	// }
     
     /**
      *  Clears all tags for content

@@ -39,6 +39,11 @@ defined('THEMES_PATH') ? null : define('THEMES_PATH', SITE_ROOT.DS.'themes');
  **/
 defined('UPLOADS_PATH') ? null : define('UPLOADS_PATH', SITE_ROOT.DS.'uploads');
 /**
+ * The path to the widgets directory
+ * @var string
+ **/
+defined('WIDGETS_PATH') ? null : define('WIDGETS_PATH', SITE_ROOT.DS.'widgets');
+/**
  * The base url of the site eg: http://www.mysite.com
  * @var string
  **/

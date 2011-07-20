@@ -9,7 +9,7 @@
 	
     $category = new Category();
 
-	if (isset($_POST['submit']) && isset($_POST['title']) ){
+	if (isset($_POST['submit']) && !empty($_POST['title']) ){
 		
 		$category->id = ( !empty($_POST['id']) ) ? $_POST['id'] : NULL;
 		$category->title = $_POST['title'];
@@ -41,7 +41,7 @@
     $categories = Category::find_all();
     //TODO: Give a wanring if categories don't correspond to theme
 	// if(file_exists(theme_directory().'/theme.xml')){
-		$current_theme = simplexml_load_file( theme_directory().'/theme.xml' , 'SimpleXMLElement', LIBXML_NOBLANKS );
+		$current_theme = simplexml_load_file( theme_directory().'/theme.xml' , 'SimpleXMLElement');
 	//}
     // $current_theme = xml2array(theme_directory().'/theme.xml');
     // $suggested_categories = array();

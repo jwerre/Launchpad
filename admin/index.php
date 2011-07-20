@@ -8,34 +8,39 @@
 
     $ga_email = isset($_POST['ga_email']) ? $_POST['ga_email'] : $cookie->ga_email;
     $ga_password = isset($_POST['ga_password']) ? $_POST['ga_password'] : $cookie->ga_password;
-
-    if ( isset( $_POST['ga_remember'] ) ) {
-        $cookie->ga_email = $ga_email;
-        $cookie->ga_password = $ga_password;
-    }
-	include_layout("header.php", "layouts");
-	$user = User::find_by_id($session->user_id);
-?>
-	<h1>Home</h1>
-<?php
     if ( !empty($ga_email) && !empty($ga_password) ) {
         try{
             $ga = new gapi($ga_email, $ga_password);
         } catch (Exception $error) {
             unset($cookie->ga_email);
             unset($cookie->ga_password);
-            echo "Incorect username and password";
-            exit;
+			$session->msg_type = 'error_msg';
+			$session->message('Could not log into your Google account using that username and password.');
+			redirect_to('index.php');
         }
 
+		if ( isset( $_POST['ga_remember'] ) ) {
+			$cookie->ga_email = $ga_email;
+			$cookie->ga_password = $ga_password;
+		}
+	}
+	include_layout("header.php", "layouts");
+	$user = User::find_by_id($session->user_id);
+?>
+	<h1>Home</h1>
+<?php
+    if ( isset($ga) && !empty($ga) ) {
+
         $ga->requestAccountData();
-         
-        foreach($ga->getResults() as $result)
-        {
-          if ($result == parse_url(BASE_URL, PHP_URL_HOST)) {
-            $site_id = $result->getProfileId();
-          }
-        }
+        $ga_results = $ga->getResults(); 
+		$this_url = parse_url(BASE_URL, PHP_URL_HOST);
+
+		foreach($ga_results as $result)
+		{
+			if ( $result == $this_url ) {
+				$site_id = $result->getProfileId();
+			}
+		}
 
         if(isset($site_id)){
             $today =  date("Y-m-d");
@@ -58,9 +63,10 @@
             $output .= 'var gaData = '. json_encode( $graph_data ).';';
             $output .= '</script/>';
             $output .= '<div class="section_box">';
+
             $output .= '<h3>Site Usage <small class="right">'.date("F jS, Y", strtotime( date("Y-m-d", strtotime($today)) . "-1 month" ) ).' - '.date("F jS, Y").'</small></h3>';
-            $output .= '<div id="visitor_graph" style="height:300px;">';
-            $output .= '</div>';
+            $output .= '<div id="visitor_graph" style="height:300px;"></div>';
+
             $output .= '<ul class="ga_totals clearfix">';
             $output .= '<li><strong>Page Views</strong> ' . $ga->getPageviews() . '</li>';
             $output .= '<li><strong>Visits</strong> ' . $ga->getVisits() . '</li>';
@@ -68,11 +74,17 @@
             $output .= '<li><strong>New Visits</strong> ' .$ga->getNewVisits().'</li>';
             $output .= '<li><strong>Percent New Visits</strong> ' .round($ga->getPercentNewVisits(), 2).'%</li>';
             $output .= '<li><strong>Average Time on Site</strong> ' .date("H:i:s", mktime( 0,0, $ga->getAvgTimeOnSite(),0,0,0 )  ).'</li>';
-            $output .= '<li><strong>Bouce Rate</strong> ' .round($ga->getEntranceBounceRate(), 2).'%</li></ul>';
+            $output .= '<li><strong>Bouce Rate</strong> ' .round($ga->getEntranceBounceRate(), 2).'%</li>';
+			$output .= '<li><a class="big_btn" href="http://www.google.com/analytics" target="_blank">Visit Google Analytics</a></li>';
+			$output .= '</ul>';
+
             $output .= '</div>';
             echo $output;
         }else{
-            echo '<div id="message" class="hidden error_msg"><p>Could not find the Analytics for this site.</p></div>'; 
+			$output = '<div id="message" class="hidden error_msg"><p>Could not find Analytics for '.$this_url;
+			$output .= ( !empty($ga_results) ) ? '</p><p>You are currently signed up for the following site: '. implode(', ', $ga_results) : "";
+			$output .= '</p></div>'; 
+			echo $output;
         }
 
     }else {

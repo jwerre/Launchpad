@@ -54,6 +54,7 @@ class DatabasePDO {
 		$this->db_name = DB_NAME;
 		$this->db_password = DB_PASSWORD;
 		$this->open_connection();
+        @set_exception_handler(array($this, 'exception_handler')); 
 	}
 	
 	/**
@@ -67,7 +68,7 @@ class DatabasePDO {
 			$this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		}
 		catch(PDOException $e) {
-			echo $e->getMessage();
+			throw new Exception( $e->getMessage() );
 		}
 	}
 		
@@ -82,8 +83,7 @@ class DatabasePDO {
 		try {
 			$this->last_result = $this->connection->query($sql);			
 		} catch (PDOException $e) {
-			echo $sql . "<br><br>";
-			echo $e->getMessage();
+			throw new Exception( $e->getMessage()."<br><strong>".$sql."</strong>" );
 		}
 		return $this->last_result;
 	}
@@ -98,13 +98,7 @@ class DatabasePDO {
 	public function execute($sql, $values=NULL)
 	{
 		$this->last_result = $this->connection->prepare($sql);
-		// echo $sql."<br>";
-		// echo implode(" , ", $values)."<br>";
-		// try {
-			$this->last_result->execute($values);			
-		// } catch (PDOException $e) {
-			// echo $e->getMessage();
-		// }
+		$this->last_result->execute($values);			
 		return ($this->affected_rows() > 0) ? true : false;
 	}
 	
@@ -165,6 +159,15 @@ class DatabasePDO {
 		return $this->last_result->rowCount();
 	}
 
+	/**
+	 * Handels Exceptions for the class
+	 *
+	 * @param Object $exception
+	 * @return string
+	 **/
+    public static function exception_handler($exception) { 
+        echo "Exception caught in: ".get_called_class().":". $exception->getMessage() ."\n"; 
+    } 	
 }
 
 

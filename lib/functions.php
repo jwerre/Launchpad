@@ -18,17 +18,19 @@
 		}
 	}
 	/**
-	 * Converts Unix timestamp to readable date
-	 * @param $timestamp string -  A unix timestamp
-	 * @param $use_time boolean -  Append the time or only use the date
-	 * @param $long boolean - Use a longer format (l, F jS) else a shoter one (d/m/y)  
+	 * Converts Unix datetime to readable date
+	 * @param $datetime string -  A unix datetime
+	 * @param $long boolean - Use a longer format (%A, %B %e, %Y) else a shoter one (%m-%d-%Y)  
+	 * @param $show_time boolean -  Append the time
 	 * @return string
 	 **/
-	function simple_date($timestamp, $use_time = true, $long=false)
+	function simple_date($datetime, $long=false, $show_time=false)
 	{
-		$date_string = ($long) ? 'l, F jS' : 'd/m/y';
-		$date_string = ($use_time)? $date_string.' G:i A':$date_string;
-		return date($date_string, strtotime($timestamp) );
+		$date_string = ($long) ? '%A, %B %e, %Y' : '%m-%d-%Y';
+		if($show_time && preg_match('/[0-9][0-9]:[0-9][0-9]:[0-9][0-9]/', $datetime)){
+			$date_string .= ' at %I:%M %p';
+		}
+		return strftime($date_string, strtotime($datetime) );
 	}
 	
 	/**
@@ -187,6 +189,19 @@
 		}
 		return $result;
 	}
+	/**
+	 * Returns the last value in an associative array
+	 *
+	 * @param array $assoc - The associative array to return last value from
+	 * @return array
+	 **/
+	function last_in_assoc( $assoc ) {
+		foreach($assoc as $key => $value) {
+			if($value == end($assoc)) {
+				return array($key=>$value);
+			}
+		}
+	}	
 	
 	/**
 	 * Checks to see if string begins with search string
@@ -283,6 +298,13 @@
 		include($directory.DS.$layout);
 	}
 	/**
+	 * Includes a widget
+	 * @param string $widget - Name of the php file in the wigets directory
+	 **/
+	function include_widget($widget, $directory = NULL) {
+		include_layout($widget, WIDGETS_PATH);
+	}
+	/**
 	 * Includes a template
 	 * @param string $template - Name of the template.php file to include
 	 * @param string $directory = NULL - An alternate directory (default is current template directory)
@@ -305,6 +327,7 @@
     }
     /**
      * Gets the url to the stylesheet for the selected theme
+	 * @param boolean $filepath = false - If true retuns the theme's css file as a file path rather than a url
      * @return string
      **/
     function css($filepath=false)
@@ -313,6 +336,7 @@
     }
     /**
      * Get the stylesheet directory for selected theme
+	 * @param boolean $filepath = false - If true retuns the css directory as a file path rather than a url
      * @return string
      **/
     function css_directory($filepath=false)
@@ -321,14 +345,21 @@
     }
     /**
      * Get the stylesheet directory for selected theme
+	 * @parma string $image_name = NULL - appends a image file name to the image directory
+	 * @param boolean $filepath = false - If true retuns the image directory as a file path rather than a url
      * @return string
      **/
-    function image_directory($filepath=false)
+    function image_directory( $image_name=NULL, $filepath=false)
     {
-        return theme_directory($filepath).'/images';
+		$result = theme_directory($filepath).'/images';
+		if(isset($image_name)){
+			$result .= "/".$image_name;
+		}
+		return $result;
     }
     /**
      * Get the javascript directory for selected theme
+	 * @param boolean $filepath = false - If true retuns the js directory as a file path rather than a url
      * @return string
      **/
     function js_directory($filepath=false)
@@ -337,11 +368,38 @@
     }
     /**
      * Get the template directory for selected theme
+	 * @param boolean $filepath = false - If true retuns the template directory as a file path rather than a url
      * @return string
      **/
     function template_directory($filepath=false)
     {
         return theme_directory($filepath).'/templates';
     }
+
+
+
+
+	// if Magic Quotes is turned on strip all the slashes
+	if(function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
+		// echo "MAGIC QUOTES IS TURNED ON! --- consider turing off magic quotes in you php.ini"
+		function remove_magic_quotes($array) {
+			$fixed = array();
+			foreach ($array as $key=>$val) {
+				if (is_array($val)) {
+					$fixed[stripslashes($key)] = remove_magic_quotes($val);
+				} else {
+					$fixed[stripslashes($key)] = stripslashes($val);
+				}
+			}
+			return $fixed;
+		}
+
+		$_GET = remove_magic_quotes($_GET);
+		$_POST = remove_magic_quotes($_POST);
+		$_COOKIE = remove_magic_quotes($_COOKIE);
+		$_REQUEST = remove_magic_quotes($_REQUEST);
+		$_FILES = remove_magic_quotes($_FILES);
+	}
+	
 
 ?>

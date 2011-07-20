@@ -165,9 +165,9 @@ class Content extends DatabaseObject
 	}
 	
 	/**
-	* Find finds and entry by its title
+	* Finds Content by its title
 	* @param string $title - The title or slug of the Content
-	* @return User
+	* @return Content
 	*/
 	public static function find_by_title($title)
 	{
@@ -176,6 +176,26 @@ class Content extends DatabaseObject
 		$sql .= " OR slug='{$title}'";
 		$result_array = static::find_by_sql($sql);
 		return !empty($result_array) ? $result_array[0] : false ;
+	}
+	/**
+	* Finds all Content link to provided tags
+	* @param integer | string $tag - An id or tag name;
+	* @return array
+	*/
+	public static function find_by_tag($tag)
+	{
+		$sql = "SELECT content.* FROM content";
+		$sql .= " JOIN content_x_tags ON content.id = content_x_tags.content_id";
+		$sql .= " JOIN tags ON tags.id = content_x_tags.tag_id";
+		if( is_numeric($tag) ){
+			$sql .= " WHERE tags.id = $tag";
+		}elseif( is_string($tag) ){
+			$sql .= " WHERE tags.tag = '$tag'";
+		}
+		$sql .= " AND type='".strtolower( get_called_class() )."'";
+		$sql .= " AND status='". ContentStatus::PUBLISHED."'"; 
+		$result_array = static::find_by_sql($sql);
+		return !empty($result_array) ? $result_array : false ;
 	}
 
 	/**
@@ -214,17 +234,18 @@ class Content extends DatabaseObject
 	/**
 	* Returns an excerpt from post. To specify an excerpt lenght user the <!--excpert--> in the content body or specify an EXCERPT_LENGTH in config.php
 	*
+	* @param number $length =  EXCERPT_LENGTH -  The lenght of the excerpt to be returned rounded to the last space. This will be ingored if the excerpt flag (<!--excerpt-->) is specified in the body.
 	* @param $allow sting = '<a><em><i><strong><b><span><br><sup><sub><small><strike><abbr><cite><code>' - a list of html tags to allow in excerpt. inline elements allowed by default
 	* @return string
 	**/
-	public function excerpt($allow = '<a><em><i><strong><b><span><br><sup><sub><small><strike><abbr><cite><code>')
+	public function excerpt( $length=EXCERPT_LENGTH, $allow = '<a><em><i><strong><b><span><br><sup><sub><small><strike><abbr><cite><code>')
 	{	
 		
 		$excerpt = explode(self::EXCERPT, $this->body);
 		if(count($excerpt)>1){
 			$excerpt = $excerpt[0];
 		}else{
-			$excerpt = substr($this->body, 0, EXCERPT_LENGTH);
+			$excerpt = substr($this->body, 0, $length);
 			$last_space = strrpos( $excerpt, " " );
 			$excerpt = substr($excerpt, 0, $last_space);
 		}
@@ -355,30 +376,12 @@ class Content extends DatabaseObject
 	/**
 	 * Returns a link for the content
 	 *
-	 * @param boolean $wrap_in_tag = false - if true the link is wapped in an anchor tag 
+	 * @param boolean $include_tag = false - if true the link is wapped in an anchor tag 
 	 * @return string
 	 **/
 
-	public function get_link($wrap_in_tag = false){
-					 
-		$link = BASE_URL.'/index.php?'.$this->type.'='.$this->id;
-		
-		if(CLEAN_URLS){
-			$link = ( defined('REWRITE_MAP') ) ? BASE_URL.'/'.$this->slug : BASE_URL.'/'.$this->type.'/'.$content->id;				
-		}
-
-		if($wrap_in_tag){
-			$content_id;
-			if( isset($GLOBALS['page']) ){
-				$content_id = $GLOBALS['page'];
-			}elseif( isset($GLOBALS['post']) ){
-				$content_id = $GLOBALS['post'];
-			}
-			$on = (!empty($content_id) && $content_id->id == $this->id) ? 'on ' :'';
-			$link = '<a href="'.$link.'"class="'.$on.$this->slug.'" alt="'.$this->title.'">'.$this->title.'</a>';
-		}
-		
-		return $link;
+	public function get_link($include_tag = false){
+		return Navigation::get_link($this, $include_tag);				 
 	}
 }
 	

@@ -260,7 +260,6 @@ $(function() {
         var catName = $("select#category_id option:selected").text().trim();
         $.get( 'ajax/snippet_suggestions.php?category_name='+catName, function(response) { //TODO: USE POST NOT GET
 			var data = $.parseJSON( response );
-            log(data);
             $('#message').remove();
             if(data.length > 0){
                 var message = '<div id="message" class="info_msg"><p>It is suggested that you use the following snippets for this category:<a href="#" class="close">close</a></p>';
@@ -515,16 +514,42 @@ $(function() {
 			return false;
 		}
 	});
+
+	$('#toggle_date_input').click( function(event){
+        event.preventDefault();
+		var open = $(this).text() == "X";
+        $(this).text( !open ? "X" : "change date");
+		$('#change_date_inputs').toggleClass( 'hidden')	
+        if(!open){
+			var created = $('#created_string').text();
+			var date = new Date(created);
+			var day = monthIntToMonthName(date.getMonth())+" "+date.getDate()+", "+date.getFullYear();
+			$('#created_date').val(day); 
+			$('#created_hour').val(date.getHours()); 
+			$('#created_minutes').val(date.getMinutes()); 
+		}
+    });
+
+	$('#created_date').datepicker({ dateFormat: 'M d, yy' });
 	
     // TAG CREATE
     $('.create_tags').bind('click', function(event) {
         event.preventDefault();    
-        var tags = $('#tags_input').val().split(',');
         var content_id = $('#content_id').val();
-        if($('#tags_input').val().replace(/^\s+|\s+$/g, '').length > 0 ){
-            $.post( this.href, {'id':content_id, 'tags':tags}, function(reply) {
-                var result = eval(reply);
-                if( result.length > 1){
+        var tags = $('#tags_input').val().split(',').clean();
+        var cleanTags = new Array();
+		for (var i = 0; i < tags.length; i++) {
+			tags[i] = tags[i].trim();
+			if(tags[i]){
+				cleanTags.push(tags[i])	
+			}
+		};
+
+        if(cleanTags.length > 0 ){
+            $.post( this.href, {'id':content_id, 'tags':cleanTags}, function(reply) {
+                var result = reply;
+				log(result);
+                if( result.length > 0){
                     $('#tags_input').val("");
                     $('ul#tag_list').empty();
                     for (var i = 0; i < result.length; i++) {
@@ -754,15 +779,16 @@ if( $('#content_body').length > 0 ){
         filebrowserImageBrowseUrl : 'file_browser.php?type=Images',
         filebrowserImageUploadUrl : 'ajax/media_editor_upload.php?type=Images',		
         filebrowserWindowWidth : '1024',
-        filebrowserWindowHeight : '770',		
+        filebrowserWindowHeight : '770',
+		extraPlugins : 'excerpt',
 		toolbar :
 		[
 			{ name: 'source', items : [ 'Source'] },
-			{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','-','Undo','Redo','-','Find', 'SelectAll' ] },
+			{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','-','Undo','Redo','-','Find','SelectAll' ] },
 			{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','-','Subscript','Superscript',] },
 			{ name: 'paragraph', items : [ 'NumberedList','BulletedList','Blockquote','-','Outdent','Indent','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ] },
-			{ name: 'links', items : [ 'Link','Unlink','Anchor' ] },
-			{ name: 'insert', items : [ 'Image','Flash','Table','HorizontalRule','SpecialChar','Iframe' ] },
+			{ name: 'links', items : [ 'Link','Unlink','Anchor'] },
+			{ name: 'insert', items : [ 'Image','Flash','Table','HorizontalRule','SpecialChar','Iframe','Excerpt'] },
 			{ name: 'colors', items : [ 'TextColor','BGColor' ] },
 			{ name: 'tools', items : [ 'RemoveFormat', 'ShowBlocks', 'Maximize' ] },
 			{ name: 'styles', items : [ 'Styles','Format','Font','FontSize' ] },
@@ -772,82 +798,3 @@ if( $('#content_body').length > 0 ){
 
 	
 }
-// var $tab_items = $( 'ul:first li', $tabs ).droppable({
-// 	accept: '.connected_sortable li',
-// 	tolerance: 'pointer',
-// 	hoverClass: 'drop_hover',
-// 	drop: function( event, ui ) {
-// 		var $target = $( this );
-// 		var $new_list = $( $target.find( '#target' ).attr( 'href' ) ).find( '.connected_sortable' );
-// 		var roleName = $new_list.parent('div').attr('id'); // get the name of the user
-// 		var userName = $(ui.draggable).find('a').first().text(); // get the name of the new role
-// 		ui.draggable.hide( 'fast', function() {
-// 			var $user = $(this);
-// 			
-// 			$.ajax({
-// 				url: 'ajax/user_change_role.php',
-// 				type: 'POST',
-// 				dataType: 'text',
-// 				data: {name: userName, role:roleName},
-// 				success: function(data, textStatus, xhr) {
-// 					if(data == 'true'){
-// 						$tabs.tabs( 'select', $tab_items.index( $target ) );
-// 						$user.appendTo( $new_list ).show( 'slow', function(){
-// 							$user.removeAttr('style');
-// 						});
-// 					}else{
-// 						$user.append('<span class="warning_msg" style="margin-left:20px">Sorry, "'+userName+'" could not be made a '+roleName+'</span>')
-// 						.show( 'slow', function(){
-// 							$user.removeAttr('style');
-// 						});
-// 						$user.find('span').delay(3000).fadeOut( function(){$(this).remove()} );
-// 					}
-// 				},
-// 				error: function(xhr, textStatus, errorThrown) {
-// 					$user.append('<span class="warning_msg" style="margin-left:20px">Sorry, "'+userName+'" could not be made a '+roleName+'</span>')
-// 					.show( 'slow', function(){
-// 						$user.removeAttr('style');
-// 					});
-// 					$user.find('span').delay(3000).fadeOut( function(){$(this).remove()} );
-// 				}
-// 			});
-// 			
-// 		});
-// 	}
-// });
-
-
-
-// REORDER PAGE
-// $( 'ul.sortable' ).sortable({
-// 	placeholder: 'placeholder',
-// 	containment: 'parent',
-// 	scroll: false,
-// 	axis: 'y',
-// 	cursor: 'move',
-// 	opacity: .7,
-// 	revert: 2,
-    // start: function(event, ui) {
-    //     $start = ui.item.prevAll().length + 1;
-    // },
-    // update: function(event, ui) {
-// 		$end =  ui.item.prevAll().length + 1;
-// 		var item = ui.item;
-// 		
-// 		$.ajax({
-// 			url: 'ajax/content_change_weight.php',
-// 			type: 'POST',
-// 			dataType: 'text',
-// 			data: $(this).sortable("serialize"),
-// 			success: function(data, textStatus, xhr) {
-// 				if(data != 'true'){
-// 					appendMessage( item, 'This could not be moved', 'error_msg' );
-// 				}
-// 			},
-// 			error: function(xhr, textStatus, errorThrown) {
-// 				appendMessage( item, 'This could not be moved', 'error_msg' ); 
-// 			},
-// 		});
-    // }
-// 	
-// });

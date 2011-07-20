@@ -1,8 +1,10 @@
 <?php
 	include '../lib/initialize.php';
 	
-	if( $session->role >= UserRole::CONTRIBUTOR ){
-		// redirect_to('user_edit.php?id='$session->user_id);
+	$current_users_role =  $session->role;
+
+	if( $current_users_role >= UserRole::CONTRIBUTOR ){
+		redirect_to('user_edit.php?id='.$current_users_role);
 	}
 
 	$role = UserRole::GUEST;
@@ -41,6 +43,7 @@
 	$sql = "SELECT * FROM users WHERE role = '$role' ORDER BY last_name ASC LIMIT $offset, $limit";
 	$users = User::find_by_sql($sql);
 	$user_roles = array_reverse( UserRole::get_roles() );
+
 		
 	include_layout("header.php", "layouts");
 ?>
@@ -49,7 +52,9 @@
 	<nav class="tabs">		
 	<ul>
 		<?php foreach ($user_roles as $key => $value) :?>
-		<li <?php if($role == $value) echo 'class="on"' ?> ><a id="target" href="?role=<?php echo $value ?>"><?php echo ucwords( strtolower( $key ) ); ?></a></li>
+		<?php if( $value >= $current_users_role ): ?>
+			<li <?php if($role == $value) echo 'class="on"' ?> ><a id="target" href="?role=<?php echo $value ?>"><?php echo ucwords( strtolower( $key ) ); ?></a></li>
+		<?php endif; ?>
 		<?php endforeach; ?>
 		<li class="right"><a href="user_edit.php" class="add_button user_icn">Create New User</a></li>
 	</ul>

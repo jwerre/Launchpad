@@ -4,7 +4,9 @@ class DatabaseObject
 {
 	
 	// Public Methods
-
+    function __construct(){
+		@set_exception_handler(array($this, 'exception_handler')); 
+	}
 	/**
 	* Find all entires from 
 	* @param array $exclude - An array of integers to exculde
@@ -203,6 +205,15 @@ class DatabaseObject
 		$sql = "DELETE FROM ". static::$table_name." WHERE id=? LIMIT 1";
 		return $database->execute($sql, array($id) );		
     }                                              
+	/**
+	 * Handels Exceptions for the class
+	 *
+	 * @param Object $exception
+	 * @return string
+	 **/
+    public static function exception_handler($exception) { 
+        echo "Exception caught in: ".get_called_class().":". $exception->getMessage() ."\n"; 
+    } 	
 }
 
 ?>
