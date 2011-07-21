@@ -254,8 +254,7 @@ $(function() {
 				$('#message').remove();
 				var message = '<div id="message" class="info_msg"><p><strong>It is suggested that you use the following options :</strong><a href="#" class="close">close</a></p>';
 				message += '<ul>';
-				$(xml).find('options').children('option').each(function(option){
-
+				$(xml).find('options').children('option').each(function(index){
 					message += '<li><strong style="">'+$(this).attr('name')+':</strong> '+$(this).text()+'</li>';
 				});
 				message += '</ul></div>';
@@ -263,7 +262,29 @@ $(function() {
 			}
 		}); 
 	});
-
+    $('a#suggested_categories').click(function(event){
+		event.preventDefault();
+		$.ajax({
+			type: "GET",
+			url: window.themeXml,
+			dataType: "xml",
+			success: function(xml) {
+				$('#message').remove();
+				var nodes = $(xml).find('categories').children('category');
+                if( nodes.length > 0){
+					var message = '<div id="message" class="info_msg"><p><strong>This theme rquires the following categories:</strong><a href="#" class="close">close</a></p>';
+					message += '<ul>';
+					nodes.each(function(index){
+						message += '<li><strong>'+$(this).attr('name')+': </strong>'+$(this).children('description').first().text()+'</li>';
+					});
+					message += '</ul></div>';
+				}else{
+					var message = '<div id="message" class="info_msg"><p><strong>There are no category suggestions for this theme</strong><a href="#" class="close">close</a></p>';
+				}
+				$('h1#categories').after(message);
+			}
+		}); 
+	});
     // $('#option_suggestions').html();
     // TOGGLE CATEGORY INPUT
     $('#toggle_category_input').click( function(event){

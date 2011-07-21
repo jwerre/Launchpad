@@ -196,7 +196,7 @@
 		<p><textarea name="content_body" id="content_body" class=""><?php echo $content->body; ?></textarea></p>
         <?php if ($content->id) : ?>
             <div id="snippet" class="section_box">
-                <h3><?php echo ucwords($content->type) ?> Snippets <small class="right"><a href="#" id="snippet_suggestions">Snippet suggestions</a></small></h3>
+                <h3><?php echo ucwords($content->type) ?> Snippets <small class="right"><a href="#" id="snippet_suggestions">suggestions</a></small></h3>
                 <?php foreach ($snippets as $snippet) : ?>
                 <fieldset class="name_value last">
                     <p class="half left"><input type="text" name="snippet_name" value="<?php echo $snippet->name; ?>" id="snippet_name"></p>

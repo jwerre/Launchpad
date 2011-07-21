@@ -40,7 +40,7 @@
 
 <section class="left_side" >
 	<div id="snippet" class="section_box">
-		<h3>Custom Options<small class="right"><a href="#" id="option_suggestions">Option suggestions</a></small></h3>
+		<h3>Custom Options<small class="right"><a href="#" id="option_suggestions">suggestions</a></small></h3>
 		<?php foreach ($custom_options as $option) : ?>
 		<fieldset class="name_value last">
 			<p class="half left"><input type="text" name="snippet_name" value="<?php echo $option->name; ?>" id="snippet_name"></p>

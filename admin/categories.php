@@ -39,17 +39,10 @@
 	}
 
     $categories = Category::find_all();
-    //TODO: Give a wanring if categories don't correspond to theme
-	// if(file_exists(theme_directory().'/theme.xml')){
-		$current_theme = simplexml_load_file( theme_directory().'/theme.xml' , 'SimpleXMLElement');
-	//}
-    // $current_theme = xml2array(theme_directory().'/theme.xml');
-    // $suggested_categories = array();
-    // echo array_search('name', $categories);
     include_layout('header.php', 'layouts');
 ?>
 
-<h1 id="add_contnet">Categories</h1>
+<h1 id="categories">Categories</h1>
 <section class="right_side half">
     <?php if (!empty($categories)) : ?>
 	<ul id="category_list" class="content_list" >
@@ -78,19 +71,11 @@
                 <?php if( !empty( $category->id) ) :?>
                 <li><a href="categories.php" class="big_btn right">Cancel</a></li>				
                 <?php endif;?>
+				<li class="right"> <a href="" id="suggested_categories">suggestions</a> </li>
 			</ul>
 		</nav>
 	</fieldset>
 </form>
-
-<?php if( isset($current_theme->category) && !empty($current_theme->category) ): ?>
-        <h4>Suggested Categories for this theme</h4>
-        <ul>
-            <?php foreach ($current_theme->category as $cat) : ?>
-            <li><?php echo ucwords($cat->name); ?></li>
-            <?php endforeach; ?>
-        </ul>
-<?php endif; ?>
 <div id="delete_category_dialog" class="ui-helper-hidden" title="Are you sure you want to delete this Category">
     <p><strong>This cannot be undone</strong> and will remove the Category from your site.</p>
 </div>
