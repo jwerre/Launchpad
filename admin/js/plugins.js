@@ -237,42 +237,34 @@ $(function() {
 		return false;
 	});
     
-    // SHOWS SNIPPETS AVAILABLE FOR TEMPLATE
-    $('select#template').change( function(event){
-        var tempName = $("select#template option:selected").text().trim();
-        $.get( 'ajax/snippet_suggestions.php?template_name='+tempName, function(response) { //TODO: USE POST NOT GET
-			var data = $.parseJSON( response );
-            $('#message').remove();
-            if(data.length > 0){
-                var message = '<div id="message" class="info_msg"><p>It is suggested that you use the following snippets for this template:<a href="#" class="close">close</a></p>';
-                message += '<ul>';
-                for (var i = 0; i < data.length; i++) {
-                    message += '<li><strong>'+data[i]+'</strong></li>';
-                };
-                message += '</ul></div>';
-                $('#snippet').before(message);
-            }
-        })
-        
-    });
-    // SHOWS SNIPPETS AVAILABLE FOR CATEGORY
-    $('select#category_id').change( function(event){
-        var catName = $("select#category_id option:selected").text().trim();
-        $.get( 'ajax/snippet_suggestions.php?category_name='+catName, function(response) { //TODO: USE POST NOT GET
-			var data = $.parseJSON( response );
-            $('#message').remove();
-            if(data.length > 0){
-                var message = '<div id="message" class="info_msg"><p>It is suggested that you use the following snippets for this category:<a href="#" class="close">close</a></p>';
-                message += '<ul>';
-                for (var i = 0; i < data.length; i++) {
-                    message += '<li><strong>'+data[i]+'</strong></li>';
-                };
-                message += '</ul></div>';
-                $('#snippet').before(message);
-            }
-        })
-        
-    });
+    // SHOWS SNIPPETS AVAILABLE FOR PAGE TEMPLATE OR POST CATEGORY
+    $('select#template').change( function(){showSnippets()} );
+    $('select#category_id').change( function(){showSnippets()});
+    $('#snippet_suggestions').click( function(event){
+		event.preventDefault();
+		showSnippets()
+	});
+    $('a#option_suggestions').click( function(event){
+		event.preventDefault();
+		$.ajax({
+			type: "GET",
+			url: window.themeXml,
+			dataType: "xml",
+			success: function(xml) {
+				$('#message').remove();
+				var message = '<div id="message" class="info_msg"><p><strong>It is suggested that you use the following options :</strong><a href="#" class="close">close</a></p>';
+				message += '<ul>';
+				$(xml).find('options').children('option').each(function(option){
+
+					message += '<li><strong style="">'+$(this).attr('name')+':</strong> '+$(this).text()+'</li>';
+				});
+				message += '</ul></div>';
+				$('#snippet').before(message);
+			}
+		}); 
+	});
+
+    // $('#option_suggestions').html();
     // TOGGLE CATEGORY INPUT
     $('#toggle_category_input').click( function(event){
         event.preventDefault();
@@ -651,7 +643,7 @@ $(function() {
 		'script' : 'ajax/media_upload.php',
 		'cancelImg' : 'images/icn_close.png',
 		'buttonImg' : 'images/btn_upload.png',
-		'scriptData'  : {'author_id':user_id},
+		'scriptData'  : {'author_id':window.user_id},
 		'multi' : false,
 		'auto' : true,
 		'onError' : function (event,ID,fileObj,errorObj) {
@@ -717,7 +709,8 @@ $(function() {
         }); 
     };
 	// MESSAGES
-	$('#message a.close').live( 'click', function(){
+	$('#message a.close').live( 'click', function(event){
+		event.preventDefault;
 		$(this).parents('#message').slideUp('fast',function(){
 			$(this).remove();
 		});

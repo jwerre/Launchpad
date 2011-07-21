@@ -73,7 +73,7 @@
 			<li class="<?php echo $media->id; ?>">
 				<div class="media_container">
 					<?php if($type == 'image'): ?>
-					<div><img src="imageprocessor.php?src=<?php echo $media->filename; ?>&w=93&h=69&mode=fit"/></div>
+					<div><img src="imageprocessor.php?src=<?php echo $media->filename; ?>&h=96&mode=fit"/></div>
 					<?php else: ?>
 					<img src="images/icn_<?php echo $type ?>_big.png"/>
 					<?php endif; ?>	

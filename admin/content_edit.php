@@ -30,7 +30,7 @@
 		$content->weight = ( !empty($_POST['weight']) ) ? $_POST['weight'] : 0;
 		$content->slug = ( !empty($_POST['slug']) ) ? slug($_POST['slug']) : slug($_POST['content_title']);
 		$content->parent_id = ( !empty($_POST['parent_id']) ) ? $_POST['parent_id'] : NULL;
-		$content->category_id = ( !empty($_POST['category_id']) ) ? $_POST['category_id'] : NULL;
+		$content->category_id = ( !empty($_POST['category']) ) ? $_POST['category'] : NULL;
 		$content->template = ( !empty($_POST['template']) ) ? $_POST['template'] : NULL;
 		
 		// echo '<pre>' . print_r($content, true) . '</pre>'; exit;
@@ -134,15 +134,15 @@
             </p>
             <input type="hidden" id="content_id" name="content_id" value="<?php echo $content->id ?>">		
 			<input type="hidden" name="author_id" value="<?php echo $content->author_id ?>">		
-			<!-- <input type="hidden" name="created" value="<?php echo $content->created ?>">		 -->
-			<input type="hidden" name="content_type" value="<?php echo $content->type ?>">
+			<!-- <input type="hidden" name="created" value="<?php //echo $content->created ?>">		 -->
+			<input type="hidden" id="content_type" name="content_type" value="<?php echo $content->type ?>">
 		</div>
         <?php if($content->type == ContentType::POST) : ?>
 		<div id="category_box" class="section_box clearfix">
             <h3>Category</h3>
 			<p>
-				<label for="category_id">Choose One</label>
-				<select name="category_id" size="1" id="category_id">
+				<label for="category">Choose One</label>
+				<select name="category" size="1" id="category">
 					<option value="">None</option>
 					<?php foreach( $categories as $cat): ?>
 					<option value="<?php echo $cat->id; ?>" <?php if(isset($content->category_id) && $content->category_id == $cat->id){ echo 'selected="selected"';} ?> > <?php echo $cat->title; ?></option>
@@ -196,7 +196,7 @@
 		<p><textarea name="content_body" id="content_body" class=""><?php echo $content->body; ?></textarea></p>
         <?php if ($content->id) : ?>
             <div id="snippet" class="section_box">
-                <h3><?php echo ucwords($content->type) ?> Snippets</h3>
+                <h3><?php echo ucwords($content->type) ?> Snippets <small class="right"><a href="#" id="snippet_suggestions">Snippet suggestions</a></small></h3>
                 <?php foreach ($snippets as $snippet) : ?>
                 <fieldset class="name_value last">
                     <p class="half left"><input type="text" name="snippet_name" value="<?php echo $snippet->name; ?>" id="snippet_name"></p>

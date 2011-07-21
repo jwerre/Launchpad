@@ -137,6 +137,34 @@ function initMessage(message, messageType )
 	.find('.'+messageType).delay(1000).slideDown();
 }
 
+function showSnippets(){
+	var contentType = $('input#content_type').val();
+	var snippetType = (contentType == 'page') ? 'template' : 'category';
+	var parentNodeName = (snippetType == 'template') ? 'templates' : 'categories';
+	var selectedType = $("select#"+snippetType+" option:selected").text().trim();
+
+	$.ajax({
+		type: "GET",
+		url: window.themeXml,
+		dataType: "xml",
+		success: function(xml) {
+			$('#message').remove();
+			var message = '<div id="message" class="info_msg"><p><strong>It is suggested that you use the following snippets for this '+snippetType+'</strong>:<a href="#" class="close">close</a></p>';
+			message += '<ul>';
+			$(xml).find(parentNodeName).children(snippetType).each(function(index){
+				var currAttr = $(this).attr('name');
+				if(currAttr == selectedType){
+					$(this).find('snippet').each(function(snipp){
+						message += '<li><strong style="">'+$(this).attr('name')+':</strong> '+$(this).text()+'</li>';
+					});
+				}
+			});
+			message += '</ul></div>';
+			$('#snippet').before(message);
+		}
+	});
+}
+
 /*
 * removes specified values from array
 *

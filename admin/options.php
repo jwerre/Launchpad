@@ -10,7 +10,6 @@
 		$session->message('Your options have been saved.');
 	}
 	$custom_options = Options::get_options(true);
-    $current_theme = simplexml_load_file( theme_directory().'/theme.xml' , 'SimpleXMLElement');
 	include_layout("header.php", "layouts");
 ?>
 <h1 id="add_contnet">Options</h1>
@@ -22,16 +21,12 @@
 		<div class="section_box">
 			<h3>Current Theme</h3>
             <p class="center preview" style="float:none">
-            <a href="themes.php"> <img src="<?php echo (isset($current_theme->preview) && !empty($current_theme->preview)) ? $current_theme->preview : theme_directory().'/preview.png'; ?>" alt="" /> </a>
-            </p>
-            <?php if(isset($current_theme->options)): ?>
-            <h4>Suggested Custom Options</h4>
-            <ul style="margin-bottom:20px;">
-                <?php foreach($current_theme->options->name as $option): ?>
-                    <li><?php echo $option;  ?></li>
-                <?php endforeach; ?>
-            </ul>
-            <?php endif; ?>
+            <a href="themes.php"> <img class="theme_thumbnail" src="<?php echo theme_directory().'/preview.png'; ?>" alt="" /> </a>
+            <div class="hidden">
+				<h4 class="center">Suggested Custom Options</h4><hr>
+				<ul id="option_suggestions" class="" style="margin-bottom:20px;">
+				</ul>
+            </div>
 			<p><a href="themes.php" class="big_btn">Change Theme</a></p>
 		</div>
 	</fieldset>
@@ -45,7 +40,7 @@
 
 <section class="left_side" >
 	<div id="snippet" class="section_box">
-		<h3>Custom Options</h3>
+		<h3>Custom Options<small class="right"><a href="#" id="option_suggestions">Option suggestions</a></small></h3>
 		<?php foreach ($custom_options as $option) : ?>
 		<fieldset class="name_value last">
 			<p class="half left"><input type="text" name="snippet_name" value="<?php echo $option->name; ?>" id="snippet_name"></p>

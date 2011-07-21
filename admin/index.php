@@ -125,12 +125,17 @@ $playlist = simplexml_load_file($playlist_xml);
     echo '<div id="message" class="error_msg"><p>Could not find the data for tutorials at: '.$playlist_xml.'</p></div>'; 
 }else {
     $output = '<ul>';
+	// echo '<pre>' . print_r($playlist, true) . '</pre>'; exit;
+	if(count($playlist['video']) > 0){
     foreach ($playlist as $video){
         $output .= '<li>';
         $output .= '<a href="?v_id='.$video->id.'&ap=1">';
         $output .= $video->title;
         $output .= '</a></li>';
-    }
+	}
+	}else{
+        $output .= '<li>Sorry, There are no tutorial videos at this time.</li>';
+	}
     $output .= '</ul>';
     $output .= '<div class="video_player"><iframe src="http://player.vimeo.com/video/';
     $output .= (isset($_GET['v_id'])) ? $_GET['v_id'] : $playlist->video[0]->id; 
