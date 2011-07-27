@@ -1,25 +1,27 @@
+<?php 
+	global $page;
+	$nav = new Navigation();
+	if(!empty($page)){
+		$snippets = $page->snippets();
+	}
+?>
+
 <div id="column_right">
+	<ul id="cta_buttons">
+		<li class="get_connected"><?php echo Navigation::get_link('Contact Us', true); ?></li>
+		<li class="listen_to_sermon"><?php echo Navigation::get_link('Sermons', true) ?></li>
+		<li class="read_blog"><?php echo Navigation::get_link('Blog', true) ?></li>
+	</ul>
 	<nav class="subnav">
-		<?php 
-			global $page;
-			$nav = new Navigation();
-			$nav->subnav($page);
-		?>
+		<?php if(!empty($page)) $nav->subnav($page); ?>
 	</nav>
-	<div class="box recent_posts">
-		<h3 class="box_head">Recent Blog Posts</h3>
-		<div class="box_bottom">
-			<ul>
-			<?php 
-			$recent_posts = Post::posts_by_category_title('Blog', 'created DESC', 5);
-			if(!empty($recent_posts)){
-				foreach ($recent_posts as $post) {
-					echo '<li><h3><a href="'.$post->get_link().'">'.$post->title.'</a></h3>';
-					echo '<p class="author"><strong>'.$post->author()->full_name().'</strong> <em>'.date('F jS, Y', strtotime($post->created)).'</em></p></li>';
-				}
-			}
-			?>
-			</ul>
-		</div>
-	</div>
+<?php
+    if($page->title == 'Events'){
+		include_widget('recent_events.php');
+    }
+?>
+	<?php if(isset($snippets['bulletin'])) : ?>
+		<h5 class="center"> <a href=" <?php echo $snippets['bulletin']; ?>" class="bulletin">Download the weekly bulletin</a></h5>
+    <?php endif; ?>
 </div>
+

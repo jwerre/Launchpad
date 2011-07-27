@@ -1381,6 +1381,7 @@ a.disabled {
 	margin: 20px;
 	text-align: center;
 	position: relative;
+	overflow:hidden;
 }
 #message p:last-child {
 	margin: 0;

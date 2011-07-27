@@ -248,16 +248,21 @@ $(function() {
 		event.preventDefault();
 		$.ajax({
 			type: "GET",
-			url: window.themeXml,
+			url: window.themeDir+'/theme.xml',
 			dataType: "xml",
 			success: function(xml) {
-				$('#message').remove();
-				var message = '<div id="message" class="info_msg"><p><strong>It is suggested that you use the following options :</strong><a href="#" class="close">close</a></p>';
-				message += '<ul>';
-				$(xml).find('options').children('option').each(function(index){
-					message += '<li><strong style="">'+$(this).attr('name')+':</strong> '+$(this).text()+'</li>';
-				});
-				message += '</ul></div>';
+				var nodes = $(xml).find('options').children('option');
+                if(nodes.length > 0){
+					$('#message').remove();
+					var message = '<div id="message" class="info_msg"><p><strong>The following custom options are suggested for this theme:</strong><a href="" class="close">close</a></p>';
+					message += '<ul>';
+					nodes.each(function(index){
+						message += '<li><strong style="">'+$(this).attr('name')+':</strong> '+$(this).text()+'</li>';
+					});
+					message += '</ul></div>';
+				}else{
+					var message = '<div id="message" class="info_msg"><p><strong>There are no custom options for this theme :</strong><a href="" class="close">close</a></p>';
+				}
 				$('#snippet').before(message);
 			}
 		}); 
@@ -266,7 +271,7 @@ $(function() {
 		event.preventDefault();
 		$.ajax({
 			type: "GET",
-			url: window.themeXml,
+			url: window.themeDir+'/theme.xml',
 			dataType: "xml",
 			success: function(xml) {
 				$('#message').remove();
@@ -285,7 +290,22 @@ $(function() {
 			}
 		}); 
 	});
-    // $('#option_suggestions').html();
+
+	// THIS SHOULD NOT BE ready()
+	$('#available_themes').ready(function(event){
+		var themes = window.allThemes;
+		$(themes).each(function(index){
+			$.ajax({
+				type: "GET",
+				url: this+'/theme.xml',
+				dataType: "xml",
+				success: function(xml) {
+					//log('theme loaded');
+				}
+			});
+		});
+	});
+
     // TOGGLE CATEGORY INPUT
     $('#toggle_category_input').click( function(event){
         event.preventDefault();
@@ -735,6 +755,7 @@ $(function() {
 		$(this).parents('#message').slideUp('fast',function(){
 			$(this).remove();
 		});
+		return false;
 	});
 	
 	$('#message').hide().delay(1000).slideDown();

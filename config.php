@@ -6,7 +6,7 @@
 
 define('DB_SERVER', 'localhost');
 define('DB_PORT', '');
-define('DB_NAME', 'northsound');
+define('DB_NAME', 'launchpad');
 define('DB_USER', 'root');
 define('DB_PASSWORD', '');
 

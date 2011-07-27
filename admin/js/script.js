@@ -145,21 +145,27 @@ function showSnippets(){
 
 	$.ajax({
 		type: "GET",
-		url: window.themeXml,
+		url: window.themeDir+'/theme.xml',
 		dataType: "xml",
 		success: function(xml) {
 			$('#message').remove();
+			var nodes = $(xml).find(parentNodeName).children(snippetType);
+			var snippCount = 0;
 			var message = '<div id="message" class="info_msg"><p><strong>It is suggested that you use the following snippets for this '+snippetType+'</strong>:<a href="#" class="close">close</a></p>';
 			message += '<ul>';
-			$(xml).find(parentNodeName).children(snippetType).each(function(index){
+			$(nodes).each(function(index){
 				var currAttr = $(this).attr('name');
 				if(currAttr == selectedType){
 					$(this).find('snippet').each(function(snipp){
 						message += '<li><strong style="">'+$(this).attr('name')+':</strong> '+$(this).text()+'</li>';
+						snippCount++;
 					});
 				}
 			});
 			message += '</ul></div>';
+			if(snippCount == 0 ){
+				message = '<div id="message" class="info_msg"><p><strong>There are no suggested snippets for this '+snippetType+'</strong>:<a href="#" class="close">close</a></p>';
+			}
 			$('#snippet').before(message);
 		}
 	});

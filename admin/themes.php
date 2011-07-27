@@ -10,21 +10,24 @@
     if (isset($_GET['theme'])) {
         $options->theme = $_GET['theme'];
     }
-    if(isset($_GET['remove'])){
-        $theme_dir = THEMES_PATH.'/'.$_GET['remove'];
-        // $owner = fileperms(fileowner($theme_dir)); echo '<pre>'; print_r($owner); echo '</pre>';exit;
-        try{
-            delete_directory($theme_dir);
-        } catch (Exception $error) {
-            // var_dump($error->getMessage());
-        }
-        
-    }
+	//if(isset($_GET['remove'])){
+	// $theme_dir = THEMES_PATH.'/'.$_GET['remove'];
+	// $owner = fileperms(fileowner($theme_dir)); echo '<pre>'; print_r($owner); echo '</pre>';exit;
+	//try{
+	// delete_directory($theme_dir);
+	//} catch (Exception $error) {
+	// var_dump($error->getMessage());
+	//}
+	//}
 
     $current_theme_name = $options->theme;
     $current_theme_xml;
     $theme_paths = glob(THEMES_PATH.'/*', GLOB_ONLYDIR);
-    
+
+	foreach( $theme_paths as $path ){
+		//echo strrchr('/', $path);
+	}
+
 	$theme_paths = array_filter($theme_paths,
 	   function($value) {
         global $current_theme_name;
@@ -41,34 +44,34 @@
 	//}
 	include_layout("header.php" ,"layouts");
 ?>
+<script>
+	var allThemes = <?php echo json_encode($theme_paths); ?>
+</script>
 <h1>Themes</h1>
 <section class="right_side">
-	<div class="section_box current_theme">
+	<div class="section_box" id="current_theme">
     <h3>Current Theme</h3>
     <ul class="themes">
-        <li class="theme">
-            <div class="preview" style="">
-            <img src="<?php echo (isset($current_theme->preview) && !empty($current_theme->preview)) ? $current_theme->preview : theme_directory().'/preview.png'; ?>" alt="" />
-            </div>
-            <div class="theme_desciption">
-                <h4><?php echo (isset($current_theme->title) && !empty($current_theme->title)) ? ucwords($current_theme->title) : ucwords(substr(strrchr(theme_directory(), "/"), 1)); ?></h4>
-                <p><?php echo (isset($current_theme->description) && !empty($current_theme->description)) ? $current_theme->description : 'No description'; ?></p>
-            </div>
-            <?php if( isset($current_theme->category) && !empty($current_theme->category) ): ?>
-                <br><h4>Suggested Categories</h4>
-                <ul>
-                    <?php foreach ($current_theme->category as $cat) : ?>
-                    <li><?php echo ucwords($cat->name); ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php endif; ?>
-        </li>
-    </ul>
+		<div class="preview" style="">
+		<img src="<?php echo (isset($current_theme->preview) && !empty($current_theme->preview)) ? $current_theme->preview : theme_directory().'/preview.png'; ?>" alt="" />
+		</div>
+		<div class="theme_desciption">
+			<h4><?php echo (isset($current_theme->title) && !empty($current_theme->title)) ? ucwords($current_theme->title) : ucwords(substr(strrchr(theme_directory(), "/"), 1)); ?></h4>
+			<p><?php echo (isset($current_theme->description) && !empty($current_theme->description)) ? $current_theme->description : 'No description'; ?></p>
+		</div>
+		<?php if( isset($current_theme->category) && !empty($current_theme->category) ): ?>
+			<br><h4>Suggested Categories</h4>
+			<ul>
+				<?php foreach ($current_theme->category as $cat) : ?>
+				<li><?php echo ucwords($cat->name); ?></li>
+				<?php endforeach; ?>
+			</ul>
+		<?php endif; ?>
 	</div>
 </section>
-<section class=" left_side section_box">
+<section id="available_themes" class=" left_side section_box">
 <h3>Available Themes</h3>
-    <?php if(!empty($theme_paths)) : ?>
+	<?php if(!empty($theme_paths)) :?>
 	<ul class="themes">
         <?php foreach ($theme_paths as $path):
 			$filename = substr(strrchr($path, "/"), 1);

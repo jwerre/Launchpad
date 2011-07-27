@@ -2,32 +2,59 @@
 <theme>
     <title>Sky</title>
     <description>
-        The Default theme for Launchpad. It is a clean white site with a blue nav bar and soft clouds in the backgound.
+		This is the default theme for Launchpad.
     </description>
     <preview>../themes/sky/preview.png</preview>
     <options>
-        <name>facebook</name>
-        <name>twitter</name>
-        <name>phone</name>
-        <name>address</name>
-        <name>contact</name>
+		<option name="facebook">Url to facebook page</option>
+        <option name="twitter">Url to twitter page</option>
+        <option name="email">Contact email address</option>
+        <option name="phone">Contact phone number</option>
+        <option name="fax">Contact fax number</option>
+        <option name="address">Mailing address</option>
     </options>
-    <category>
-        <name>Blog</name>
-        <snippet>title</snippet>
-        <snippet>author</snippet>
-    </category>
-    <category>
-        <name>Slide</name>
-        <snippet>kind</snippet>
-        <snippet>date</snippet>
-    </category>
-    <template>
-        <name>None</name>
-    </template>
-    <template>
-        <name>Contact</name>
-        <snippet>phone</snippet>
-        <snippet>address</snippet>
-    </template>
+    <categories>
+		<category name="Blog">
+			<description>Posts with this category will be displayed in the blog</description>
+		</category>
+		<category name="Event">
+			<description>Posts with the category will be displayed on the Events calander</description>
+			<snippet name="start">A date specifying the start of the event fomated like: July 24 2011 06:30:00. You can leave off the time if it doesn't apply.</snippet>
+			<snippet name="end">Another date specifying the end of the event. Same format as above</snippet>
+			<snippet name="allDay">Enter true if it is an all day event like a birthday.</snippet>
+			<snippet name="url">If you'd like the event to link to an alternate url enter it here ( make sure you begin it with http://www... ) if you leave this blank it will link to the post by default.</snippet>
+			<snippet name="color">The color of the event. Enter a color name (red, blue, green) or hexadecimal value (#FF0000, #00FF00, #0000FF).</snippet>
+		</category>
+		<category name="Feature">
+			<description>Posts with this category will displayed in the home page slider</description>
+			<snippet name="image">The main image for the slider 495x259 pixels</snippet>
+		</category>
+		<category name="Staff">
+			<description>Posts with the category will be displayed on the Team page</description>
+			<snippet name="portrait">A url to a small protrait image 75x75px</snippet>
+			<snippet name="position">The position of the staff memeber</snippet>
+			<snippet name="email">The email of the staff memeber</snippet>
+			<snippet name="facebook">The staff memebers facebook address</snippet>
+			<snippet name="twitter">The staff memebers twitter address</snippet>
+		</category>
+    </categories>
+    <templates>
+		<template name="None">
+		</template>
+		<template name="Home">
+		</template>
+		<template name="Contact">
+		</template>
+		<template name="Blog">
+		</template>
+		<template name="Sermon">
+		</template>
+		<template name="Events">
+			<snippet name="bulletin" >A url to a PDF containing the Sunday bulletin</snippet>
+		</template>
+		<template name="Journey">
+		</template>
+		<template name="Our Team">
+		</template>
+    </templates>
 </theme>

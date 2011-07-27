@@ -115,17 +115,18 @@
 <?php } ?>
 
 <?php
-$playlist_xml =  'http://vimeo.com/api/v2/'.VIMEO_ID.'/all_videos.xml';
-$playlist = simplexml_load_file($playlist_xml);
+	$playlist_xml = 'http://vimeo.com/api/v2/'.VIMEO_ID.'/all_videos.xml';
+	if( function_exists('php_network_getaddresses')){ // TODO: make sure this works with internet connection
+		$playlist = simplexml_load_file($playlist_xml);
+	}
 ?>
     <div id="tutorials" class="section_box">
         <h3>Tutorials</h3>
 
-<?php if (!$playlist || count($playlist) < 1) { 
-    echo '<div id="message" class="error_msg"><p>Could not find the data for tutorials at: '.$playlist_xml.'</p></div>'; 
+<?php if ( !isset($playlist) || empty($playlist)) { 
+    echo '<div id="message" class="error_msg"><p>Could not find the data for tutorials at: You can view the tutorials at <a href="http://www.vimeo.com/launchpad">http://www.vimeo.com/launchpad<a></p></div>'; 
 }else {
     $output = '<ul>';
-	// echo '<pre>' . print_r($playlist, true) . '</pre>'; exit;
 	if(count($playlist['video']) > 0){
     foreach ($playlist as $video){
         $output .= '<li>';

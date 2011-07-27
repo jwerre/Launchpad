@@ -13,10 +13,10 @@
 	?>
 	<div class="blog_tease">
 		<h2><?php echo $post->title ?></h2>
-		<p class="snippet"><em>by </em><?php echo $author->full_name(); ?><em> on </em><?php echo date('F jS, Y', strtotime($post->created));  ?></p>
+		<p class="meta"><em>by </em><?php echo $author->full_name(); ?><em> on </em><?php echo date('F jS, Y', strtotime($post->created));  ?></p>
 		<?php echo $post->excerpt()?>
 		<div class="blog_tease_foot">
-			<a class="read_more" href="?post=<?php echo $post->id ?>">Read More</a>
+			<a class="read_more" href=<?phpBASE_URL?>"/post/<?php echo $post->id ?>">Read More</a>
 		</div>
 	</div>
 	<?php

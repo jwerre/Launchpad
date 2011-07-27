@@ -10,12 +10,12 @@
 	<!-- Global javascript variables -->
 	<script>
         <?php if( isset($session->user_id) ): ?>
-		user_id = <?php echo $session->user_id.";\n";?>
+		var user_id = <?php echo $session->user_id.";\n";?>
         <?php else :?>
-		user_id = null;
+		var user_id = null;
         <?php endif; ?>
-
-		themeXml = <?php echo '"'.theme_directory().'/theme.xml";'; ?>
+		var themeDir = <?php echo '"'.theme_directory().'";'; ?>
+		var themeXml = <?php echo '"'.theme_directory().'/theme.xml";'; ?>
 	</script>
 	<!-- JavaScript at the bottom for fast page loading -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>

@@ -1,4 +1,4 @@
-<details>
-  <summary><h1>Not found</h1></summary>
-  <p><span frown>:(</span></p>
-</details>
+<div id="column_left">
+<h1>Error 404: Page Not found</h1>
+</div>
+<?php include_layout("column_right.php"); ?>
