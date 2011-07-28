@@ -17,7 +17,6 @@ CKEDITOR.plugins.add( 'excerpt',
 					editor.setData(removed);
 					inserted = false;
 				}
-				console.log('CLICKED');
 			}
 		});
 
@@ -31,7 +30,6 @@ CKEDITOR.plugins.add( 'excerpt',
 
 	afterInit : function( editor )
 	{
-		console.log('AFTER INIT');
 		var dataProcessor = editor.dataProcessor,
 			dataFilter = dataProcessor && dataProcessor.dataFilter;
 

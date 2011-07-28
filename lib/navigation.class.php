@@ -67,13 +67,13 @@
 				$sql .= " OR slug IN (".$this->sanitize_search( $this->include).")";
                 $sql .= " ORDER BY weight ASC";
 			}elseif( isset($this->exclude) ) {
-                $sql = "SELECT id, title, slug FROM content WHERE type='".ContentType::PAGE."' AND status ='".ContentStatus::PUBLISHED."'";
+                $sql = "SELECT id, title, slug, type FROM content WHERE type='".ContentType::PAGE."' AND status ='".ContentStatus::PUBLISHED."'";
 				$sql .= " AND id NOT IN (".$this->sanitize_search($this->exclude ).")";
 				$sql .= " AND title NOT IN (".$this->sanitize_search($this->exclude ).")";
 				$sql .= " AND slug NOT IN (".$this->sanitize_search($this->exclude ).")";
                 $sql .= " ORDER BY weight ASC";
 			}else{
-                $sql = "SELECT id, title, slug FROM content WHERE type='".ContentType::PAGE."' AND status ='".ContentStatus::PUBLISHED."' ORDER BY weight ASC";
+                $sql = "SELECT id, title, slug, type FROM content WHERE type='".ContentType::PAGE."' AND status ='".ContentStatus::PUBLISHED."' ORDER BY weight ASC";
             }
             $pages = Page::find_by_sql($sql);
 			if( !empty( $pages) )  {
@@ -137,7 +137,7 @@
 		 **/
 		function output_sitemap()
 		{
-            $sql = "SELECT id, title, slug FROM content WHERE type='".ContentType::PAGE."' AND status ='".ContentStatus::PUBLISHED."'";
+            $sql = "SELECT id, title, slug, type FROM content WHERE type='".ContentType::PAGE."' AND status ='".ContentStatus::PUBLISHED."'";
 			if( isset($this->exclude)) {
 			    $sql .= " AND id NOT IN (".implode("," , $this->exclude ).")";
             }

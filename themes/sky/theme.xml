@@ -18,7 +18,7 @@
 			<description>Posts with this category will be displayed in the blog</description>
 		</category>
 		<category name="Event">
-			<description>Posts with the category will be displayed on the Events calander</description>
+			<description>Posts with the category will be displayed on the Events calendar</description>
 			<snippet name="start">A date specifying the start of the event fomated like: July 24 2011 06:30:00. You can leave off the time if it doesn't apply.</snippet>
 			<snippet name="end">Another date specifying the end of the event. Same format as above</snippet>
 			<snippet name="allDay">Enter true if it is an all day event like a birthday.</snippet>

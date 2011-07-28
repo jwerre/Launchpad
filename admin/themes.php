@@ -14,7 +14,9 @@
 	// $theme_dir = THEMES_PATH.'/'.$_GET['remove'];
 	// $owner = fileperms(fileowner($theme_dir)); echo '<pre>'; print_r($owner); echo '</pre>';exit;
 	//try{
+	// if(theme is not current theme){
 	// delete_directory($theme_dir);
+	// }
 	//} catch (Exception $error) {
 	// var_dump($error->getMessage());
 	//}

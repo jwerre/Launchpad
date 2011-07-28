@@ -9,7 +9,7 @@
 		$tags = $post->tags( true );
 	}
 	$nav = new Navigation();
-	$nav->include = array('Your Journey', 'Community', 'Events', 'Resources', 'About Us');
+	// $nav->include = array('Your Journey', 'Community', 'Events', 'Resources', 'About Us');
 	$nav->current_page = (isset($page) && !empty($page)) ? $page->id : NULL;
 
 	$page_title = "Navigating life together";

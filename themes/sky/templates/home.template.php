@@ -32,7 +32,7 @@
 <?php endif; ?>
 <nav>		
 	<ul id="cta_buttons">
-		<li class="get_connected"><?php echo Navigation::get_link('Contact Us', true); ?></li>
+		<li class="get_connected"><?php echo Navigation::get_link('Contact', true); ?></li>
 		<li class="read_blog"><?php echo Navigation::get_link('Blog', true) ?></li>
 	</ul>
 </nav>
