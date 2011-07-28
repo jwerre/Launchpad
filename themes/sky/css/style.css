@@ -84,7 +84,7 @@ label.error{background:#FBE3E4;color:#8a1f11;border-color:#FBC2C4;}
 
 /* STRUCTURE */
 #container{width:960px;height:100%;margin:0 auto;}
-#main{ padding-top:20px; background: white url('../images/bg_container.png') no-repeat; min-height:200px; }
+#main{ padding-top:20px; background: white url('../images/bg_container.jpg') no-repeat right top; min-height:200px; }
 #column_left{float:left;width:630px;padding:0 30px 0 0;}
 #column_right{width:300px;float:right;}
 .three_col {width: 290px;float: left;margin-right: 30px;}
@@ -146,7 +146,7 @@ nav.subnav ul li.new_here a {width:300px; height:54px; padding:0;}
 .recent_posts h3 a {color:#126aa7; font: italic normal normal 18px Georgia, serif;}
 .recent_posts p.author {color:#808080; font: 12px/.9 Arial, sans-serif;}
 
-#slider {clear:both;background: white url('../images/bg_slider.png') no-repeat; margin: 20px 0; width:880px; height:285px; padding: 20px 40px; position:relative;}
+#slider {clear:both;background: transparent url('../images/bg_slider.png') no-repeat; margin: 20px 0; width:880px; height:285px; padding: 20px 40px; position:relative;}
 #slider .container { width:880px; height:285px;overflow:hidden; position:relative; cursor:pointer; z-index:3;}
 #slider .slides{ position:absolute; top:0; left:0; list-style:none; display:block; height:283px;}
 #slides .slides div { position:absolute; top:0; width:500px; display:none; }
@@ -193,10 +193,10 @@ nav ul#cta_buttons li{ float:left; margin:0 0 20px 10px;  }
 ul#cta_buttons li{ margin:0 0 10px 0;  }
 ul#cta_buttons li a{ text-indent:-9999px;display:block; background: transparent url(../images/btn_cta.png) no-repeat; width:300px; height: 57px; }
 ul#cta_buttons li.get_connected a{ background-position: 0 0;}
-ul#cta_buttons li.listen_to_sermon a{ background-position: -300px 0; }
+ul#cta_buttons li.our_events a{ background-position: -300px 0; }
 ul#cta_buttons li.read_blog a{ background-position: -600px 0; }
 ul#cta_buttons li.get_connected a:hover { background-position: 0 -57px;}
-ul#cta_buttons li.listen_to_sermon a:hover { background-position: -300px -57px; }
+ul#cta_buttons li.our_events a:hover { background-position: -300px -57px; }
 ul#cta_buttons li.read_blog a:hover { background-position: -600px -57px; }
 /* BIO */
 .bio{ border-bottom:1px solid #dbdbdb; margin-bottom:20px;}
@@ -207,19 +207,6 @@ ul#cta_buttons li.read_blog a:hover { background-position: -600px -57px; }
 ul.contact_nav{ list-style: none inside; margin-bottom:20px; font-family: Arial,sans-serif;}
 ul.contact_nav li{ float:left; margin-right:10px; }
 
-
-/* SERMONS */
-ul.sermons {list-style:none;margin: 0; padding:0;}
-	ul.sermons li{clear:both; margin-bottom: 20px; border-bottom:1px dotted #CCC; padding-bottom:10px;}
-	ul.sermons a.sermon_play_button {display:block; width: 60px; height: 61px; float:left; margin-right: 20px; background: white url(../images/btn_play_sermon.png) no-repeat; text-indent:-9999px; }
-	ul.sermons a.sermon_play_button:hover {background-position:0 -61px;}
-	ul.sermons a.sermon_play_button.playing {background-position:0 bottom;}
-	ul.sermons div.sermon_info{width:550px; float:right; margin-bottom:10px;}
-	ul.sermons h2 {text-decoration: none; font:normal normal bold 18px/1.5em Helvetica, Arial, sans-serif; }
-	ul.sermons .audio_container { clear:both; display:none;}
-	ul.sermons audio { width:100%; }
-.feature_sermon .img_container{ background-color:black; border: 6px solid white; height: 125px; overflow:hidden;}
-.feature_sermon audio { width:274px; }
 
 /* BLOG */
 .blog_tease{clear:both; border-bottom:1px solid #dbdbdb; margin-bottom:20px; padding-bottom:20px;}

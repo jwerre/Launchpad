@@ -6,16 +6,7 @@
 		<footer>
 			<div class="divide">&nbsp;</div>
 			<div class="three_col">
-				<?php
-				$datecalc = strtotime('Sunday');
-				$datesearch = date('l, F jS',$datecalc);
-				?>
-				<h3>Store Hours</h3>
-				<ul>
-				<li><strong><?php echo $datesearch; ?></strong></li>				
-				<li><strong>9:15</strong> at <em>Edmonds Conference Center</em></li>
-				<li><strong>11:00</strong> at <em>North Sound Church</em></li>
-				</ul>
+				<?php echo $options->footer_column; ?>
 			</div>
 			<div class="three_col">
 				<h3>Contact Information</h3>
@@ -27,8 +18,14 @@
 			</div>
 			<div class="three_col last">
 				<h3>Follow us on...</h3>
-				<a href="http://www.facebook.com/northsoundchurch"><img src="<?php echo image_directory(); ?>/icn_facebook_32.png" width="32" height="32" alt="Icn Facebook 32"></a>
-				<a href="http://twitter.com/NSCedmonds"><img src="<?php echo image_directory(); ?>/icn_twitter_32.png" width="32" height="32" alt="Icn Twitter 32"></a>
+				<?php if(isset($options->facebook)): ?>
+				<a href="<?php echo $options->facebook; ?>"><img src="<?php echo image_directory(); ?>/icn_facebook_32.png" width="32" height="32" alt="Icn Facebook 32"></a>
+				<?php 
+				endif;
+				if(isset($options->twitter)):
+				?>
+				<a href="<?php echo $options->twitter; ?>"><img src="<?php echo image_directory(); ?>/icn_twitter_32.png" width="32" height="32" alt="Icn Twitter 32"></a>
+				<?php endif; ?>
 			</div>
 		</footer>
 	</div> <!-- end of #container -->

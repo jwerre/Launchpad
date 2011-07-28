@@ -31,6 +31,9 @@
 			}
 			return $result;
 		}
+		public function is_child() {
+			return ( isset($this->parent_id) || !empty($this->parent_id) );
+		}
 		
 		/**
 		 * Retrives all the files in the templates directory

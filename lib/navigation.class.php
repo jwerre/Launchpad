@@ -61,26 +61,25 @@
 		{
 			$pages = array();
 			if( isset($this->include) ){
-                $sql = "SELECT id, title, slug, type FROM content WHERE type='".ContentType::PAGE."' AND status ='".ContentStatus::PUBLISHED."'";
+                $sql = "SELECT id, title, slug, type, parent_id FROM content WHERE type='".ContentType::PAGE."' AND status ='".ContentStatus::PUBLISHED."'";
 				$sql .= " AND id IN (".$this->sanitize_search( $this->include).")";
 				$sql .= " OR title IN (".$this->sanitize_search( $this->include).")";
 				$sql .= " OR slug IN (".$this->sanitize_search( $this->include).")";
                 $sql .= " ORDER BY weight ASC";
 			}elseif( isset($this->exclude) ) {
-                $sql = "SELECT id, title, slug, type FROM content WHERE type='".ContentType::PAGE."' AND status ='".ContentStatus::PUBLISHED."'";
+                $sql = "SELECT id, title, slug, type, parent_id FROM content WHERE type='".ContentType::PAGE."' AND status ='".ContentStatus::PUBLISHED."'";
 				$sql .= " AND id NOT IN (".$this->sanitize_search($this->exclude ).")";
 				$sql .= " AND title NOT IN (".$this->sanitize_search($this->exclude ).")";
 				$sql .= " AND slug NOT IN (".$this->sanitize_search($this->exclude ).")";
                 $sql .= " ORDER BY weight ASC";
 			}else{
-                $sql = "SELECT id, title, slug, type FROM content WHERE type='".ContentType::PAGE."' AND status ='".ContentStatus::PUBLISHED."' ORDER BY weight ASC";
+                $sql = "SELECT id, title, slug, type, parent_id FROM content WHERE type='".ContentType::PAGE."' AND status ='".ContentStatus::PUBLISHED."' ORDER BY weight ASC";
             }
             $pages = Page::find_by_sql($sql);
 			if( !empty( $pages) )  {
                 $nav = '<'. $this->nav_tag .' class="'. $this->root_class .'">';
                 foreach ($pages as $page) {
-                    if($page->parent_id == 0){
-
+                    if(!$page->is_child()){
 						//sub-nav
                         $subnav = $page->children();
                         $on = $this->is_on($page->id, $subnav)." ";
@@ -254,7 +253,7 @@
 		/**
 		 * Depricated
 		 **/		
-		private function remove_excuded($pages, $excludes)
+		private function remove_subpages($pages, $excludes)
 		{
 			foreach ($pages as $key => $value){
 				for ($i=0; $i < count($excludes); $i++) {

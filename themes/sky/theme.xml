@@ -12,6 +12,7 @@
         <option name="phone">Contact phone number</option>
         <option name="fax">Contact fax number</option>
         <option name="address">Mailing address</option>
+        <option name="footer_column">Additional footer content</option>
     </options>
     <categories>
 		<category name="Blog">
