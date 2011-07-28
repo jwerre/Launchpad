@@ -30,6 +30,7 @@
 	include_layout("header.php", "layouts");
 ?>
 <h1 id="add_contnet">Upload Media</h1>
+		 
 <form id="add_media" action="" method="post">
 	<fieldset class="right_side clearfix">
 		<section class="button_area clearfix">
@@ -44,7 +45,7 @@
 	</fieldset>
 	<fieldset class="left_side">
 		<div id="media_info" class="section_box <?php if( empty($media) ){ echo 'hidden'; } ?>">
-			<h3>Media Info</h3>
+			<h3>Media Info <small class="right"><a href="media_edit.php">Upload another file</a></small></h3>
 			<p><label for="media_url">URL <small style="color:#409AD4; float:right; font-weight:normal; text-decoration:underline">select</small></label><input type="text" name="media_url" value="<?php if( !empty($media) ){ echo $media->filename; }?>" id="media_url" style="color:#409AD4" readonly="readonly"></p>
 			<p><label for="caption">Caption</label><input type="text" name="caption" id="caption" value="<?php if( !empty($media) ){ echo $media->caption; } ?>" /></p>
 			<!-- <p class="half left"><label for="width">Width</label><input type="text" name="width" id="width"/></p> -->
@@ -73,7 +74,6 @@
                 }
                 ?>
             </p>
-		<p> <a href="media_edit.php">Uploaded Another File</a> </p>
 		</div>
 		<div id="media_upload" class="section_box <?php if( !empty($media) ){ echo 'hidden'; } ?>">
 			<h3>Choose a file to upload <small>(max: <?php echo size_as_text(MAX_FILE_SIZE) ?>)</small></h3>

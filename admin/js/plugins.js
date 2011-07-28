@@ -286,24 +286,88 @@ $(function() {
 				}else{
 					var message = '<div id="message" class="info_msg"><p><strong>There are no category suggestions for this theme</strong><a href="#" class="close">close</a></p>';
 				}
-				$('h1#categories').after(message);
+				$('h1').after(message);
 			}
 		}); 
 	});
 
-	// THIS SHOULD NOT BE ready()
-	$('#available_themes').ready(function(event){
-		var themes = window.allThemes;
+	if( $('#available_themes').length > 0 ){
+		var themes = window.themeData;
+		var container = $('#available_themes ul.themes li.theme').remove();
 		$(themes).each(function(index){
+			var themeXml = this+'/theme.xml';
+			var themePreview = this+'/preview.png';
+			var themeName = this.split('/').pop();
 			$.ajax({
 				type: "GET",
-				url: this+'/theme.xml',
+				url: themeXml,
 				dataType: "xml",
 				success: function(xml) {
-					//log('theme loaded');
+					var newContainer = $(container).clone();
+					$(newContainer).find('a.use_button').first().attr('href', '?theme='+themeName);
+					
+					themePreview = ( $(xml).find('preview').text().length > 1 ) ? $(xml).find('preview').text() : themePreview ;
+					$(newContainer).find('img').first().attr('src', themePreview);
+
+					themeName = ( $(xml).find('title').text().length > 1 ) ? $(xml).find('title').text().capitalize() : themeName.capitalize();
+					$(newContainer).find('h4').first().text(themeName);
+					
+					themeDescription = $(xml).find('description').first().text();
+					$(newContainer).find('.theme_description').first().text(themeDescription);
+					$(newContainer).appendTo('#available_themes ul.themes').fadeIn('fast');
 				}
 			});
 		});
+	};
+	if( $('#current_theme').length > 0 ){
+		
+		var themeXml = window.themeDir+'/theme.xml';
+		var themePreview = window.themeDir+'/preview.png';
+		var themeName = window.themeDir.split('/').pop();
+		$.ajax({
+			type: "GET",
+			url: themeXml,
+			dataType: "xml",
+			success: function(xml) {
+				themePreview = ( $(xml).find('preview').text().length > 1 ) ? $(xml).find('preview').text() : themePreview ;
+				$('#current_theme').find('img').first().attr('src', themePreview);
+				themeName = ( $(xml).find('title').text().length > 1 ) ? $(xml).find('title').text().capitalize() : themeName.capitalize();
+				$('#current_theme').find('h4').first().text(themeName);
+				themeDescription = $(xml).find('description').first().text();
+				$('#current_theme').find('.theme_description').first().text(themeDescription);
+			}
+		});
+	}
+
+    // VIMEO
+	if( $('#tutorials').length > 0 )
+    {
+		var playlistUrl = 'http://vimeo.com/api/v2/user7117833/all_videos.json';
+		var vidWidth = 450;
+		var vidHeight = 253;
+		$.ajax({
+			type: "POST",
+			url: playlistUrl,
+			dataType: "jsonp",
+			success: function(data) {
+				var tuts = '<ul class="vimeo_playlist">';
+				$.each(data, function(key, val) {
+					tuts += '<li><a class="tutorial_button" data-vid_id="'+val['id']+'" >' + val['title'] + '</a></li>';
+				});
+				tuts += '</ul>'
+				$('#tutorials h3').after(tuts);
+			}
+		});
+    }
+
+    $('a.tutorial_button').live('click', function(event){
+		event.preventDefault();
+		var videoId = $(this).data('vid_id');
+		var vidWidth = 450;
+		var vidHeight = 253;
+		$('.vimeo_player').empty();
+		var output = '<iframe src="http://player.vimeo.com/video/'+videoId+'?autoplay=true" width="'+vidWidth+'" height="'+vidHeight+'" frameborder="0"></iframe>';
+		$(output).appendTo('.vimeo_player');
 	});
 
     // TOGGLE CATEGORY INPUT
@@ -418,7 +482,6 @@ $(function() {
 					initPlaceholderText( valueInput );
 				},
 				success: function(data, textStatus, xhr) {
-                    log(typeof data);
 					if( typeof data == "object"){
 						var output = '<fieldset class="name_value">';
 						output += '<p class="half left"><input type="text" name="snippet_name" value="'+snippetName+'" id="snippet_name"></p>';
@@ -581,7 +644,6 @@ $(function() {
         if(cleanTags.length > 0 ){
             $.post( this.href, {'id':content_id, 'tags':cleanTags}, function(reply) {
                 var result = reply;
-				log(result);
                 if( result.length > 0){
                     $('#tags_input').val("");
                     $('ul#tag_list').empty();

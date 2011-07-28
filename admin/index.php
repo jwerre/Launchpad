@@ -1,10 +1,6 @@
 <?php
 	include '../lib/initialize.php';	
     include '../lib/helper/gapi.class.php';
-	
-    define('VIMEO_ID', 'user7117833');
-    define('VID_WIDTH', '450');
-    define('VID_HEIGHT', '253');
 
     $ga_email = isset($_POST['ga_email']) ? $_POST['ga_email'] : $cookie->ga_email;
     $ga_password = isset($_POST['ga_password']) ? $_POST['ga_password'] : $cookie->ga_password;
@@ -114,40 +110,10 @@
     </div>
 <?php } ?>
 
-<?php
-	$playlist_xml = 'http://vimeo.com/api/v2/'.VIMEO_ID.'/all_videos.xml';
-	if( function_exists('php_network_getaddresses')){ // TODO: make sure this works with internet connection
-		$playlist = simplexml_load_file($playlist_xml);
-	}
-?>
     <div id="tutorials" class="section_box">
         <h3>Tutorials</h3>
-
-<?php if ( !isset($playlist) || empty($playlist)) { 
-    echo '<div id="message" class="error_msg"><p>Could not find the data for tutorials at: You can view the tutorials at <a href="http://www.vimeo.com/launchpad">http://www.vimeo.com/launchpad<a></p></div>'; 
-}else {
-    $output = '<ul>';
-	if(count($playlist['video']) > 0){
-    foreach ($playlist as $video){
-        $output .= '<li>';
-        $output .= '<a href="?v_id='.$video->id.'&ap=1">';
-        $output .= $video->title;
-        $output .= '</a></li>';
-	}
-	}else{
-        $output .= '<li>Sorry, There are no tutorial videos at this time.</li>';
-	}
-    $output .= '</ul>';
-    $output .= '<div class="video_player"><iframe src="http://player.vimeo.com/video/';
-    $output .= (isset($_GET['v_id'])) ? $_GET['v_id'] : $playlist->video[0]->id; 
-    $output .= (isset($_GET['ap'])) ? '?autoplay='.$_GET['ap'] : ""; 
-    $output .= '"';
-    $output .= 'width="'.VID_WIDTH.'" height="'.VID_HEIGHT.'" frameborder="0"></iframe></div>';
-    echo $output;
-}
-?>
+		<div class="vimeo_player"></div>
     </div>
-
 <?php
 	include_layout("footer.php" ,"layouts");
 ?>

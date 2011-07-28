@@ -18,16 +18,13 @@
 		<section class="button_area clearfix">
 		<p><button type="submit" class="save" id="save_button" name="save_button">Save</button></p>
 		</section>
-		<div class="section_box">
+		<div class="section_box" id="current_theme">
 			<h3>Current Theme</h3>
-            <p class="center preview" style="float:none">
-            <a href="themes.php"> <img class="theme_thumbnail" src="<?php echo theme_directory().'/preview.png'; ?>" alt="" /> </a>
-            <div class="hidden">
-				<h4 class="center">Suggested Custom Options</h4><hr>
-				<ul id="option_suggestions" class="" style="margin-bottom:20px;">
-				</ul>
-            </div>
-			<p><a href="themes.php" class="big_btn">Change Theme</a></p>
+			<div class="preview" style="">
+				<img src="" alt="" />
+			</div>
+			<h4></h4>
+			<p class="theme_description"></p>
 		</div>
 	</fieldset>
 	<fieldset class="left_side">

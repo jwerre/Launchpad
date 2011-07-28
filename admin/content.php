@@ -44,7 +44,7 @@
 	<ul>
 		<li <?php if( $type == ContentType::PAGE ) echo 'class="on"' ?> ><a href="?type=page">Pages</a></li>
 		<li <?php if( $type == ContentType::POST ) echo 'class="on"' ?> ><a href="?type=post">Posts</a></li>
-		<li class="right"><a href="content_edit.php?type=<?php echo $type ?>" class="add_button page_icn">Create New <?php echo ucwords($type) ?></a></li>
+		<li class="right"><a href="content_edit.php?type=<?php echo $type ?>" class="add_button <?php echo $type ?>_icn">Create New <?php echo ucwords($type) ?></a></li>
 	</ul>
 	</nav>
 	<div id="<?php echo $type; ?>">

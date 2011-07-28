@@ -954,7 +954,7 @@ ul.ga_totals strong {
     background-color: #F2F2F2;
     max-height: 400px;
 }
-#tutorials ul{
+#tutorials ul.vimeo_playlist{
     list-style: none;
     position: relative;
     top: -10px;
@@ -968,16 +968,27 @@ ul.ga_totals strong {
     background-color: #FFFFFF;
     border-right: 1px solid #D9D9D9;
 }
-#tutorials li{
+#tutorials ul.vimeo_playlist li{
     font-weight: bold;
     margin-bottom: 10px;
 }
-#tutorials .video_player{
+#tutorials .vimeo_player{
+    background: #F2F2F2 url(../images/logo_launchpad_101.gif) no-repeat 50% 50%;
     width:450px;
+	height: 300px;
     padding-left: 225px;
-    /* float:right; */
     margin: 0 auto;
 }
+#tutorials a.tutorial_button{
+	background: transparent url(../images/btn_play_video.png) no-repeat;
+	display:block;
+	height: 16px;
+	padding-left: 25px;
+}
+#tutorials a.tutorial_button:hover {
+	background-position: 0 bottom;
+}
+
 /* BUTTONS */
 button,a.big_btn {
 	display: block;
