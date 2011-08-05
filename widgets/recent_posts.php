@@ -3,7 +3,10 @@
 	<div class="box_bottom">
 		<ul>
 		<?php 
-	    $posts = Post::find_by_category_title("Blog", 'created DESC', 5);
+		global $post;
+		$cat_type = (isset($post->category_id)) ? $post->category_name()  : "Blog";
+
+	    $posts = Post::find_by_category_title($cat_type, 'created DESC', 5);
 		if(!empty($posts)){
 			foreach ($posts as $post) {
                 $post_snippets = $post->snippets();

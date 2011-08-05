@@ -4,7 +4,7 @@
     if( isset($_GET['id']) ){
 	    $id = $_GET['id'];
     }
-	if( $session->role = UserRole::ADMIN ){
+	if( $session->role == UserRole::ADMIN ){
 		if(!empty($id)){
 			$id = $session->user_id;
 		}
@@ -73,6 +73,7 @@
 		<p><label for="email">Email</label><input type="text" id="email" name="email" class="email" value="<?php echo $user->email ?>"/></p>
 		<p><label for="password">Password</label><input type="password" name="password" id="password" class="<?php if(empty($id)) echo 'required' ?>" /></p>
 		<p><label for="password_confirm">Confirm Password</label><input type="password" id="password_confirm" name="password_confirm" /></p>
+		<?php if($user->role == UserRole::SUPER): ?>
 		<p>
 			<label for="role">Role</label>
 			<select name="role" id="role">
@@ -81,6 +82,7 @@
 				<?php endforeach; ?>
 			</select>
 		</p>
+		<?php endif; ?>
 		<div class="section_box">
 			<h3>Bio</h3>
 			<p><textarea name="bio" id="bio"><?php echo $user->bio ?></textarea></p>			

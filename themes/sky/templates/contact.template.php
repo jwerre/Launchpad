@@ -1,7 +1,5 @@
 <?php
-
 global $page;
-
 if(isset($_POST['submit'])){
 	$mail = new Mail();
 	$mail->to_name = EMAIL_FROM_NAME;
@@ -10,7 +8,6 @@ if(isset($_POST['submit'])){
 	$mail->message = !empty($_POST['name']) ? 'name: '.$_POST['name']."\n" :"";
 	$mail->message .= !empty($_POST['email']) ? 'email: '.$_POST['email']."\n" :"";
 	$mail->message .= !empty($_POST['message']) ? $_POST['message']."\n":"";
-	$mail->message .= !empty($_POST['member']) ? 'Is a member':"Not a member";
 	$mail->send();
 }
 ?>
@@ -26,7 +23,6 @@ if(isset($_POST['submit'])){
 				<p><label for="email">Email</label><input type="text" name="email" value="" class="required email"></p>
 				<p><label for="subject">Subject</label><input type="text" name="subject" value="" class="required" minlength="2"></p>
 				<p><textarea name="message" id="message"  class="required" minlength="10"></textarea></p>
-				<p class="check"><input type="checkbox" name="member" value="" id="member">I currently attend North Sound Church</p>
 				<p><input type="image" src="<?php echo image_directory('btn_send.png')?>" value="submit"></p>
 			</form>
 		</div>

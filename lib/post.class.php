@@ -26,7 +26,17 @@
 			
 			}
 		}
-		
+
+		/**
+		 * Retuns the current categorie name
+		 * @return string
+		 **/
+		public function category_name(){
+			$cat = Category::find_by_id($this->category_id);
+			// echo '<pre>' . print_r($cat, true) . '</pre>'; exit;
+			return $cat->title;	
+		}
+
 		/**
 		* Returns an array of content by
 		*
@@ -270,6 +280,7 @@
 			$result = User::find_by_sql($sql);
 			return $result;
 		}
+
 		/**
 		* Returns all categories
 		*

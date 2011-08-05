@@ -17,9 +17,6 @@
 					<h2><?php echo $event->title; ?></h2>
                     <p>
                         <?php $excerpt = $event->excerpt(500); echo $excerpt; ?>
-                        <?php if ( strlen($event->body) > strlen($excerpt) ): ?>
-                         <a href="<?php echo $event->get_link(); ?>">more...</a>
-                        <?php endif; ?>
                     </p>
 				</span>
 			</div>			

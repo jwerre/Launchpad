@@ -45,17 +45,13 @@
 		<template name="Home">
 		</template>
 		<template name="Contact">
+			<snippet name="email">The email of the staff memeber</snippet>
+			<snippet name="facebook">The staff memebers facebook address</snippet>
+			<snippet name="twitter">The staff memebers twitter address</snippet>
 		</template>
 		<template name="Blog">
 		</template>
-		<template name="Sermon">
-		</template>
 		<template name="Events">
-			<snippet name="bulletin" >A url to a PDF containing the Sunday bulletin</snippet>
-		</template>
-		<template name="Journey">
-		</template>
-		<template name="Our Team">
 		</template>
     </templates>
 </theme>

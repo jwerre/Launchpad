@@ -200,7 +200,7 @@ class Content extends DatabaseObject
 
 	/**
 	 * Searches content for related term
-	 * @param string - search term 
+	 * @param string $term - search term 
 	 * @return array
 	 **/
 	public static function search($term)
@@ -235,19 +235,27 @@ class Content extends DatabaseObject
 	* Returns an excerpt from post. To specify an excerpt lenght user the <!--excpert--> in the content body or specify an EXCERPT_LENGTH in config.php
 	*
 	* @param number $length =  EXCERPT_LENGTH -  The lenght of the excerpt to be returned rounded to the last space. This will be ingored if the excerpt flag (<!--excerpt-->) is specified in the body.
-	* @param $allow sting = '<a><em><i><strong><b><span><br><sup><sub><small><strike><abbr><cite><code>' - a list of html tags to allow in excerpt. inline elements allowed by default
+	* @param string $link_text =  more... - The text to use use for the "more" link at the end of the excpert. A link will not be used if NULL is given.
+	* @param string $allow = '<a><em><i><strong><b><span><br><sup><sub><small><strike><abbr><cite><code>' - a list of html tags to allow in excerpt. inline elements allowed by default
 	* @return string
 	**/
-	public function excerpt( $length=EXCERPT_LENGTH, $allow = '<a><em><i><strong><b><span><br><sup><sub><small><strike><abbr><cite><code>')
+	public function excerpt( $length=EXCERPT_LENGTH, $link_text='more...', $allow = '<a><em><i><strong><b><span><br><sup><sub><small><strike><abbr><cite><code>')
 	{	
-		
-		$excerpt = explode(self::EXCERPT, $this->body);
-		if(count($excerpt)>1){
-			$excerpt = $excerpt[0];
+		if( strlen($this->body) > $length ){
+			$excerpt = explode(self::EXCERPT, $this->body);
+
+			if(count($excerpt)>1){
+				$excerpt = $excerpt[0];
+			}else{
+				$excerpt = substr($this->body, 0, $length);
+				$last_space = strrpos( $excerpt, " " );
+				$excerpt = substr($excerpt, 0, $last_space);
+			}
+			if(isset($link_text)){
+				$excerpt .= ' <a href='.$this->get_link().' class="more_link">'.$link_text.'</a>';
+			}
 		}else{
-			$excerpt = substr($this->body, 0, $length);
-			$last_space = strrpos( $excerpt, " " );
-			$excerpt = substr($excerpt, 0, $last_space);
+			$excerpt = $this->body;
 		}
 		
 		if(isset($allow)){

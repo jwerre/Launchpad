@@ -47,11 +47,11 @@
 		
 	include_layout("header.php", "layouts");
 ?>
-<h1 id="">Content</h1>
+<h1 id="">Users</h1>
 <div id="tab_container">
 	<nav class="tabs">		
 	<ul>
-		<?php foreach ($user_roles as $key => $value) :?>
+		<?php foreach ($user_roles as $key => $value): ?>
 		<?php if( $value >= $current_users_role ): ?>
 			<li <?php if($role == $value) echo 'class="on"' ?> ><a id="target" href="?role=<?php echo $value ?>"><?php echo ucwords( strtolower( $key ) ); ?></a></li>
 		<?php endif; ?>
