@@ -55,7 +55,7 @@ class User extends DatabaseObject
 		
 		$sql = "SELECT * FROM ";
 		$sql .= static::$table_name;
-		$sql .= " WHERE username = $user_info OR password = $user_info LIMIT 1";
+		$sql .= " WHERE username = $user_info OR email = $user_info LIMIT 1";
 		$result_array = parent::find_by_sql( $sql );
 		return !empty($result_array) ? $result_array[0] : false ;
 	}

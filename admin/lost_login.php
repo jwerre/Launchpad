@@ -9,67 +9,61 @@ require_once('../lib/initialize.php');
 		$user_info = trim($_POST['user_info']);
 		
 		$user = User::get_user($user_info);
-		$new_password = $user->generate_random_password();
-		$user->password = md5(trim($new_password));
-		if($user->save()){
-			$site = ($options->get_options()) ? $options->get_options()->site_name : "";
-			$mail = new Mail();
-			$mail->to_name = $user->full_name();
-			$mail->to_email = $user->email;
-			$mail->subject = "Your Username and Password for ".$site;
-			$mail->message = "Username: ".$user->username."\nPassword: ";
-			$mail->send();
-			unset($mail);
-			$message = 'Your username and password was sent to '.$user->email.'<br><a href="login.php">Click Here to Login</a>';
+		echo '<pre>' . print_r($user, true) . '</pre>'; exit;
+		if(!empty($user)){
+			$new_password = $user->generate_random_password();
+			$user->password = md5(trim($new_password));
+
+			if($user->save()){
+
+				$mail = new Mail();
+				$mail->Subject = "Your Username and Password for ".$options->site_name;
+				$mail->Body = "Username: ".$user->username."\nPassword: $new_password";
+				$mail->AddAddress($user->email, $user->full_name());
+				$mail->Send();
+				unset($mail);
+
+				$session->msg_type = 'success_msg';
+				$session->message('Your username and password was sent to '.$user->email.'<br><a href="login.php">Click Here to Login</a>');
+			}else{
+				$session->msg_type = 'error_msg';
+				$session->message('The username or email address you entered could not be found');
+			}
 		}else{
-			$message = "The username or email address you entered could not be found";
+			$session->msg_type = 'error_msg';
+			$session->message('The username or email address you entered could not be found');
 		}
-	}else{
-		
 	}
+	$message = $session->message();
 ?>
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB">
+<!doctype html>  
+<!--[if IE 8 ]>    <html class="no-js ie8"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
-	<title>Provent | Content Management System</title>
-	<link rel="stylesheet" href="css/admin.css" type="text/css" media="screen" title="no title" charset="utf-8">
-	<link href='http://fonts.googleapis.com/css?family=Neuton&subset=latin' rel='stylesheet' type='text/css'>
-	<script type="text/javascript" charset="utf-8">
-	function clearInput(pInput, pDefaultText) {
-		if (pInput.value == pDefaultText) {
-			pInput.value = "";
-			pInput.style.color = "#1c2324";
-		}
-	}
-
-	function recallInput(pInput, pDefaultText) {
-		if (pInput.value == "") {
-			pInput.value = pDefaultText;
-			pInput.style.color = "#B8B8B8";
-		}
-	}
-	</script>
+	<title>Launchpad - A content management system</title>
+	<link rel="stylesheet" href="css/style.css?v=1">
+	<!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
+	<script src="js/libs/modernizr-1.6.min.js"></script>
 </head>
-<body>
+<body id="" >
+	<div id="container" class="no_aside" style="margin:0 auto;width:360px;" >
+	<div id="main" role="main" class="clearfix" style="background:none;border:none;height:auto;min-height:100px;">
+			
+	<div id="login" class="clearfix">
+		<div class="logo"><span></span></div>
+		<?php if( !empty($message) ) : ?>
+		<div id="message" class="<?php echo $session->msg_type; ?>">
+			<p><?php echo $message; ?> <a href="#" class="close">close</a> </p>
+		</div>
+		<?php endif; ?>
+		<form method="post" action="lost_login.php">
+			<p><input type="text" name="user_info" maxlength="30" placeholder="Username or Email"/></p>
+			<p ><button type="submit" name="submit">Email me my password</button></p>
+		</form>
+	</div>
 
-
-<?php echo output_message($message); ?>
-<div id="login">
-	<div class="logo"><img src="images/logo_launchpad.png" width="190" height="37" alt="Launchpad A Content Management System"></div>
-	<form method="post" action="lost_login.php">
-		<p><input type="text" name="user_info" maxlength="30" value="Username or Email" onclick="clearInput(this, 'Username or Email')" onblur="recallInput(this,'Username or Email')"/></p>
-		<p><button type="submit" name="submit">Email it to me</button></p>
-	</form>
-</div>
-
-
-<?php 
-if(isset($database)){
-	$database->close_connection();
-} 
+<?php
+	include_layout("footer.php" ,"layouts");
 ?>
-
-</body>
-</html>

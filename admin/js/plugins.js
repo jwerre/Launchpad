@@ -90,7 +90,7 @@ $(function() {
 		$(this).children('nav').hide();
 	});
 	
-	$('#image .media_container img').scaleImage({maxWidth:120, maxHeight:200});
+	// $('#image .media_container img').scaleImage({maxWidth:120, maxHeight:200});
 		
 	$('.embed_btn').click(function(event){
 		event.preventDefault();

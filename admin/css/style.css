@@ -1251,6 +1251,9 @@ table#image_browser {
 }
 	table#image_browser td{
 		padding: 10px;
+		width: 150px;
+		height: 150px;
+		vertical-align: bottom;
 	}
 	table#image_browser .browser_img{
 		cursor: pointer;

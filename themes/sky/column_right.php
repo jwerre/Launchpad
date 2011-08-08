@@ -13,7 +13,7 @@
 		<li class="read_blog"><?php echo Navigation::get_link('Blog', true) ?></li>
 	</ul>
 	<nav class="subnav">
-		<?php if(!empty($page)) $nav->subnav($page); ?>
+		<?php if(!empty($page)) $nav->subnav(); ?>
 	</nav>
 <?php
     if($page->title == 'Events'){

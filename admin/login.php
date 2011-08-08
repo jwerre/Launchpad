@@ -56,14 +56,8 @@ require_once('../lib/initialize.php');
 <!--[if IE 8 ]>    <html class="no-js ie8"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
-	<snippet charset="utf-8">
-
 	<title>Launchpad - A content management system</title>
-	<snippet name="description" content="">
-	<snippet name="author" content="Jonah Werre and Paul Kerney">
-	<snippet name="viewport" content="width=device-width, initial-scale=1.0"><!--  Mobile viewport optimized: j.mp/bplateviewport -->
-
-	<link rel="stylesheet" href="css/style.css?v=2">
+	<link rel="stylesheet" href="css/style.css?v=1">
 	<!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
 	<script src="js/libs/modernizr-1.6.min.js"></script>
 </head>
