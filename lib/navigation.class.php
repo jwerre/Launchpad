@@ -29,6 +29,11 @@
 		 * @var string = 'subnav2'
 		 **/
 		public $subnav2_class = "subnav2";
+		/**
+		 * the class used for the second subnav
+		 * @var string = 'subnav2'
+		 **/
+		public $item_class = "nav_item";
         /**
          * $current_page - typically the global page object
          **/
@@ -45,9 +50,9 @@
 		public $include = NULL;
 		/**
 		 * An array of additional links to include in the nav
-		 * @var string
+		 * @var array - An associative array in this format: array( title=>'My New Page', link=>'http://www.mynewpage.com' );
 		 **/
-        public $additional = NULL;
+        // public $additional = NULL;
 
 		function __construct()
 		{
@@ -88,7 +93,7 @@
 						$more = (!empty($subnav)) ? "more " : ""; 
 						$last = (end($pages) === $page) ? "last " : "";
                         
-                        $nav .= '<'.$this->child_tag.' class="'.$on.$more.$last.$page->slug.'">';
+                        $nav .= '<'.$this->child_tag.' class="'.$this->item_class.' '.$on.$more.$last.$page->slug.'">';
                         $nav .= '<span><a href="'.$href.'" >' . $page->title . '</a></span>';
                         
                         if(count($subnav) > 0){
@@ -100,7 +105,7 @@
 								$more = (!empty($subnav2)) ? "more " : ""; 
 								$last = (end($subnav) === $child1) ? "last " : "";
 
-								$nav .= '<'.$this->child_tag.' class="'.$on.$more.$last.$child1->slug.'">';
+								$nav .= '<'.$this->child_tag.' class="'.$this->item_class.' '.$on.$more.$last.$child1->slug.'">';
                                 $nav .= '<span><a href="'.$href.'" >' . $child1->title . '</a></span>';
 								if(count($subnav2) > 0){
 									$nav .= (isset($this->nav_tag)) ? '<'. $this->nav_tag .' class="'.$this->subnav2_class.'">' : "";
@@ -109,7 +114,7 @@
 										$href = static::get_link($child2);
 										$last = (end($subnav2) === $child2) ? "last " : "";
 
-										$nav .= '<'.$this->child_tag.' class="'.$on.$last.$child2->slug.'">';
+										$nav .= '<'.$this->child_tag.' class="'.$this->item_class.' '.$on.$last.$child2->slug.'">';
 										$nav .= '<span><a href="'.$href.'" >' . $child2->title . '</a></span>';
 									}
 									$nav .= (isset($this->nav_tag)) ? '</'. $this->nav_tag .'>' : "";
@@ -128,6 +133,40 @@
 			}
 		}
 		
+		/**
+		 * outputs sub-pages in a list
+		 *
+		 * @param $page Page - The parent page of the subpages to output
+		 * @return void
+		 **/
+		public function subnav()
+		{
+			global $page;
+			if(isset($page) && $page instanceof Content ){
+				$children = $page->children();
+
+				if( empty($children) ){
+					$children = $page->siblings();
+				}
+				
+				if( !empty($children) ){
+					$subnav = '<ul class="'.$this->subnav_class.'">';
+					foreach ($children as $child) {
+						$last = (end($children) === $child) ? "last" : "";
+						$on = ($page->id == $child->id) ? 'on ' : '';
+						$href = static::get_link($child);
+						if(count($children) > 1 || $page->id != $child->id){
+							$subnav .= '<li class="'.$last.'"><a href="'.$href.'" class="'.$this->item_class.' '.$on.$child->slug.'">'.$child->title.'</a></li>';
+						}
+					}
+					$subnav .= '</ul>';
+			
+					return $subnav;
+				}
+
+				return false;
+			}
+		}
 		
 		
 		/**
@@ -192,38 +231,6 @@
 			}
 		}
 		
-		/**
-		 * outputs sub-pages in a list
-		 *
-		 * @param $parent Page - The parent page of the subpages to output
-		 * @return void
-		 **/
-		public static function subnav($parent)
-		{
-			if(isset($parent) && $parent instanceof Content ){
-				global $page;
-				$children = $parent->children();
-
-				if( empty($children) ){
-					$children = $parent->siblings();
-				}
-				
-				if( !empty($children) ){
-					$subnav = '<ul class="subnav">';
-					foreach ($children as $child) {
-						$last = (end($children) === $child) ? "last" : "";
-						$on = ($parent->id == $child->id) ? 'on ' : '';
-						$href = static::get_link($child);
-						if(count($children) > 1 || $page->id != $child->id){
-							$subnav .= '<li class="'.$last.'"><a href="'.$href.'" class="'.$on.$child->slug.'">'.$child->title.'</a></li>';
-						}
-					}
-					$subnav .= '</ul>';
-			
-					echo $subnav;
-				}
-			}
-		}
 		
 		/**
 		 * Finds out if the passed page or any of it's children is the current page

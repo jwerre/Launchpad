@@ -29,6 +29,7 @@
 	<script src="js/libs/uploadify/jquery.uploadify.v2.1.4.min.js"></script>
 	<script src="js/libs/jquery.validate.js"></script>
 	<script src="js/libs/jquery.flot.js"></script>
+	<script src="js/libs/jquery.scaleimage.js"></script>
 	
 	
 	<!-- scripts concatenated and minified via ant build script-->
