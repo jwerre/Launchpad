@@ -12,7 +12,7 @@
 		$group = $cookie->$cookie_name;
 	}
 	
-	$total = Media::count_all();
+	$total = Image::count_all('WHERE type LIKE "image%" ');
 	$pagination = new Pagination($group, $limit, $total);
 	$offset = $pagination->offset();
 	
@@ -42,7 +42,7 @@
 
 	</script>
 </head>
-<body>
+<body class="no_bg">
 	<table id="image_browser">
 		<thead>
 			<tr> <th colspan ="<?php echo $columns; ?>"></th> </tr>
@@ -57,7 +57,7 @@
 				echo ($count % $columns == 0) ? "<tr>": "";
 				echo '<td class="center">';
 				echo '<img class="browser_img" src="imageprocessor.php?src='.$media->filename.'&w=110&h=110&mode=fit" alt="'.$media->filename.'"/>';
-				echo '<figcaption>'.$media->caption.'</figcaption>';
+				// echo '<figcaption>'.$media->caption.'</figcaption>';
 				echo '</td>';
 				$count++;
 				echo ($count % $columns == 0) ? "</tr>" : "";

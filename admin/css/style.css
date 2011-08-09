@@ -57,8 +57,8 @@ body {
 	font: 13px/1.231 Arial sans-serif; *font-size:small;
 	background: #F2F2F2 url(../images/bg_header.png) repeat-x;
 }
-body.login{
-	background:none;
+body.login, body.no_bg{
+	background-image:none;
 }
 select,input,textarea,button {
 	font: 99% sans-serif;
@@ -1293,7 +1293,7 @@ table#image_browser {
 	table#image_browser td{
 		padding: 10px;
 		width: 150px;
-		height: 150px;
+		height: 130px;
 		vertical-align: bottom;
 	}
 	table#image_browser .browser_img{
@@ -1306,6 +1306,9 @@ table#image_browser {
 	table#image_browser #pagination{
 		margin-left: 440px;
 		/* width: 100px; */
+	}
+	table#image_browser tfoot td{
+		height: auto;
 	}
 
 /* USER */
