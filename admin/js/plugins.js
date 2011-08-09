@@ -156,13 +156,16 @@ $(function() {
 		});
 		return false;
 	});
-	
-	// DELETE CONTENT
 
-    // delete content from content page
-	$('a#content_delete').click( function() {
+	// DELETE USER
+    // delete content form list page
+	$('a.user_list_delete').click(function(event){
+
+		event.preventDefault;
+		var container = $(this).parents('li').last();
 		var content = this;
-		var href = $(this).attr('href');
+		var href = 'ajax/user_delete.php';
+		var id = $(container).data('id');
 		$( '#delete_content_dialog' ).dialog({
 			resizable: false,
 			draggable: false,
@@ -179,7 +182,49 @@ $(function() {
 				text: "Yes, delete it",
 				click: function(){
 					$(this).dialog('close'); 
-					$.get( href, function(data) { // TODO: USE POST NOT GET
+					$.post( href, {'id':id}, function(data) {
+						if(data == 'true'){
+							$(container).slideUp( function(){
+								$(container).remove();
+							});
+						}else{
+							appendMessage( container, 'This could not be deleted', 'error_msg', 'margin-top:5px;' )
+						}						
+					})
+					.error(function() {
+						appendMessage( container, 'This could not be deleted', 'error_msg', 'margin-top:5px;' )
+					});
+				}
+			}
+			]
+		});
+		return false;
+	});
+
+	// DELETE CONTENT
+	$('a#content_delete').click( function(event) {
+
+		event.preventDefault;
+		var content = this;
+		var href = 'ajax/content_delete.php';
+		var id = $('input#content_id').val();
+		$( '#delete_content_dialog' ).dialog({
+			resizable: false,
+			draggable: false,
+			height: 170,
+			modal: true,
+			buttons: [
+			{
+				text: "No, keep it",
+				click: function(){ 
+					$(this).dialog('close'); 
+				}
+			},
+			{
+				text: "Yes, delete it",
+				click: function(){
+					$(this).dialog('close'); 
+					$.post( href, {'id':id}, function(data) {
 						if(data == 'true'){
 							window.location.href = 'content.php';
 						}else{
@@ -198,10 +243,12 @@ $(function() {
 	})
    
     // delete content form list page
-	$('a.content_list_delete').click(function(){
+	$('a.content_list_delete').click(function( event ){
+		event.preventDefault;
 		var container = $(this).parents('li').last();
 		var content = this;
-		var href = $(this).attr('href');
+		var href = 'ajax/content_delete.php';
+		var id = (container).data('id');
 		$( '#delete_content_dialog' ).dialog({
 			resizable: false,
 			draggable: false,
@@ -218,7 +265,7 @@ $(function() {
 				text: "Yes, delete it",
 				click: function(){
 					$(this).dialog('close'); 
-					$.get( href, function(data) { //TODO: USE POST NOT GET
+					$.post( href, {'id':id}, function(data) {
 						if(data == 'true'){
 							$(container).slideUp( function(){
 								$(container).remove();
@@ -375,7 +422,6 @@ $(function() {
         event.preventDefault();
         $(this).text( $(this).text() == "create new category" ? "X" : "create new category");
         $('#new_category_box').toggleClass('hidden');
-        return false;
     });
 
     // CREATE CATEGORY
@@ -388,10 +434,10 @@ $(function() {
         $.post( 'ajax/category_create.php',{title: title, description:description}, function(response) {
 			var data = $.parseJSON( response );
             if( typeof data['title'] != 'undefined'){
-                $('#new_category_box').toggleClass('hidden');
-                $('select#category_id option:selected').removeAttr('selected');
-                $('select#category_id').append('<option value="'+data['id']+'" selected="selected" >'+data['title']+'</option>');
-
+				$('input#category_title').val('');
+				$('textarea#category_description').val('');
+                $('select#category option:selected').removeAttr('selected');
+                $('select#category').append('<option value="'+data['id']+'" selected="selected" >'+data['title']+'</option>');
             }else{
                 appendMessage( container, 'Could not create category', 'error_msg', 'margin: 10px;' )
             }						
@@ -663,7 +709,7 @@ $(function() {
     $('.delete_tag_btn').live('click', function(event){
         event.preventDefault();
         var target = this;
-        var tag_id = $(target).attr('id');
+        var tag_id = $(target).data('id');
         var content_id = $('#content_id').val();
         $.post( 'ajax/tag_delete.php', {'content_id':content_id, 'tag_id':tag_id}, function(reply){
             if(reply == 'true'){

@@ -51,12 +51,12 @@
 		<ul id="" class="content_list" >
         <?php if( !empty($content) ): ?>
 			<?php foreach ($content as $item) : ?>
-			<li id="id_<?php echo $item->id;?>&weight_<?php echo $item->weight;?>" >
+			<li data-id="<?php echo $item->id;?>" >
 				<?php echo $item->title ?>
 				<nav class="small_btn right">
 					<ul>
 						<li><a href="content_edit.php?id=<?php echo $item->id ?>">edit</a></li>
-						<li><a href="ajax/content_delete.php?id=<?php echo $item->id ?>" class="content_list_delete">delete</a></li>
+						<li><a href="#" class="content_list_delete">delete</a></li>
 						<li><a href="<?php echo BASE_URL."/index.php?".$type."=".$item->id ?>" target="_blank">view</a></li>
 					</ul>				
 				</nav>

@@ -9,7 +9,6 @@ require_once('../lib/initialize.php');
 		$user_info = trim($_POST['user_info']);
 		
 		$user = User::get_user($user_info);
-		echo '<pre>' . print_r($user, true) . '</pre>'; exit;
 		if(!empty($user)){
 			$new_password = $user->generate_random_password();
 			$user->password = md5(trim($new_password));

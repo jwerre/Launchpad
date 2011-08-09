@@ -63,13 +63,14 @@
 		<ul id="" class="content_list connected_sortable" >
 		<?php if( !empty($users) ): ?>
 			<?php foreach ($users as $user): ?>
-				<li><a href="user_edit.php?id=<?php echo $user->id ?>"><?php echo $user->last_name.", ".$user->first_name; ?></a>
+				<li data-id="<?php echo $user->id ?>">
+					<a href="user_edit.php?id=<?php echo $user->id ?>"><?php echo $user->last_name.", ".$user->first_name; ?></a>
 					<nav class="small_btn right">
 						<ul>
 							<?php if( $session->role == UserRole::SUPER || $user->id == $session->user_id): ?>
 							<li><a href="user_edit.php?id=<?php echo $user->id ?>">edit</a></li>
 							<?php endif; ?>
-							<li><a href="ajax/user_delte.php?id=?<?php echo $user->id ?>">delete</a></li>
+							<li><a href="ajax/user_delete.php?id=?<?php echo $user->id ?>" class="user_list_delete">delete</a></li>
 							<?php if( isset($user->email) ): ?>
 							<li><a href="mailto:<?php echo $user->email; ?>">email</a></li>
 							<?php endif; ?>
@@ -98,6 +99,7 @@
 	</div>
 </div>
 
+<div id="delete_content_dialog" class="ui-helper-hidden" title="Are you sure you want to delete this User"><p><strong>This cannot be undone</strong> and will remove the User from your site.</p></div>
 <?php
 	include_layout("footer.php" ,"layouts");
 ?>

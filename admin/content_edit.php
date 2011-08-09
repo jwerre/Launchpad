@@ -83,7 +83,7 @@
 		<p><button type="submit" class="save" id="save_button" name="save_button">Save</button></p>
 		<nav <?php if(empty($content->id)) echo 'class="hidden"' ?> >
 			<ul>
-                <li><a href="ajax/content_delete.php?id=<?php echo $content->id ?>" id="content_delete" class="big_btn">Delete</a></li>
+                <li><a href="" id="content_delete" class="big_btn">Delete</a></li>
                 <li><a href="<?php echo BASE_URL."/index.php?".$content->type."=".$content->id ?>" target="_blank" class="big_btn right">View</a></li>				
 			</ul>
 		</nav>
@@ -182,7 +182,7 @@
             <ul id="tag_list" class="clearfix">
             <?php if( isset($tags) && !empty($tags)) :?>
             <?php foreach ($tags as $tag) : ?>
-            	<li> <a href="" id="<?php echo $tag->id;?>" class="delete_tag_btn">delete</a> <span><?php echo $tag->tag; ?></span> </li>
+            	<li> <a href="" data-id="<?php echo $tag->id;?>" class="delete_tag_btn">delete</a> <span><?php echo $tag->tag; ?></span> </li>
             <?php endforeach; ?>
 			<?php else : ?>
 				<p class="warning_msg"><strong>You have no tags for this <?php echo $content->type; ?>.</strong> Tags offer your visitors another way to navigate content. Tags are also very effective for Search Engine Optimization (SEO). It is highly recommended that you enter a few descriptive words about this <?php echo $content->type; ?>.</p>

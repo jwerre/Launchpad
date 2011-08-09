@@ -189,11 +189,11 @@ FileETag None
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteCond %{HTTPS} !=on
-RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+#RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+#RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
 
 RewriteRule ^admin/?$ admin/index.php
-#RewriteRule ^([^/\.]+)/?$ index.php?page=${rewrite_map:$1} [L] # This will only work if rewrite map is loaded in the config file.
+#RewriteRule ^([^/\.]+)/?$ index.php?page=${rewrite_map:$1} [L] # This will only work if rewrite map is specified in the httpd.conf.
 RewriteRule ^page/([^/\.]+)/?$ index.php?page=$1 [L]
 RewriteRule ^post/([^/\.]+)/?$ index.php?post=$1 [L]
 RewriteRule ^cat/([^/\.]+)/?$ index.php?cat=$1 [L]
@@ -210,7 +210,7 @@ Options -MultiViews
 # Options -Indexes
 
 # custom 404 page
-ErrorDocument 404 /404.html
+ErrorDocument 404 /index.php?page=error404
 
 # use utf-8 encoding for anything served text/plain or text/html
 AddDefaultCharset utf-8
