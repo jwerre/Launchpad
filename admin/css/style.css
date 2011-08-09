@@ -704,7 +704,7 @@ ul.media_list {
 }
 ul.media_list li {
 	float: left;
-	margin: 0px 1px 1px 0px;
+	margin: 10px 0px 0px 10px;
 	position: relative; 
     padding:2px;
 	-moz-border-radius: 3px;
@@ -717,19 +717,23 @@ ul.media_list li .media_container {
 	overflow: hidden;
 	background-color: white;
 }
-#image ul.media_list li .media_container {
-	background-image: url('../images/icn_image_big.png');
+#image ul.media_list li figure.media_container {
+	/* background-image: url('../images/icn_image_big.png'); */
+	/* background-color:red; */
+	-moz-box-shadow:  1px 1px 5px hsla(0, 0%, 0%, .5);
+	-webkit-box-shadow:  1px 1px 5px hsla(0, 0%, 0%, .5) ;
+	box-shadow:  1px 1px 5px hsla(0, 0%, 0%, .5) ;
 }
 #image ul.media_list li .media_container div {
-	position: absolute;
-	top: 25px;
-	left: 19px;
-	width: 93px;
-	height: 69px;
-	overflow: hidden;
+	/* position: absolute; */
+	/* top: 25px; */
+	/* left: 19px; */
+	/* width: 93px; */
+	/* height: 69px; */
+	/* overflow: hidden; */
 }
 ul.media_list li .media_container img {
-	position: relative;
+	/* position: relative; */
 }
 ul.media_list li nav {
 	display: none;
@@ -739,15 +743,18 @@ ul.media_list li nav {
 	top: 12px;
 	padding: 10px;
 	background-color: white;
-	-moz-border-radius: 5px;
 	border-radius: 5px;
+	-moz-border-radius: 5px;
 	border: 1px solid #D9D9D9;
 }
 ul.media_list li nav li {
+	margin: 0!important;
 	float: none;
 	border: none;
 }
-ul.media_list li p {
+ul.media_list li figcaption {
+	font-weight:bold;
+	color: #808080;
 	text-align: center;
 	overflow: hidden;
 	margin: 0;

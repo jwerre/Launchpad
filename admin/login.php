@@ -57,6 +57,7 @@ require_once('../lib/initialize.php');
 <!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
 	<title>Launchpad - A content management system</title>
+	<link rel="shortcut icon" href="favicon.ico">
 	<link rel="stylesheet" href="css/style.css?v=1">
 	<!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
 	<script src="js/libs/modernizr-1.6.min.js"></script>

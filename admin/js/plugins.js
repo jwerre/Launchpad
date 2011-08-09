@@ -100,7 +100,7 @@ $(function() {
 			resizable: false,
 			draggable: false,
 			width: 500,
-			height: 175,
+			height: 140,
 			modal: true,
 			buttons: [
 			{

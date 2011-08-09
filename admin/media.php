@@ -71,13 +71,14 @@
 		<?php if( !empty($media_files) ): ?>
 			<?php foreach ($media_files as $media): ?>
 			<li class="<?php echo $media->id; ?>">
-				<div class="media_container">
+				<figure class="media_container">
 					<?php if($type == 'image'): ?>
-					<div><img src="imageprocessor.php?src=<?php echo urlencode($media->filename); ?>&w=93&h=69&mode=center"/></div>
+					<img src="imageprocessor.php?src=<?php echo urlencode($media->filename); ?>&w=128&h=128&mode=fit"/>
 					<?php else: ?>
 					<img src="images/icn_<?php echo $type ?>_big.png"/>
 					<?php endif; ?>	
-				</div>
+				</figure>
+				<figcaption><?php echo $media->caption; ?></figcaption>
 				<nav class="small_btn">
 					<ul>
 						<li><a href="media_edit.php?id=<?php echo $media->id; ?>">edit</a></li>
@@ -88,7 +89,6 @@
 						<li><a href="<?php echo $media->filename; ?>" class="embed_btn">embed</a></li>
 					</ul>				
 				</nav>
-				<p><?php echo $media->caption; ?></p>
 			</li>
 			<?php endforeach; ?>
 		<?php else: ?>
@@ -116,7 +116,7 @@
 <div id="embed_img_dialog" class="ui-helper-hidden" title="Copy this to your clipboard">
 	<p>
 	<fieldset id="" class="">
-		<label for="embed">Copy this url to your clipboard</label><input type="text" name="" value="" id="embed" readonly="readonly">
+		<input type="text" name="" value="" id="embed" readonly="readonly">
 	</fieldset>
 	</p>
 </div>

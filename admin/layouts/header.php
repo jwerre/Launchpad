@@ -28,7 +28,7 @@
 	<meta name="description" content="A content management system">
 	<meta name="author" content="Jonah Werre">
 
-	<!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+	<link rel="shortcut icon" href="favicon.ico">
 
 	<link rel="stylesheet" href="<?php echo BASE_URL?>/admin/css/style.css">
 	<link rel="stylesheet" href="<?php echo BASE_URL?>/admin/css/switcher.php?default=black.css">
