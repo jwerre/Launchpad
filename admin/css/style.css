@@ -55,8 +55,10 @@ input,select {
 /* FONT NORMALIZATION */
 body {
 	font: 13px/1.231 Arial sans-serif; *font-size:small;
-
 	background: #F2F2F2 url(../images/bg_header.png) repeat-x;
+}
+body.login{
+	background:none;
 }
 select,input,textarea,button {
 	font: 99% sans-serif;
@@ -1330,7 +1332,7 @@ width: 205px;
 	-webkit-border-radius: 5px 5px 0 0;
 }
 #login div.logo span {
-	background: transparent url('../images/logo.png') no-repeat 50% 20px;
+	background: transparent url('../images/logo.png') no-repeat 50% 8px;
 	width: 320px;
 	height: 65px;
 	text-indent: -9999px;

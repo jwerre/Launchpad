@@ -62,7 +62,7 @@ require_once('../lib/initialize.php');
 	<!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
 	<script src="js/libs/modernizr-1.6.min.js"></script>
 </head>
-<body id="" >
+<body id="" class="login" >
 	<div id="container" class="no_aside" style="margin:0 auto;width:360px;" >
 	<div id="main" role="main" class="clearfix" style="background:none;border:none;height:auto;min-height:100px;">
 			
