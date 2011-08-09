@@ -987,6 +987,7 @@ ul.ga_totals strong {
     margin: 0 auto;
 }
 #tutorials a.tutorial_button{
+	cursor:pointer;
 	background: transparent url(../images/btn_play_video.png) no-repeat;
 	display:block;
 	height: 16px;
