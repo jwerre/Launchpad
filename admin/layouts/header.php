@@ -30,8 +30,8 @@
 
 	<link rel="shortcut icon" href="favicon.ico">
 
+	<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Ubuntu'>
 	<link rel="stylesheet" href="<?php echo BASE_URL?>/admin/css/style.css">
-	<link rel="stylesheet" href="<?php echo BASE_URL?>/admin/css/switcher.php?default=black.css">
 	<link rel="stylesheet" href="<?php echo BASE_URL?>/admin/css/prettyPhoto.css">
 	<link rel="stylesheet" href="<?php echo BASE_URL?>/admin/js/libs/uploadify/uploadify.css">
 	<link rel="stylesheet" href="<?php echo BASE_URL?>/admin/js/libs/jqueryUI/css/jqueryUI_fresh.css">
@@ -50,15 +50,6 @@
                     <li id="settings_nav">
                         <a href="#">Settings</a>
                         <div class="clearfix">
-                            <ul id="color_settings">
-                                <li> <h4>Color</h4> </li>
-                                <?php
-                                    foreach ($colors as $color) : 
-                                        $current_style = ( isset($_COOKIE['switcher_php-style']) ) ? preg_replace("/\\.[^.\\s]{3,4}$/", "", $_COOKIE['switcher_php-style']) : '';
-                                ?>
-                                <li> <a href="css/switcher.php?style=<?php echo $color ?>.css" class="<?php echo ($current_style == $color) ? 'on' : ''; ?>" ><?php echo ucwords($color); ?></a> </li>
-                                <?php endforeach; ?>
-                            </ul>
                             <ul id="layout_settings" >        
                                 <li> <h4>Width</h4> </li>
                                 <?php foreach ($widths as $width) : ?>
