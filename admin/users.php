@@ -40,7 +40,7 @@
 	$pagination = new Pagination($group, $limit, $total);
 	$offset = $pagination->offset();
 	
-	$sql = "SELECT * FROM users WHERE role = '$role' ORDER BY last_name ASC LIMIT $offset, $limit";
+	$sql = "SELECT * FROM users WHERE role = '$role' ORDER BY last_name, first_name ASC LIMIT $offset, $limit";
 	$users = User::find_by_sql($sql);
 	$user_roles = array_reverse( UserRole::get_roles() );
 
@@ -60,7 +60,7 @@
 	</ul>
 	</nav>
 	<div id="admin">
-		<ul id="" class="content_list connected_sortable" >
+		<ul id="" class="content_list" >
 		<?php if( !empty($users) ): ?>
 			<?php foreach ($users as $user): ?>
 				<li data-id="<?php echo $user->id ?>">
