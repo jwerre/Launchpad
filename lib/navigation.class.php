@@ -308,10 +308,11 @@
                 $content = ($result) ? $result[0] : false;
             }
 			if($content){
-				$link = BASE_URL.'/index.php?'.$content->type.'='.$content->id;
+				$id = (defined('SLUG_URLS') && SLUG_URLS) ? $content->slug : $content->id;
+				$link = BASE_URL.'/index.php?'.$content->type.'='.$id;
 				
-				if(CLEAN_URLS){
-					$link = ( defined('REWRITE_MAP') ) ? BASE_URL.'/'.$content->slug : BASE_URL.'/'.$content->type.'/'.$content->id;				
+				if(defined('CLEAN_URLS') && CLEAN_URLS){
+					$link = ( defined('REWRITE_MAP') ) ? BASE_URL.'/'.$content->slug : BASE_URL.'/'.$content->type.'/'.$id;
 				}
 
 				if($include_tag){

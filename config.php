@@ -6,7 +6,7 @@
 
 define('DB_SERVER', 'localhost');
 define('DB_PORT', '');
-define('DB_NAME', 'bautista');
+define('DB_NAME', 'launchpad');
 define('DB_USER', 'root');
 define('DB_PASSWORD', '');
 
@@ -74,6 +74,7 @@ define('MAX_FILE_SIZE', 104857600); // 100MB
  * Clean url settings (Apache only)
  **/
 define('CLEAN_URLS', false);
+define('SLUG_URLS', true);
 // define('REWRITE_MAP', SITE_ROOT.DS.'web.config');
 
 ?>

@@ -3,9 +3,12 @@
 	global $post;
 	global $options;
 	$tags = "";
+	$slug = "";
 	if(!empty($page)){
+		$slug = $page->slug;
 		$tags = $page->tags( true );
 	} elseif(!empty($post)){
+		$slug = $post->slug;
 		$tags = $post->tags( true );
 	}
 	$nav = new Navigation();
@@ -51,7 +54,7 @@
 
 </head>
 
-<body id="<?php echo $page->slug ?>">
+<body id="<?php echo $slug ?>">
 	<!--[if lte IE 6]><script src="http://ie6-upgrade-warning.googlecode.com/svn/trunk/ie6/warning.js"></script><script>window.onload=function(){e("http://ie6-upgrade-warning.googlecode.com/svn/trunk/ie6/")}</script><![endif]-->
 	<div id="container">
 		<header>

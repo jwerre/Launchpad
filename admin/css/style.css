@@ -332,6 +332,9 @@ header {
 	width: 100%;
 	background: transparent url('../images/bg_header_overlay.png') repeat-x;
 	margin-bottom: 20px;
+	-moz-box-shadow:  0 3px 5px hsla(0, 0%, 0%, .5);
+	-webkit-box-shadow:  0 3px 5px hsla(0, 0%, 0%, .5) ;
+	box-shadow:  0 3px 5px hsla(0, 0%, 0%, .5) ;
 }
 header #top {
 	height: 67px;

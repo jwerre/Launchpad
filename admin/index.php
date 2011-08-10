@@ -88,7 +88,7 @@
     <div class="section_box">
         <h3>Google Analytics</h3>
         <div class="info">
-            <h4>What are Google Analytics?</h4>
+            <h4 style="font-size:12px">What is Google Analytics?</h4>
             <p>Google Analytics is a web analytics solution that gives you rich insights into your website traffic. <a href="http://www.google.com/analytics" target="_blank">Get started</a></p>
         </div>
         <form action="" method="post" accept-charset="utf-8">
