@@ -221,7 +221,7 @@ class Content extends DatabaseObject
 			$sql = "SELECT * FROM " . self::$table_name; 
 			$sql .= " WHERE status='". ContentStatus::PUBLISHED."'"; 
 			for ($i = 0; $i < count($terms); $i++) {
-				$term = $terms[$i];
+				$term = addslashes($terms[$i]);
 				$sql .= ($i == 0) ? " AND " : " OR "; 
 				$sql .= "body LIKE '%$term%'";
 				$sql .= " OR title LIKE '%$term%'";

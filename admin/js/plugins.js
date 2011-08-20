@@ -100,15 +100,8 @@ $(function() {
 			resizable: false,
 			draggable: false,
 			width: 500,
-			height: 140,
+			height: 90,
 			modal: true,
-			buttons: [
-			{
-				text: "Cancel",
-				click: function(){ 
-					$(this).dialog('close'); 
-				}
-			} ],
 			open : function(event, ui){
 				$(this).find('input').val(tag).select();
 			}

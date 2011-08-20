@@ -155,10 +155,9 @@
 	* @param $query_strings array - a group of key values to append;
 	* @return string
 	*/	
-	function append_query_string($query)
+	function append_query_string($query, $url=NULL )
 	{
-		$url = current_page_url();
-		
+		$url = (!isset($url)) ? current_page_url() : $url;
 		$url = parse_url($url);
 		if(isset($url['query'])){
 			parse_str($url['query'], $output);

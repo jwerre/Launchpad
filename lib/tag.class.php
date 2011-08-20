@@ -63,6 +63,7 @@ class Tag extends DatabaseObject
 			$sql .= " AND categories.title IN ('".implode( "','" , $category )."')";
 		}
         $sql .= " GROUP BY id";
+		$sql .= " ORDER BY tag ASC";
 
 		return self::find_by_sql($sql);
 	}
