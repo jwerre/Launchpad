@@ -215,15 +215,16 @@
 	}
 
 	/**
-	* Translates a camel case string into a string with underscores (e.g. firstName -&gt; first_name)
+	* Translates a camel case string into a string with a specified character between words (e.g. firstName -&gt; first_name)
 	* Thanks to: http://www.paulferrett.com/
 	*
 	* @param string $str -  String in camel case format
+	* @param string $delimiter - String to place between words
 	* @return string - Translated into underscore format
 	*/
-	function from_camel_case($str) {
+	function from_camel_case($str, $delimiter="-") {
 		$str[0] = strtolower($str[0]);
-		$func = create_function('$c', 'return "_" . strtolower($c[1]);');
+		$func = create_function('$c', 'return $delimiter . strtolower($c[1]);');
 		return preg_replace_callback('/([A-Z])/', $func, $str);
 	}
 

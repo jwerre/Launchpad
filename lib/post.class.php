@@ -19,24 +19,76 @@
 				if(is_numeric($category)){
 					return $category == $this->category_id;
 				}elseif( is_string ($category) ){
-					$sql = "WHERE title = '$category'";				
-					$result = Category::count_all($sql);
-					return ($result > 0) ? true : false;
+					$sql = "SELECT id FROM categories WHERE title = '$category'";				
+					$result = Category::find_by_sql($sql);
+					return ($result > 0 && $result[0]->id == $this->category_id) ? true : false;
 				}
 			
 			}
 		}
 
 		/**
-		 * Retuns the current categorie name
+		 * Retuns the current category name
 		 * @return string
 		 **/
 		public function category_name(){
 			$cat = Category::find_by_id($this->category_id);
-			// echo '<pre>' . print_r($cat, true) . '</pre>'; exit;
 			return $cat->title;	
 		}
-
+		/**
+		 * Returns the next created post
+		 *
+		 * @param string | number $category = NULL - restrict posts to specified category
+		 * @return Post
+		 **/
+		public function get_next_post($category=NULL)
+		{
+			return $this->get_adjacent_post($category, false);
+		}
+		/**
+		 * Returns the previoulsly created post
+		 *
+		 * @param string | number $category = NULL - restrict posts to specified category
+		 * @return Post
+		 **/
+		public function get_previous_post($category=NULL)
+		{
+			return $this->get_adjacent_post($category, true);
+		}
+		/**
+		 * Returns the an adjacently created post
+		 *
+		 * @param string | number $category = NULL - restrict posts to specified category
+		 * @param boolean $previous = true - true will return the next post false will return the previous
+		 * @return Post
+		 **/
+		public function get_adjacent_post($category=NULL, $previous=false )
+		{
+			$created_str = ($previous) ? " AND created > '$this->created'" : " AND created < '$this->created'";
+			
+			$sql = "SELECT * FROM content";
+			$sql .= " WHERE type ='".ContentType::POST."'";
+			$sql .= " AND status ='".ContentStatus::PUBLISHED."'";
+			$sql .= $created_str;
+			if( isset($category) ){
+				if(is_numeric($category)){
+					$sql .= " AND category_id = $category";
+				}elseif( is_string ($category) ){
+					$sql .= " AND category_id = (SELECT id FROM categories WHERE title = '$category')";				
+				}
+			}
+			$sql .= " ORDER BY created";
+			$sql .= ($previous) ? ' ASC' : ' DESC'; 
+			$sql .= " LIMIT 1";
+			$result = Post::find_by_sql($sql);
+			if( empty($result)) {
+				$sql=str_replace($created_str, '', $sql);
+				$result = Post::find_by_sql($sql);
+				return !empty($result) ? array_pop($result) : false;
+			}else{
+                return array_pop($result);
+			}
+		}
 		/**
 		* Returns an array of content by
 		*
@@ -62,7 +114,7 @@
 			}elseif(isset($limit)){
 				$sql .= " LIMIT ".$limit;
 			}
-			$result = static::find_by_sql($sql);
+			$result = Post::find_by_sql($sql);
 			if($return_count) $result = $result[0]->count;
 			return !empty($result) ? $result : false;
 		}
@@ -96,7 +148,7 @@
 			}elseif(isset($limit)){
 				$sql .= " LIMIT ".$limit;
 			}
-			$result = static::find_by_sql($sql);
+			$result = Post::find_by_sql($sql);
 			if($return_count) $result = $result[0]->count;
 			return !empty($result) ? $result : false;
 		}
@@ -127,7 +179,7 @@
 				$sql .= " LIMIT ".$limit;
 			}
 			
-			$result = static::find_by_sql($sql);
+			$result = Post::find_by_sql($sql);
 			if($return_count) $result = $result[0]->count;
 			return !empty($result) ? $result : false;
 		}				
@@ -163,7 +215,7 @@
 			}elseif(isset($limit)){
 				$sql .= " LIMIT ".$limit;
 			}
-			$result= static::find_by_sql($sql);
+			$result= Post::find_by_sql($sql);
 			if($return_count) $result = $result[0]->count;
 			return !empty($result) ? $result : false ;
 		}
@@ -215,7 +267,7 @@
 				$sql .= " LIMIT ".$limit;
 			}
 
-			$result = static::find_by_sql($sql);
+			$result = Post::find_by_sql($sql);
 			if($return_count) $result = $result[0]->count;
 			return !empty($result) ? $result : false;
 		}
@@ -291,6 +343,8 @@
 			$categories = Category::find_all();
 			return !empty($categories) ? $categories : false;
 		}
+
+
 				
 	}
 	

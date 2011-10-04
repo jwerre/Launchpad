@@ -1,6 +1,6 @@
-<div class="box recent_posts_widget">
-	<h3 class="box_head">Recent Posts</h3>
-	<div class="box_bottom">
+<div class="widget recent_posts_widget">
+	<h3 class="widget_head">Recent Posts</h3>
+	<div class="widget_bottom">
 		<ul>
 		<?php 
 		global $post;
