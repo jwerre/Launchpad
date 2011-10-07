@@ -6,7 +6,7 @@
 
 define('DB_SERVER', 'localhost');
 define('DB_PORT', '');
-define('DB_NAME', 'S2');
+define('DB_NAME', 'database');
 define('DB_USER', 'root');
 define('DB_PASSWORD', '');
 
@@ -21,8 +21,8 @@ date_default_timezone_set('America/Los_Angeles');
  * Site admin details
  */
 define('ADMIN_ID', 1); 
-define('ADMIN_NAME', 'Jonah Werre'); 
-define('ADMIN_EMAIL', 'jonahwerre@gmail.com'); 
+define('ADMIN_NAME', ''); 
+define('ADMIN_EMAIL', ''); 
 
 /**
  * The maximum amount of time (in seconds) after the last page  refresh that a user are still considered active.
@@ -71,10 +71,13 @@ define('SMTP_PASSWORD', '');
 define('MAX_FILE_SIZE', 104857600); // 100MB
 
 /**
- * Clean url settings (Apache only)
+ * turn on and off clean urls
  **/
 define('CLEAN_URLS', false);
+
+/**
+ * Use slug name for url instead of id
+ **/
 define('SLUG_URLS', true);
-// define('REWRITE_MAP', SITE_ROOT.DS.'web.config');
 
 ?>

@@ -18,6 +18,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="apple-touch-icon.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Launchpad&#160;<span id="projectnumber">1.0</span></div>
    <div id="projectbrief">A framework for building a Launchpad website</div>
@@ -106,10 +107,13 @@ This is the complete list of members for <a class="el" href="class_post.html">Po
   <tr class="memlist"><td><a class="el" href="class_post.html#ae1de1c352a1cd3abe14762c8bb59101a">find_except_in_categories</a>($categories, $order='created DESC', $limit=NULL, $offset=NULL, $return_count=false)</td><td><a class="el" href="class_post.html">Post</a></td><td><code> [static]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="class_content.html#af77501647e3475edf6c80a642160a7e1">find_last_created</a>($limit=1)</td><td><a class="el" href="class_content.html">Content</a></td><td><code> [static]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="class_content.html#afdb72c6096608a8eb6f7bace0e54e778">find_published_by_type_and_id</a>($id)</td><td><a class="el" href="class_content.html">Content</a></td><td><code> [static]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_post.html#a54c63902a98cfce19c5ecbcfb031e0ef">get_adjacent_post</a>($category=NULL, $previous=false)</td><td><a class="el" href="class_post.html">Post</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_post.html#a0907ff3f97b348655f744e906e3f8008">get_authors</a>($categories)</td><td><a class="el" href="class_post.html">Post</a></td><td><code> [static]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="class_post.html#aa7a54c3f9e87ec922a3b6c85512d70f8">get_categories</a>()</td><td><a class="el" href="class_post.html">Post</a></td><td><code> [static]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="class_post.html#aa000f5c541a918527e7d0c4c2131f7fd">get_dates</a>($month=NULL, $year=NULL, $categories=NULL)</td><td><a class="el" href="class_post.html">Post</a></td><td><code> [static]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="class_content.html#a38e15c679f4383225095e864642e2b22">get_link</a>($include_tag=false)</td><td><a class="el" href="class_content.html">Content</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_post.html#a3722df17a27ee6026fd01ab4339d7613">get_next_post</a>($category=NULL)</td><td><a class="el" href="class_post.html">Post</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="class_post.html#ad072a8909c5822bd5c1907ccc5879e65">get_previous_post</a>($category=NULL)</td><td><a class="el" href="class_post.html">Post</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_database_object.html#a5a9a0375dac384d8e64b66a572d83719">has_attribute</a>($attribute)</td><td><a class="el" href="class_database_object.html">DatabaseObject</a></td><td><code> [protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="class_post.html#a0c15e62ad336bc17e07b8953d18c9812">is_in_category</a>($category)</td><td><a class="el" href="class_post.html">Post</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="class_database_object.html#ad0e8ab5b7d5c12bed64cacbf89509ddd">sanitize_attributes</a>()</td><td><a class="el" href="class_database_object.html">DatabaseObject</a></td><td><code> [protected]</code></td></tr>
@@ -135,7 +139,7 @@ This is the complete list of members for <a class="el" href="class_post.html">Po
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Aug 5 2011 13:27:42 for Launchpad by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Oct 7 2011 09:34:01 for Launchpad by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

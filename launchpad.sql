@@ -38,7 +38,7 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (34,'Blog','A collection of blog posts','blog'),(37,'Slide','A collections of posts for the home page slider','slide');
+INSERT INTO `categories` VALUES (34,'Blog','A collection of blog posts','blog');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -100,7 +100,7 @@ CREATE TABLE `content` (
   CONSTRAINT `content_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
   CONSTRAINT `content_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL,
   CONSTRAINT `content_ibfk_3` FOREIGN KEY (`parent_id`) REFERENCES `content` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -109,7 +109,13 @@ CREATE TABLE `content` (
 
 LOCK TABLES `content` WRITE;
 /*!40000 ALTER TABLE `content` DISABLE KEYS */;
-INSERT INTO `content` VALUES (1,1,'page','published','2011-04-29 00:00:00','2011-06-27 15:51:13',0,'home','Home','<p>\r\n	Nulla facilisi. Pellentesque quis eros non ipsum sodales sagittis id vel urna. Nullam vulputate scelerisque tincidunt. Proin sagittis fringilla erat, vitae ultricies ipsum feugiat sit amet. In hac habitasse platea dictumst. In a nisi nulla. Fusce et sem mauris. Nam quis porta risus. Donec ultricies condimentum erat a congue. Praesent euismod tristique lacinia. Sed ut risus enim. Suspendisse ligula magna, tempor eu lacinia ac, adipiscing a ligula.</p>\r\n<p>\r\n	Nulla facilisi. Pellentesque quis eros non ipsum sodales sagittis id vel urna. Nullam vulputate scelerisque tincidunt. Proin sagittis fringilla erat, vitae ultricies ipsum feugiat sit amet. In hac habitasse platea dictumst. In a nisi nulla. Fusce et sem mauris. Nam quis porta risus. Donec ultricies condimentum erat a congue. Praesent euismod tristique lacinia. Sed ut risus enim. Suspendisse ligula magna, tempor eu lacinia ac, adipiscing a ligula.</p>\r\n',NULL,NULL,'home.template.php'),(2,1,'page','published','2011-04-29 12:01:21','2011-06-27 15:18:30',0,'about','About','<p>\r\n	Nulla facilisi. Pellentesque quis eros non ipsum sodales sagittis id vel urna. Nullam vulputate scelerisque tincidunt. Proin sagittis fringilla erat, vitae ultricies ipsum feugiat sit amet. In hac habitasse platea dictumst. In a nisi nulla. Fusce et sem mauris. Nam quis porta risus. Donec ultricies condimentum erat a congue. Praesent euismod tristique lacinia. Sed ut risus enim. Suspendisse ligula magna, tempor eu lacinia ac, adipiscing a ligula.</p>\r\n<div>\r\n	&nbsp;</div>\r\n<div>\r\n	<div>\r\n		Nulla facilisi. Pellentesque quis eros non ipsum sodales sagittis id vel urna. Nullam vulputate scelerisque tincidunt. Proin sagittis fringilla erat, vitae ultricies ipsum feugiat sit amet. In hac habitasse platea dictumst. In a nisi nulla. Fusce et sem mauris. Nam quis porta risus. Donec ultricies condimentum erat a congue. Praesent euismod tristique lacinia. Sed ut risus enim. Suspendisse ligula magna, tempor eu lacinia ac, adipiscing a ligula.</div>\r\n	<div>\r\n		&nbsp;</div>\r\n</div>\r\n<p>\r\n	&nbsp;</p>\r\n',NULL,NULL,NULL),(5,1,'post','published','2011-05-09 18:42:53','2011-05-19 01:07:34',0,'this-is-a-new-post','This is also a new Post',NULL,NULL,34,NULL),(6,1,'post','published','2011-05-23 10:13:38','2011-06-20 14:23:43',0,'an-interesting-post','An interesting post',NULL,NULL,34,NULL),(7,1,'post','published','2011-06-19 19:49:47','2011-06-20 02:49:54',0,'slide-1','Slide 1','<p>\r\n	This is slide 1</p>\r\n',NULL,37,NULL),(8,1,'post','published','2011-06-19 19:50:28','2011-06-20 02:50:36',0,'slide-2','Slide 2','<p>\r\n	This is slide 2</p>\r\n',NULL,37,NULL),(9,1,'page','published','2011-06-19 21:08:30','2011-06-20 04:08:57',0,'contact','Contact',NULL,NULL,NULL,'contact.template.php'),(10,1,'page','published','2011-06-19 21:09:42','2011-06-20 04:09:46',0,'blog','Blog',NULL,NULL,NULL,'blog.template.php');
+INSERT INTO `content` VALUES 
+
+(1,1,'page','published','2011-04-29 00:00:00','2011-06-27 15:51:13',0,'home','Home','<p>\r\n	Nulla facilisi. Pellentesque quis eros non ipsum sodales sagittis id vel urna. Nullam vulputate scelerisque tincidunt. Proin sagittis fringilla erat, vitae ultricies ipsum feugiat sit amet. In hac habitasse platea dictumst. In a nisi nulla. Fusce et sem mauris. Nam quis porta risus. Donec ultricies condimentum erat a congue. Praesent euismod tristique lacinia. Sed ut risus enim. Suspendisse ligula magna, tempor eu lacinia ac, adipiscing a ligula.</p>\r\n<p>\r\n	Nulla facilisi. Pellentesque quis eros non ipsum sodales sagittis id vel urna. Nullam vulputate scelerisque tincidunt. Proin sagittis fringilla erat, vitae ultricies ipsum feugiat sit amet. In hac habitasse platea dictumst. In a nisi nulla. Fusce et sem mauris. Nam quis porta risus. Donec ultricies condimentum erat a congue. Praesent euismod tristique lacinia. Sed ut risus enim. Suspendisse ligula magna, tempor eu lacinia ac, adipiscing a ligula.</p>\r\n',NULL,NULL,'home.template.php'),
+
+(2,1,'page','published','2011-04-29 12:01:21','2011-06-27 15:18:30',0,'about','About','<p>\r\n	Nulla facilisi. Pellentesque quis eros non ipsum sodales sagittis id vel urna. Nullam vulputate scelerisque tincidunt. Proin sagittis fringilla erat, vitae ultricies ipsum feugiat sit amet. In hac habitasse platea dictumst. In a nisi nulla. Fusce et sem mauris. Nam quis porta risus. Donec ultricies condimentum erat a congue. Praesent euismod tristique lacinia. Sed ut risus enim. Suspendisse ligula magna, tempor eu lacinia ac, adipiscing a ligula.</p>\r\n<div>\r\n	&nbsp;</div>\r\n<div>\r\n	<div>\r\n		Nulla facilisi. Pellentesque quis eros non ipsum sodales sagittis id vel urna. Nullam vulputate scelerisque tincidunt. Proin sagittis fringilla erat, vitae ultricies ipsum feugiat sit amet. In hac habitasse platea dictumst. In a nisi nulla. Fusce et sem mauris. Nam quis porta risus. Donec ultricies condimentum erat a congue. Praesent euismod tristique lacinia. Sed ut risus enim. Suspendisse ligula magna, tempor eu lacinia ac, adipiscing a ligula.</div>\r\n	<div>\r\n		&nbsp;</div>\r\n</div>\r\n<p>\r\n	&nbsp;</p>\r\n',NULL,NULL,NULL),
+
+(3,1,'post','published','2011-05-09 18:42:53','2011-05-19 01:07:34',0,'this-is-a-new-post','This is also a new Post',NULL,NULL,34,NULL),
 /*!40000 ALTER TABLE `content` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -186,7 +192,7 @@ CREATE TABLE `options` (
 
 LOCK TABLES `options` WRITE;
 /*!40000 ALTER TABLE `options` DISABLE KEYS */;
-INSERT INTO `options` VALUES (1,'analytics_id','AU-XXXXXX'),(2,'site_name','Launchpad'),(3,'theme','sky'),(5,'tagline','This is a tagline'),(30,'address','555 S Elm St.'),(31,'phone','(555) 555-5555'),(34,'description','This is the site description.'),(36,'email','me@me.com');
+INSERT INTO `options` VALUES (1,'analytics_id','AU-XXXXXX'),(2,'site_name','Launchpad'),(3,'theme','sky'),(4,'tagline','This is a tagline'),(5,'address','555 S Elm St.'),(6,'phone','(555) 555-5555'),(7,'description','This is the site description.'),(8,'email','me@me.com');
 /*!40000 ALTER TABLE `options` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,16 +215,6 @@ CREATE TABLE `snippets` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `snippets`
---
-
-LOCK TABLES `snippets` WRITE;
-/*!40000 ALTER TABLE `snippets` DISABLE KEYS */;
-INSERT INTO `snippets` VALUES (67,5,'foo','bar'),(69,5,'this is a new variable updated again','I\'m not sure what to put here foo'),(70,9,'phone','555-5555'),(71,9,'address','555 Elm');
-/*!40000 ALTER TABLE `snippets` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tags`
 --
 
@@ -232,16 +228,6 @@ CREATE TABLE `tags` (
   UNIQUE KEY `tag` (`tag`)
 ) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tags`
---
-
-LOCK TABLES `tags` WRITE;
-/*!40000 ALTER TABLE `tags` DISABLE KEYS */;
-INSERT INTO `tags` VALUES (44,'apple'),(60,'apples'),(57,'banana'),(38,'blue'),(46,'boat'),(62,'elephants'),(68,'green'),(64,'has'),(63,'it'),(37,'orange'),(61,'peaches'),(51,'purple'),(67,'red'),(58,'slop'),(66,'tags');
-/*!40000 ALTER TABLE `tags` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `users`

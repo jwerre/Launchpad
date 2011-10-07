@@ -18,6 +18,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="apple-touch-icon.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Launchpad&#160;<span id="projectnumber">1.0</span></div>
    <div id="projectbrief">A framework for building a Launchpad website</div>
@@ -84,6 +85,9 @@ Inheritance diagram for Post:</div>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_post.html#a0c15e62ad336bc17e07b8953d18c9812">is_in_category</a> ($category)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_post.html#a289ba3da569b7836f0d5777c7555ba01">category_name</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_post.html#a3722df17a27ee6026fd01ab4339d7613">get_next_post</a> ($category=NULL)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_post.html#ad072a8909c5822bd5c1907ccc5879e65">get_previous_post</a> ($category=NULL)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_post.html#a54c63902a98cfce19c5ecbcfb031e0ef">get_adjacent_post</a> ($category=NULL, $previous=false)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_post.html#a38c0ed43ceb1c70b92929a8e90f0771f">find_by_category_id</a> ($id, $order=&quot;created DESC&quot;, $limit=NULL, $offset=NULL, $return_count=false)</td></tr>
@@ -109,7 +113,7 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Retuns the current categorie name </p>
+<p>Retuns the current category name </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>string </dd></dl>
 
 </div>
@@ -420,6 +424,42 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a54c63902a98cfce19c5ecbcfb031e0ef"></a><!-- doxytag: member="Post::get_adjacent_post" ref="a54c63902a98cfce19c5ecbcfb031e0ef" args="($category=NULL, $previous=false)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Post::get_adjacent_post </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>category</em> = <code>NULL</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>previous</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns the an adjacently created post</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"></td><td class="paramname">string</td><td>| number $category = NULL - restrict posts to specified category </td></tr>
+    <tr><td class="paramtype">boolean</td><td class="paramname">$previous</td><td>= true - true will return the next post false will return the previous </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="class_post.html">Post</a> </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a0907ff3f97b348655f744e906e3f8008"></a><!-- doxytag: member="Post::get_authors" ref="a0907ff3f97b348655f744e906e3f8008" args="($categories)" -->
 <div class="memitem">
 <div class="memproto">
@@ -506,6 +546,56 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a3722df17a27ee6026fd01ab4339d7613"></a><!-- doxytag: member="Post::get_next_post" ref="a3722df17a27ee6026fd01ab4339d7613" args="($category=NULL)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Post::get_next_post </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>category</em> = <code>NULL</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns the next created post</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>| number $category = NULL - restrict posts to specified category </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="class_post.html">Post</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad072a8909c5822bd5c1907ccc5879e65"></a><!-- doxytag: member="Post::get_previous_post" ref="ad072a8909c5822bd5c1907ccc5879e65" args="($category=NULL)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Post::get_previous_post </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>category</em> = <code>NULL</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns the previoulsly created post</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>| number $category = NULL - restrict posts to specified category </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="class_post.html">Post</a> </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a0c15e62ad336bc17e07b8953d18c9812"></a><!-- doxytag: member="Post::is_in_category" ref="a0c15e62ad336bc17e07b8953d18c9812" args="($category)" -->
 <div class="memitem">
 <div class="memproto">
@@ -549,7 +639,7 @@ Static Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri Aug 5 2011 13:27:42 for Launchpad by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Oct 7 2011 09:34:01 for Launchpad by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

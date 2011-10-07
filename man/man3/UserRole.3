@@ -1,0 +1,67 @@
+.TH "UserRole" 3 "Fri Oct 7 2011" "Version 1.0" "Launchpad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+UserRole \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBget_roles\fP ()"
+.br
+.ti -1c
+.RI "static \fBget_roles_by_values\fP ()"
+.br
+.ti -1c
+.RI "static \fBget_role_by_value\fP ($id)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "const \fBSUPER\fP = 0"
+.br
+.ti -1c
+.RI "const \fBADMIN\fP = 1"
+.br
+.ti -1c
+.RI "const \fBCONTRIBUTOR\fP = 2"
+.br
+.ti -1c
+.RI "const \fBGUEST\fP = 3"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "static UserRole::get_role_by_value ($id)\fC [static]\fP"Returns title-cased role name by it's value
+.PP
+\fBReturns:\fP
+.RS 4
+array 
+.RE
+.PP
+
+.SS "static UserRole::get_roles ()\fC [static]\fP"Returns all roles and numeric values
+.PP
+\fBReturns:\fP
+.RS 4
+array 
+.RE
+.PP
+
+.SS "static UserRole::get_roles_by_values ()\fC [static]\fP"Returns role names in an indexed array based on their value ( reverse of \fBUserRole::get_roles()\fP )
+.PP
+\fBReturns:\fP
+.RS 4
+array 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Launchpad from the source code.

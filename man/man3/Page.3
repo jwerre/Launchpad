@@ -1,0 +1,74 @@
+.TH "Page" 3 "Fri Oct 7 2011" "Version 1.0" "Launchpad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Page \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBPost\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBchildren\fP ()"
+.br
+.ti -1c
+.RI "\fBsiblings\fP ()"
+.br
+.ti -1c
+.RI "\fBis_child\fP ()"
+.br
+.ti -1c
+.RI "\fBoutput_page_data\fP ()"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBget_templates\fP ()"
+.br
+.ti -1c
+.RI "static \fBclean_template_name\fP ($name)"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "Page::children ()"Returns the Page's child pages
+.PP
+\fBReturns:\fP
+.RS 4
+array 
+.RE
+.PP
+
+.SS "static Page::get_templates ()\fC [static]\fP"Retrives all the files in the templates directory
+.PP
+\fBReturns:\fP
+.RS 4
+array 
+.RE
+.PP
+
+.SS "Page::output_page_data ()"Outputs the title, body and or template
+.PP
+\fBReturns:\fP
+.RS 4
+null 
+.RE
+.PP
+
+.SS "Page::siblings ()"Returns the Page's sibling pages
+.PP
+\fBReturns:\fP
+.RS 4
+array 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Launchpad from the source code.

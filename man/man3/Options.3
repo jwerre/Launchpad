@@ -1,0 +1,78 @@
+.TH "Options" 3 "Fri Oct 7 2011" "Version 1.0" "Launchpad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Options \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBDatabaseObject\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fB__get\fP ($name)"
+.br
+.ti -1c
+.RI "\fB__set\fP ($name, $value)"
+.br
+.ti -1c
+.RI "\fB__isset\fP ($name)"
+.br
+.ti -1c
+.RI "\fB__unset\fP ($name)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBget_options\fP ($exclude_constants)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "const \fBTHEME\fP = 'theme'"
+.br
+.ti -1c
+.RI "const \fBSITE_NAME\fP = 'site_name'"
+.br
+.ti -1c
+.RI "const \fBTAGLINE\fP = 'tagline'"
+.br
+.ti -1c
+.RI "const \fBDESCRIPTION\fP = 'description'"
+.br
+.ti -1c
+.RI "const \fBANALYTICS_ID\fP = 'analytics_id'"
+.br
+.ti -1c
+.RI "\fB$id\fP"
+.br
+.ti -1c
+.RI "\fB$name\fP"
+.br
+.ti -1c
+.RI "\fB$value\fP"
+.br
+.in -1c
+.SS "Static Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "static \fB$table_name\fP = 'options'"
+.br
+.ti -1c
+.RI "static \fB$db_fields\fP = array('id', 'name', 'value' )"
+.br
+.in -1c
+.SH "Member Data Documentation"
+.PP 
+.SS "const \fBOptions::THEME\fP = 'theme'"Default site options 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Launchpad from the source code.
