@@ -1,0 +1,3 @@
+[submodule "themes/supersquared"]
+	path = themes/supersquared
+	url = git@bitbucket.org:jwerre/supersqaured.git
