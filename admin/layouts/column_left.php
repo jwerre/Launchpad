@@ -32,7 +32,7 @@
 	<!-- div class="recent_box">
 		<h3>Recent Images</h3>
 		<ul>
-                <li><a href="media_files_edit.php?id=<?php echo $media->id; ?>"><img src="<?php echo $media->filename; ?>" alt="Name"/></a></li>
+                <li><a href="media_files_edit.php?id=<?php //echo $media->id; ?>"><img src="<?php //echo //$media->filename; ?>" alt="Name"/></a></li>
 		</ul>
 	</div -->
 </aside>
