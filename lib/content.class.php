@@ -94,20 +94,35 @@ class Content extends DatabaseObject
 	
 	/**
 	* Count number of items in $table_name
-	* @return int | boolean
+	* @param $type = '' - ContentType::Page or ContentType::Post
+	* @return int
 	*/
-	public static function count_all()
+	public static function count_all($type = NULL) 
 	{
 		global $database;
-		$type = array_shift(func_get_args());
-		if($type){
-			$sql = "SELECT COUNT(*) FROM ".static::$table_name." WHERE type ='".$type."'";
-			$result = $database->query($sql);
-			$row = $database->fetch_array();
-			return array_shift($row);
-		}else{
-			return false;
+		$sql = "SELECT COUNT(*) FROM ".static::$table_name;
+		if( isset($type) ) {                       
+			$sql .= " WHERE type ='".$type."'";
 		}
+		$result = $database->query($sql);
+		$row = $database->fetch_array();
+		return array_shift($row);
+	}
+	/**
+	* Count number of published content items
+	* @param $type = '' ContentType::Page or ContentType::Post
+	* @return int
+	*/
+	public static function count_published($type = NULL) 
+	{
+		global $database;
+		$sql = "SELECT COUNT(*) FROM ".static::$table_name." WHERE status = '".ContentStatus::PUBLISHED."'";
+		if( isset($type) ) {                       
+			$sql .= " WHERE type ='".$type."'";
+		}
+		$result = $database->query($sql);
+		$row = $database->fetch_array();
+		return array_shift($row);
 	}
 	
 	/**
@@ -291,7 +306,7 @@ class Content extends DatabaseObject
 			$tag = new Tag();
 			$tag->tag = strtolower( trim($tags[$i]) );
 			if( !empty($tag->tag) )
-				$tag->save($this->id);
+				$tag->save_tag($this->id);
 		}
 		return $this->tags();
 	}

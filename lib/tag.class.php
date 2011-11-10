@@ -73,7 +73,7 @@ class Tag extends DatabaseObject
 	*
 	* @return boolean 
 	*/
-	public function save($content_id)
+	public function save_tag($content_id)
 	{
 		if( isset( $content_id ) ){
 			global $database;
