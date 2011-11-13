@@ -77,4 +77,5 @@ require_once(LIB_PATH.DS.'image.class.php');
 require_once(LIB_PATH.DS.'navigation.class.php');
 require_once(LIB_PATH.DS.'url_rewrite.class.php');
 require_once(LIB_PATH.DS.'mail.class.php');
+require_once(LIB_PATH.DS.'rss.class.php');
 ?>

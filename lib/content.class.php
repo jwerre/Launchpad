@@ -249,7 +249,7 @@ class Content extends DatabaseObject
 	/**
 	* Returns an excerpt from post. To specify an excerpt lenght user the <!--excpert--> in the content body or specify an EXCERPT_LENGTH in config.php
 	*
-	* @param number $length =  EXCERPT_LENGTH -  The lenght of the excerpt to be returned rounded to the last space. This will be ingored if the excerpt flag (<!--excerpt-->) is specified in the body.
+	* @param number $length =  EXCERPT_LENGTH -  The lenght of the excerpt to be returned rounded to the last space. This will be ignored if the excerpt flag (<!--excerpt-->) is specified in the body.
 	* @param string $link_text =  more... - The text to use use for the "more" link at the end of the excpert. A link will not be used if NULL is given.
 	* @param string $allow = '<a><em><i><strong><b><span><br><sup><sub><small><strike><abbr><cite><code>' - a list of html tags to allow in excerpt. inline elements allowed by default
 	* @return string

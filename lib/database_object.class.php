@@ -115,16 +115,16 @@ class DatabaseObject
 	/**
 	* Gets the properties of class and preps them for DB entry -- DEPRECATED --
 	* @return array 
-	*/
-	protected function sanitize_attributes()
-	{
-		global $database;
-		$clean_attributes = array();
-		foreach($this->attributes() as $key => $value){
-			$clean_attributes[$key] = $database->escape_value($value);
+		protected function sanitize_attributes()
+		{
+			global $database;
+			$clean_attributes = array();
+			foreach($this->attributes() as $key => $value){
+				$clean_attributes[$key] = $database->escape_value($value);
+			}
+			return $clean_attributes;
 		}
-		return $clean_attributes;
-	}
+	*/
 	
 	/**
 	* Check to see if record exists and creates it if not or updates if it does.

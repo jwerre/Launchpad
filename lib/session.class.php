@@ -4,7 +4,7 @@
  * @author Jonah Werre <jonahwerre@gmail.com>
  * @version 1.0
  * @copyright Jonah Werre <jonahwerre@gmail.com>, 27 June, 2011
- * @package default
+ * @package Session
  **/
 
 /**
